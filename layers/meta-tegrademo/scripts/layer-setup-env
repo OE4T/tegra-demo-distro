@@ -1,0 +1,17 @@
+#!/bin/sh
+if ! $(return >/dev/null 2>&1); then
+    echo "This script must be sourced" >&2
+    exit 1
+fi
+
+if [ ! -d "$BUILDDIR/.local/bin" ]; then
+    # No local bin dir, see if we need it
+    buildenv-host-gcc-check
+    if [ -d "$BUILDDIR/.local/bin" ]; then
+	PATH="$BUILDDIR/.local/bin:$PATH"
+    fi
+else
+    # We have local bin dir, re-check the symlinks there
+    PATH="$BUILDDIR/.local/bin:$PATH"
+    buildenv-host-gcc-check
+fi

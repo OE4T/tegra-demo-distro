@@ -1,0 +1,8 @@
+#!/bin/sh
+[ -n "$1" -a -d "$1" ] || exit
+cd "$1"
+git submodule sync > /dev/null 2>&1
+git submodule status | grep '^-' | awk '{print $2}' | xargs git submodule update --init --
+exit 0
+
+

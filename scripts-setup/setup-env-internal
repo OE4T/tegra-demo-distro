@@ -1,0 +1,154 @@
+#!/bin/bash
+
+SETUP_SCRIPT="$1"
+shift
+PROGNAME=$(basename "$SETUP_SCRIPT")
+SETUP_SCRIPTDIR=$(dirname "$SETUP_SCRIPT")
+TD_TOP="${TD_TOP:-$(readlink -f $SETUP_SCRIPTDIR)}"
+
+DISTRO_LAYERS="meta-tegrademo"
+DISTRO_DEFAULT="tegrademo"
+BUILDDIR_DEFAULT="build"
+
+distro_list() {
+    local d paths
+    
+    for d in $DISTRO_LAYERS; do
+	paths="$paths $TD_TOP/layers/$d/conf/distro"
+    done
+    find $paths -maxdepth 1 -name '*.conf' | xargs basename -s .conf | sort -u | awk '{print "\t" $0}'
+}
+
+distro_path() {    
+    local dconf=$(find -L "$TD_TOP"/layers -path "*/conf/distro/*" -name "${1}.conf" | head -n 1)
+    [ -n "$dconf" ] || exit 1
+    echo "$dconf" | sed -E -e's,.*/layers/([^/]+)/conf/.*,\1,'
+}
+
+
+machine_list() {
+    find -L "$TD_TOP"/layers/meta*/conf/machine -maxdepth 1 -name '*.conf' | xargs basename -s .conf | sort -u | awk '{print "\t" $0}'
+}
+
+
+usage()
+{
+    cat >&2 <<EOF
+Usage: . $PROGNAME --machine <MACHINE> [<options>] [<BUILDDIR>]
+Usage: . $PROGNAME [<BUILDDIR>]
+
+Options:
+    -h, --help         Print this usage message
+    -m, --machine      Set the MACHINE name in the build configuratino
+    -d, --distro       Set the DISTRO name in the build configuration (default '${DISTRO_DEFAULT}')
+    -c, --color        Colorize the output; can be 'never', 'always',
+                             or 'auto' (default 'auto')
+
+Arguments:
+    BUILDDIR           Location of BUILDDIR (default '${BUILDDIR_DEFAULT}')
+
+The first usage is for creating a new build directory. In this case, the
+script creates the build directory <BUILDDIR>, configures it for the
+specified <MACHINE> and <DISTRO>, and prepares the calling shell for
+running bitbake on the build directory.
+
+The second usage is for using an existing build directory. In this case,
+the script prepares the calling shell for running bitbake on the build
+directory <BUILDDIR>. The build directory configuration is unchanged.
+
+Available distros:
+$(distro_list)
+Available machines:
+$(machine_list)
+
+Environment variables:
+    NVIDIA_DEVNET_MIRROR     URL or pathname of NVIDIA SDK Manager downloads.
+                             Default: \$HOME/Downloads/nvidia/sdkm_downloads
+
+
+Examples:
+- To create a new Yocto build directory:
+  $ . $PROGNAME --machine jetson-tx2 --distro testdistro build-testdistro
+
+- To use an existing Yocto build directory:
+  $ . $PROGNAME build-testdistro
+
+EOF
+}
+
+COLOR=auto
+DISTRO="${DISTRO:-$DISTRO_DEFAULT}"
+
+# get command line options
+SHORTOPTS="hm:d:b:c:"
+LONGOPTS="help,machine:,distro:,color:"
+
+ARGS=$(getopt --options $SHORTOPTS --longoptions $LONGOPTS --name $PROGNAME -- "$@" )
+# Print the usage menu if invalid options are specified
+if [ $? != 0 ]; then
+   usage
+   echo "TD_RC=1"
+   exit 1
+fi
+
+eval set -- "$ARGS"
+while true;
+do
+    case $1 in
+        -h | --help)       usage; echo "TD_RC=1"; exit 0 ;;
+        -m | --machine)    MACHINE="$2"; shift 2;;
+        -d | --distro)     DISTRO="$2"; shift 2;;
+        -c | --color)      COLOR="$2"; shift 2;;
+        -- )               shift; break ;;
+        * )                break ;;
+    esac
+done
+
+BUILDDIR="${1:-$BUILDDIR_DEFAULT}"
+if [ ! -e $BUILDDIR/conf/local.conf ]; then
+    if [ -z "$MACHINE" ]; then
+        usage
+        echo "ERROR: You must set MACHINE when creating a new build directory." >&2
+        echo "TD_RC=1"
+        exit 1
+    fi
+    if [ -z "$DISTRO" ]; then
+        DISTRO=$DISTRO_DEFAULT
+    fi
+    LAYERPATH=$(distro_path $DISTRO)
+    NEEDSETUP=yes
+fi
+
+if [ $COLOR = "auto" ]; then
+    if [ -t 1 ]; then
+        COLOR=always
+    else
+        COLOR=never
+    fi
+else
+    COLOR=never
+fi
+
+[ "$NVIDIA_DEVNET_MIRROR" != "" ] || NVIDIA_DEVNET_MIRROR="$HOME/Downloads/nvidia/sdkm_downloads"
+if [ ! -d "$NVIDIA_DEVNET_MIRROR" ]; then
+    echo "NVIDIA_DEVNET_MIRROR location not found; some recipes may not be available"
+    TD_DEVNET_MIRROR=
+else
+    if echo "$NVIDIA_DEVNET_MIRROR" | grep -q "^[^:]+://"; then
+        TD_DEVNET_MIRROR="$NVIDIA_DEVNET_MIRROR"
+    else
+	TD_DEVNET_MIRROR="file://$NVIDIA_DEVNET_MIRROR"
+    fi
+fi
+cat <<EOF
+BDIR="$BUILDDIR"
+TD_COLOR="$COLOR"
+TD_NEEDSETUP=$NEEDSETUP
+TD_DISTRO=$DISTRO
+TD_MACHINE=$MACHINE
+TD_LAYERPATH=$LAYERPATH
+TD_DEVNET_MIRROR="$TD_DEVNET_MIRROR"
+TD_RC=0
+TD_VARS="\$TD_VARS TD_COLOR TD_NEEDSETUP TD_DISTRO TD_MACHINE TD_LAYERPATH TD_DEVNET_MIRROR"
+EOF
+exit 0

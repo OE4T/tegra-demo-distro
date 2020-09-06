@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. @DATADIR@/gstreamer-tests/confvars
+
+gst-play-1.0 --audiosink="$AUDIOSINK" --videosink="$VIDEOSINK" @DATADIR@/gstreamer-tests/sintel_trailer-1080p.mp4

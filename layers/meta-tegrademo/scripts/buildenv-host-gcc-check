@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Make sure host toolchain is gcc/g++ 8 or
+
+version_ok() {
+    local v=$("$1" -v 2>&1 | tail -n 1 | cut -d' ' -f3)
+    if [ -z "$v" ]; then
+	echo "Error: cannot validate $1 version" >&2
+	return 1
+    fi
+    case "$v" in
+	8.*)
+	    return 0
+	    ;;
+	*)
+	    return 1
+	    ;;
+    esac
+}
+
+make_local_bin_symlink() {
+    local cmdpath=$(which "$1" 2>/dev/null)
+    local target="$2"
+    if [ -z "$cmdpath" ]; then
+	echo "Error: $1 not found in PATH" >&2
+	echo "       Please install $1 (with 'sudo apt install $1') and try again." >&2
+	return 1
+    fi
+    mkdir -p "$BUILDDIR/.local/bin"
+    ln -sf "$cmdpath" "$BUILDDIR/.local/bin/$target"
+}
+
+if ! version_ok gcc; then
+    make_local_bin_symlink gcc-8 gcc || return 1
+fi
+
+if ! version_ok g++; then
+    make_local_bin_symlink g++-8 g++ || return 1
+fi

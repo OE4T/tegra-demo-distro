@@ -1,0 +1,26 @@
+Index: tegra_multimedia_api/include/NvJpegDecoder.h
+===================================================================
+--- tegra_multimedia_api.orig/include/NvJpegDecoder.h
++++ tegra_multimedia_api/include/NvJpegDecoder.h
+@@ -56,7 +56,7 @@
+ #endif
+ 
+ #include <stdio.h>
+-#include "jpeglib.h"
++#include "libjpeg-8b/jpeglib.h"
+ #include "NvElement.h"
+ #include "NvBuffer.h"
+ 
+Index: tegra_multimedia_api/include/NvJpegEncoder.h
+===================================================================
+--- tegra_multimedia_api.orig/include/NvJpegEncoder.h
++++ tegra_multimedia_api/include/NvJpegEncoder.h
+@@ -57,7 +57,7 @@
+ #endif
+ 
+ #include <stdio.h>
+-#include "jpeglib.h"
++#include "libjpeg-8b/jpeglib.h"
+ #include "NvElement.h"
+ #include "NvBuffer.h"
+ 

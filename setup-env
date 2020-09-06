@@ -1,0 +1,142 @@
+#!/bin/sh
+# Tegra demo distro setup script
+#
+# Copyright (c) 2020, Matthew Madison
+# Poritions Copyright (C) 2006-2001 Linux Foundation
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+#
+# See scripts-setup/setup-env-internal for usage information.
+# For shells that do not pass arguments to sourced scripts (e.g., dash),
+# you can set MACHINE and DISTRO in your environment to appropriate
+# values before sourcing this script.
+#
+#
+# Initial boilerplate from the oe-init-build-env
+if [ -n "$BASH_SOURCE" ]; then
+    THIS_SCRIPT=$BASH_SOURCE
+elif [ -n "$ZSH_NAME" ]; then
+    THIS_SCRIPT=$0
+else
+    THIS_SCRIPT="$(pwd)/setup-env"
+    if [ ! -e "$THIS_SCRIPT" ]; then
+        echo "Error: $THIS_SCRIPT doesn't exist!" >&2
+        echo "Please run this script in setup-env's directory." >&2
+        return 1
+    fi
+fi
+
+if [ -n "$BBSERVER" ]; then
+    unset BBSERVER
+fi
+
+if [ -z "$ZSH_NAME" ] && [ "$0" = "$THIS_SCRIPT" ]; then
+    echo "Error: This script needs to be sourced. Please run as '. $THIS_SCRIPT'" >&2
+    exit 1
+fi
+
+# Running bitbake builds as root can cause issues, so flag this
+
+if [ $(id -u) -eq 0 ]; then
+    echo "ERROR: do not use the BSP as root. Exiting..."
+    unset THIS_SCRIPT
+    return 1
+fi
+
+TD_TOP=$(dirname "$THIS_SCRIPT")
+TD_TOP=$(readlink -f "$TD_TOP")
+TD_SCRIPTDIR="$TD_TOP/scripts-setup"
+
+# Automatically update the git submodules.  It's common to forget
+# to do this after updating the main repository to latest.
+
+"$TD_SCRIPTDIR/update-git-submodules" "$TD_TOP"
+
+# We use TD_VARS to track the variables that need to
+# be unset before exiting this script.
+TD_RC=0
+TD_VARS="TD_RC TD_SCRIPTDIR TD_TOP THIS_SCRIPT TD_VARS"
+
+# Call on setup-env-internal to parse any arguments. It
+# will emit variable assignments on stdout.
+eval $(TD_TOP="$TD_TOP" "$TD_SCRIPTDIR/setup-env-internal" "$THIS_SCRIPT" "$@")
+if [ $TD_RC -ne 0 ]; then
+    unset $TD_VARS
+    return 1
+fi
+
+OEROOT=$(readlink -f "$TD_TOP/layers")
+export OEROOT
+
+# There can be multiple distro layers in the repository, which
+# may require different setups.  The .templateconf file in the
+# distro layer can be used to handle where to look for config
+# templates.
+if [ -n "$TD_NEEDSETUP" ]; then
+    DISTRO="$TD_DISTRO"
+    # If the layer directory has a .templateconf file, use that to set TEMPLATECONF
+    if [ -e "$OEROOT/$TD_LAYERPATH/.templateconf" ]; then
+	. "$OEROOT/$TD_LAYERPATH/.templateconf"
+    fi
+fi
+
+# Now things are set up to let the OE setup scripts to their jobs
+. $OEROOT/scripts/oe-buildenv-internal &&
+    TEMPLATECONF="$TEMPLATECONF" $OEROOT/scripts/oe-setup-builddir || {
+	unset OEROOT DISTRO TEMPLATECONF $TD_VARS
+	return 1
+    }
+
+# Make sure to configure in the user's distro and machine settings
+# into local.conf if this is the first time setting up.
+if [ -n "$TD_NEEDSETUP" ]; then
+    unset DISTRO TEMPLATECONF
+    echo "$TD_LAYERPATH" > "$BUILDDIR/conf/distrolayer.cfg"
+    # Replace placeholder comments with default settings
+    sed -e"/@TD_SETUP_MACHINE@/c \MACHINE ?= \"$TD_MACHINE\"" \
+        -e"/@TD_SETUP_DISTRO@/c \DISTRO ?= \"$TD_DISTRO\"" -i "$BUILDDIR/conf/local.conf"
+    if [ -n "$TD_DEVNET_MIRROR" ]; then
+	sed -e"/@TD_SETUP_DEVNET_MIRROR@/c \NVIDIA_DEVNET_MIRROR ?= \"$TD_DEVNET_MIRROR\"" \
+	    -i "$BUILDDIR/conf/local.conf"
+	devnet_info__="NVIDIA_DEVNET_MIRROR=$TD_DEVNET_MIRROR"
+    else
+	sed -e"/@TD_SETUP_DEVNET_MIRROR@/d" -i "$BUILDDIR/conf/local.conf"
+	devnet_info__="(no setting for NVIDIA_DEVNET_MIRROR)"
+    fi
+    cat <<EOF
+
+Your build environment has been configured with:
+    MACHINE=$TD_MACHINE
+    DISTRO=$TD_DISTRO
+    $devnet_info__
+EOF
+    for s__ in .oe/$TD_DISTRO .yocto/$TD_DISTRO .oe .yocto ; do
+        if [ -e "$HOME/$s__/site.conf" ]; then
+            echo "Linking $s__/site.conf to conf/site.conf"
+            ln -sf "$HOME/$s__/site.conf" "$BUILDDIR/conf/"
+        fi
+    done
+    unset devnet_info__ s__
+else
+    TD_LAYERPATH=$(cat "$BUILDDIR/conf/distrolayer.cfg")
+    TEMPLATECONF=$(cat "$BUILDDIR/conf/templateconf.cfg") COLOR=$TD_COLOR "$TD_TOP/scripts-setup/diff-bblayers-conf"
+fi
+
+# Add the distro layer's scripts directory to PATH and
+# source its environment setup script, if present
+if [ -d "$OEROOT/$TD_LAYERPATH/scripts" ]; then
+    PATH="$OEROOT/$TD_LAYERPATH/scripts:$PATH"
+    if [ -e "$OEROOT/$TD_LAYERPATH/scripts/layer-setup-env" ]; then
+        . "$OEROOT/$TD_LAYERPATH/scripts/layer-setup-env"
+    fi
+fi
+
+# Generally don't want world-writable output by default
+# for builds, so fix the umask if it's set that way.
+if [ "`umask | tail -c 2`" = "7" ]; then
+    umask 0022
+fi
+unset OEROOT $TD_VARS
+
+[ -z "$BUILDDIR" ] || cd "$BUILDDIR"

@@ -1,0 +1,1 @@
+TEMPLATECONF=${TEMPLATECONF:-meta-tegrademo/conf/template-$DISTRO}

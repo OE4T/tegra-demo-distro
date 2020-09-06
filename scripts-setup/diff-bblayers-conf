@@ -1,0 +1,14 @@
+#!/bin/sh
+baseconf="$OEROOT/$TEMPLATECONF/bblayers.conf.sample"
+[ -e "$baseconf" -a -e "$BUILDDIR/conf/bblayers.conf" ] || exit 0
+[ -n "$COLOR" ] || COLOR=never
+confsdiff=$(sed -E -e "s!##(OEROOT|COREBASE)##!$OEROOT!g" "$baseconf" | \
+		diff -u --color=$COLOR - "$BUILDDIR/conf/bblayers.conf")
+if [ $? -ne 0 ]; then
+    echo
+    [ "$COLOR" = "always" ] && echo -ne "\033[33;1m"
+    echo -e "Layers differ from ${baseconf}:"
+    [ "$COLOR" = "always" ] && echo -ne "\033[0m"
+    echo -e "$confsdiff"
+fi
+exit 0

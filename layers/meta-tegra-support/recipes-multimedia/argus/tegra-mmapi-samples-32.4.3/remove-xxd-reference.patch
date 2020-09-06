@@ -1,0 +1,24 @@
+Index: tegra_multimedia_api/argus/apps/camera/ui/camera/CMakeLists.txt
+===================================================================
+--- tegra_multimedia_api.orig/argus/apps/camera/ui/camera/CMakeLists.txt
++++ tegra_multimedia_api/argus/apps/camera/ui/camera/CMakeLists.txt
+@@ -32,8 +32,9 @@ set(GEN_OUTPUT ${CMAKE_CURRENT_BINARY_DI
+ 
+ add_custom_command(
+    OUTPUT ${GEN_OUTPUT}
+-   COMMAND xxd -i < ${GEN_INPUT} > ${GEN_OUTPUT}
++   COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/xxd.sh ${GEN_INPUT} ${GEN_OUTPUT}
+    DEPENDS ${GEN_INPUT}
++   VERBATIM
+ )
+ #end generate source
+ 
+Index: tegra_multimedia_api/argus/apps/camera/ui/camera/xxd.sh
+===================================================================
+--- /dev/null
++++ tegra_multimedia_api/argus/apps/camera/ui/camera/xxd.sh
+@@ -0,0 +1,4 @@
++set -x
++od -tx1 -v "$1" | sed -r -e's,^[0-9a-f]+, ,' -e's! ([0-9a-f][0-9a-f])! 0x\1,!g' > "$2"
++truncate --size="-4" "$2"
++set +x
