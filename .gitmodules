@@ -13,11 +13,11 @@
 [submodule "repos/meta-mender"]
 	path = repos/meta-mender
 	url = https://github.com/mendersoftware/meta-mender.git
-	branch = dunfell
+	branch = master-next
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
-	url = https://github.com/mendersoftware/meta-mender-community.git
-	branch = dunfell
+	url = https://github.com/OE4T/meta-mender-community.git
+	branch = master-next
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
