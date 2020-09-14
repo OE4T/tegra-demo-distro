@@ -1,0 +1,22 @@
+# Version of layers configuration, specific to
+# each defined distro in the repository.
+# Format: ${DISTRO}-<version>
+TD_BBLAYERS_CONF_VERSION = "tegrademo-mender-2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  ##OEROOT##/meta \
+  ##OEROOT##/meta-tegra \
+  ##OEROOT##/meta-tegra/contrib \
+  ##OEROOT##/meta-oe \
+  ##OEROOT##/meta-python \
+  ##OEROOT##/meta-networking \
+  ##OEROOT##/meta-filesystems \
+  ##OEROOT##/meta-virtualization \
+  ##OEROOT##/meta-mender-core \
+  ##OEROOT##/meta-mender-tegra \
+  ##OEROOT##/meta-tegra-support \
+  ##OEROOT##/meta-tegrademo \
+  "

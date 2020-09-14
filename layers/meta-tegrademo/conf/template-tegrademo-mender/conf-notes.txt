@@ -1,0 +1,10 @@
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+Targets for building Tegra demo images with test applications:
+    core-image-minimal  - minimally bootable image (no demo apps, no graphics)
+    demo-image-base     - basic image with no graphics
+    demo-image-egl      - basic image with DRM/EGL, no window manager
+    demo-image-sato     - X11 image with 'sato' UI
+    demo-image-weston   - Wayland with Weston compositor
+    demo-image-full     - X11/sato UI plus docker, openCV, multimedia API samples
