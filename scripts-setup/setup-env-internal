@@ -130,14 +130,19 @@ else
 fi
 
 [ "$NVIDIA_DEVNET_MIRROR" != "" ] || NVIDIA_DEVNET_MIRROR="$HOME/Downloads/nvidia/sdkm_downloads"
-if [ ! -d "$NVIDIA_DEVNET_MIRROR" ]; then
-    echo "NVIDIA_DEVNET_MIRROR location not found; some recipes may not be available"
-    TD_DEVNET_MIRROR=
+if echo "$NVIDIA_DEVNET_MIRROR" | egrep -q "^[^:]+://"; then
+    TD_DEVNET_MIRROR="$NVIDIA_DEVNET_MIRROR"
+    if [ "${NVIDIA_DEVNET_MIRROR:0:7}" = "file://" ]; then
+	if [ ! -d "${NVIDIA_DEVNET_MIRROR:7}" ]; then
+	    echo "NVIDIA_DEVNET_MIRROR location not found; some recipes may not be available" >&2
+	    TD_DEVNET_MIRROR=
+	fi
+    fi
 else
-    if echo "$NVIDIA_DEVNET_MIRROR" | grep -q "^[^:]+://"; then
-        TD_DEVNET_MIRROR="$NVIDIA_DEVNET_MIRROR"
-    else
-	TD_DEVNET_MIRROR="file://$NVIDIA_DEVNET_MIRROR"
+    TD_DEVNET_MIRROR="file://$NVIDIA_DEVNET_MIRROR"
+    if [ ! -d "$NVIDIA_DEVNET_MIRROR" ]; then
+	echo "NVIDIA_DEVNET_MIRROR location not found; some recipes may not be available" >&2
+	TD_DEVNET_MIRROR=
     fi
 fi
 cat <<EOF
