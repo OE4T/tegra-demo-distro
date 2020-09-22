@@ -28,3 +28,5 @@ rootfs_version_info() {
 }
 
 ROOTFS_POSTPROCESS_COMMAND_append = " rootfs_version_info;"
+
+PACKAGE_ARCH_pn-mender-client = "${MACHINE_ARCH}"
