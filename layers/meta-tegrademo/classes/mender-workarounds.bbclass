@@ -1,4 +1,5 @@
 MENDER_DATA_PART_FSTAB_OPTS ?= "defaults,data=journal"
+OS_RELEASE_VERSION ??= "${BUILDNAME}"
 
 update_version_files () {
     dest="$1"
