@@ -1,3 +1,10 @@
+# Work around the global export of this variable
+# that is added in mender-setup.bbclass
+unset MENDER_MACHINE[export]
+# and the addition of the variable to the whitelist
+# which changes the signature for all tasks
+BB_HASHBASE_WHITELIST_remove = "MENDER_MACHINE"
+
 MENDER_DATA_PART_FSTAB_OPTS ?= "defaults,data=journal"
 OS_RELEASE_VERSION ??= "${BUILDNAME}"
 
