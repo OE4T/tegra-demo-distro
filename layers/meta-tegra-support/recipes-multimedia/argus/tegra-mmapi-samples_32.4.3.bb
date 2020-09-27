@@ -10,6 +10,8 @@ SRC_URI += " \
            file://cross-build-fixups.patch \
            file://vector-fixup.patch \
            file://make-getpixel-python3-compatible.patch \
+           file://fix-dq-thread-race.patch \
+           file://sample-bounding-box.txt \
 "
 
 DEPENDS = "libdrm tegra-mmapi virtual/egl virtual/libgles1 virtual/libgles2 jpeg expat gstreamer1.0 glib-2.0 v4l-utils tensorrt cudnn opencv coreutils-native"
@@ -55,6 +57,7 @@ do_install() {
     DESTDIR="${D}" cmake --build '${B}/argus' --target ${OECMAKE_TARGET_INSTALL}
     install -d ${D}/opt/tegra-mmapi
     cp -R --preserve=mode,timestamps ${S}/data ${D}/opt/tegra-mmapi/
+    install -m 0644 ${WORKDIR}/sample-bounding-box.txt ${D}/opt/tegra-mmapi/data/
     install -d ${D}/opt/tegra-mmapi/bin
     install -m 0755 ${S}/samples/00_video_decode/video_decode ${D}/opt/tegra-mmapi/bin/
     install -m 0755 ${S}/samples/01_video_encode/video_encode ${D}/opt/tegra-mmapi/bin/

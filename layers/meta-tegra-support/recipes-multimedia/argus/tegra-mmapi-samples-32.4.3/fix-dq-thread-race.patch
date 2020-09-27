@@ -1,0 +1,41 @@
+Index: jetson_multimedia_api/samples/common/classes/NvV4l2ElementPlane.cpp
+===================================================================
+--- jetson_multimedia_api.orig/samples/common/classes/NvV4l2ElementPlane.cpp
++++ jetson_multimedia_api/samples/common/classes/NvV4l2ElementPlane.cpp
+@@ -875,10 +875,18 @@ NvV4l2ElementPlane::stopDQThread()
+         PLANE_WARN_MSG("Should not be called in blocking mode");
+         return 0;
+     }
+-    stop_dqthread = true;
+-    pthread_join(dq_thread, NULL);
+-    dq_thread = 0;
+-    PLANE_DEBUG_MSG("Stopped DQ Thread");
++    pthread_mutex_lock(&plane_lock);
++    if (dqthread_running && dq_thread != 0)
++    {
++        stop_dqthread = true;
++        pthread_mutex_unlock(&plane_lock);
++        pthread_join(dq_thread, NULL);
++        dq_thread = 0;
++        PLANE_DEBUG_MSG("Stopped DQ Thread");
++    } else
++    {
++        PLANE_DEBUG_MSG("DQ Thread already stopped");
++    }
+     return 0;
+ }
+ 
+@@ -898,6 +906,13 @@ NvV4l2ElementPlane::waitForDQThread(uint
+     timeToWait.tv_nsec = timeToWait.tv_nsec % 1000000000L;
+ 
+     pthread_mutex_lock(&plane_lock);
++    if (!dq_thread)
++    {
++        pthread_mutex_unlock(&plane_lock);
++        PLANE_DEBUG_MSG("No waiting for already-stopped DQ Thread");
++        return return_val;
++    }
++ 
+     while (dqthread_running)
+     {
+         ret = pthread_cond_timedwait(&plane_cond, &plane_lock, &timeToWait);
