@@ -9,6 +9,7 @@ SRC_URI += " \
            file://jpeg-fixups.patch \
            file://cross-build-fixups.patch \
            file://vector-fixup.patch \
+           file://make-getpixel-python3-compatible.patch \
 "
 
 DEPENDS = "libdrm tegra-mmapi virtual/egl virtual/libgles1 virtual/libgles2 jpeg expat gstreamer1.0 glib-2.0 v4l-utils tensorrt cudnn opencv coreutils-native"
@@ -19,7 +20,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=2cc00be68c1227a7c42ff3620ef75d05 \
 PACKAGECONFIG ??= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x11', '', d)}"
 PACKAGECONFIG[x11] = "-DWITH_X11=ON,,virtual/libx11 gtk+3"
 
-inherit cmake pkgconfig cuda
+inherit cmake pkgconfig cuda python3native
 
 B = "${S}"
 
@@ -47,7 +48,7 @@ do_compile() {
     CPPFLAGS="$CPPFLAGS `pkg-config --cflags opencv4`"
     export LDFLAGS="-L${STAGING_DIR_TARGET}/usr/local/cuda-${CUDA_VERSION}/lib ${LDFLAGS}"
     CCBIN=`which $CPP`
-    oe_runmake -j1 all TEGRA_ARMABI=${TARGET_ARCH} TARGET_ROOTFS=${STAGING_DIR_TARGET} NVCC=nvcc NVCCFLAGS="--shared -ccbin=${CCBIN}" GENCODE_FLAGS="${CUDA_NVCC_ARCH_FLAGS}"
+    oe_runmake -j1 all TEGRA_ARMABI=${TARGET_ARCH} TARGET_ROOTFS=${STAGING_DIR_TARGET} NVCC=nvcc NVCCFLAGS="--shared -ccbin=${CCBIN}" GENCODE_FLAGS="${CUDA_NVCC_ARCH_FLAGS}" PYTHON="${PYTHON}"
 }
 
 do_install() {
