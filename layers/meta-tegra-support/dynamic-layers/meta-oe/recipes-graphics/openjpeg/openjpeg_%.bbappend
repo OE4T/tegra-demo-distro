@@ -1,0 +1,1 @@
+BBCLASSEXTEND_append = " native"
