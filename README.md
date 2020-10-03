@@ -43,6 +43,21 @@ package is located.
 
         $ . ./setup-env --help
 
+## Distributions
+
+Use the `--distro` option with `setup-env` to specify a distribution for your build,
+or customize the DISTRO setting in your `$BUILDDIR/conf/local.conf` to reference one
+of the supported distributions.
+
+Currently supported distributions are listed below:
+
+
+| Distribution name | Description                                                   |
+| ----------------- | ------------------------------------------------------------- |
+| tegrademo         | Default distro used to demonstrate/test meta-tegra features   |
+| tegrademo-mender  | Adds [mender](https://www.mender.io/) OTA support             |
+
+
 ## Images
 
 The `tegrademo` distro includes the following image recipes, which
