@@ -1,0 +1,1 @@
+overlay              /etc/docker          overlay    lowerdir=/etc/docker,upperdir=/data/overlays/etc-docker-upper,workdir=/data/overlays/etc-docker-work,x-systemd.requires-mounts-for=/data,x-systemd.requires=data-overlay-setup.service 0  0
