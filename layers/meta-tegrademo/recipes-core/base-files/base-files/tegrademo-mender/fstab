@@ -1,0 +1,7 @@
+/dev/root            /                    auto       defaults              1  1
+proc                 /proc                proc       defaults              0  0
+devpts               /dev/pts             devpts     mode=0620,ptmxmode=0666,gid=5      0  0
+tmpfs                /run                 tmpfs      mode=0755,nodev,nosuid,strictatime 0  0
+tmpfs                /var/volatile        tmpfs      defaults              0  0
+overlay              /var/lib             overlay    lowerdir=/var/lib,upperdir=/data/overlays/var-lib-upper,workdir=/data/overlays/var-lib-work,x-systemd.requires-mounts-for=/data,x-systemd.requires=data-overlay-setup.service 0  0
+overlay              /home                overlay    lowerdir=/home,upperdir=/data/overlays/home-upper,workdir=/data/overlays/home-work,x-systemd.requires-mounts-for=/data,x-systemd.requires=data-overlay-setup.service 0  0
