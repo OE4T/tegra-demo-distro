@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Script to verify that the upperdir and workdir
+# directories for overlayfs mounts exist.
+#
+
+# This function is fed mount options from the fstab,
+# looks for the upperdir= and workdir= options, and
+# creates those directories if they aren't already present.
+process_mntopts() {
+    read opt1 opt2 opt3 opt4 opt5 opt6 opt7 opt8
+    for opt in $opt1 $opt2 $opt3 $opt4 $opt5 $opt6 $opt7 $opt8; do
+	for tag in upperdir workdir; do
+	    val="${opt##$tag=}"
+	    if [ "$opt" != "$val" -a ! -d "$val" ]; then
+		mkdir -p "$val"
+	    fi
+	done
+    done
+}
+
+# Read the fstab looking for overlay mounts.
+while read fs_spec fs_file fs_vfstype fs_mntopts fs_freq fs_passno; do
+    [ "$fs_spec" = "overlay" -a "$fs_vfstype" = "overlay" ] || continue
+    echo "$fs_mntopts" | (IFS=, process_mntopts)
+done < @SYSCONFDIR@/fstab
+
+exit 0
