@@ -1,0 +1,12 @@
+[Unit]
+Description=Create directories for overlay mounts
+DefaultDependencies=no
+RequiresMountsFor=/data
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=@SBINDIR@/data-overlay-setup
+
+[Install]
+WantedBy=local-fs.target
