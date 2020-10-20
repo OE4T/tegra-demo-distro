@@ -12,8 +12,8 @@
 	branch = master
 [submodule "repos/meta-mender"]
 	path = repos/meta-mender
-	url = https://github.com/mendersoftware/meta-mender.git
-	branch = master-next
+	url = https://github.com/madisongh/meta-mender.git
+	branch = master
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
 	url = https://github.com/OE4T/meta-mender-community.git
