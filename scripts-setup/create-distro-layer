@@ -53,10 +53,10 @@ if [ -z "$DISTRO_NAME" ]; then
 fi
 
 TOP_DIR=$(dirname $(dirname $0))
-cd ${TOP_DIR}
-LAYER_DIR="layers/meta-${DISTRO_NAME}"
+TOP_DIR=$(readlink -f "$TOP_DIR")
+LAYER_DIR="${TOP_DIR}/layers/meta-${DISTRO_NAME}"
 
-if [[ -d layers/meta-tegrademo ]]; then
+if [ -d layers/meta-tegrademo ]; then
 
     echo -n "Creating a distro layer based on meta-tegrademo..."
     
@@ -66,7 +66,7 @@ if [[ -d layers/meta-tegrademo ]]; then
     rm -rf ${LAYER_DIR}/recipes-*
 
     # Adjust the data in templates
-    if [[ "${MENDER}" = true ]]; then
+    if [ "${MENDER}" = true ]; then
         mv ${LAYER_DIR}/conf/template-tegrademo-mender ${LAYER_DIR}/conf/template-${DISTRO_NAME}
     else
         mv ${LAYER_DIR}/conf/template-tegrademo ${LAYER_DIR}/conf/template-${DISTRO_NAME}
@@ -76,7 +76,7 @@ if [[ -d layers/meta-tegrademo ]]; then
 
     # Adjust the data in conf/distro
     cat ${LAYER_DIR}/conf/distro/tegrademo.conf > ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
-    if [[ "${MENDER}" = true ]]; then
+    if [ "${MENDER}" = true ]; then
         cat ${LAYER_DIR}/conf/distro/tegrademo-mender.conf | tail -n +6 >> ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
     fi
     rm -rf ${LAYER_DIR}/conf/distro/tegrademo.conf
@@ -84,10 +84,6 @@ if [[ -d layers/meta-tegrademo ]]; then
 
     # Change Layer attributes from tegrademo
     find ${LAYER_DIR} -type f -exec sed -i "s/tegrademo-mender/${DISTRO_NAME}/; s/tegrademo/${DISTRO_NAME}/" {} \;
-
-
-    # Correct the sanity settings
-    sed -i "s/INHERIT += \"${DISTRO_NAME}-sanity\"/INHERIT += \"tegrademo-sanity\"/" ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
 
     echo "Done!"
 else
