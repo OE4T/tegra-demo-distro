@@ -1,0 +1,93 @@
+#! /bin/bash
+
+set -e
+
+PROGNAME=$(basename $0)
+
+usage()
+{
+    cat >&2 <<EOF
+Usage: $PROGNAME --distro <DISTRO> [<options>]
+Options:
+    -h, --help         Print this usage message
+    -d, --distro       Set the DISTRO name for newly created distro layer
+    -m, --mender       Base the layer on mender configurations
+    -c, --color        Colorize the output; can be 'never', 'always',
+                             or 'auto' (default 'auto')
+Arguments:
+Examples:
+- To create a new distro layer without mender configurations:
+  $ $PROGNAME --distro testdistro
+EOF
+}
+
+DISTRO_NAME=""
+MENDER=false
+
+# get command line options
+SHORTOPTS="hmd:"
+LONGOPTS="help,mender,distro:"
+
+ARGS=$(getopt --options $SHORTOPTS --longoptions $LONGOPTS --name $PROGNAME -- "$@" )
+if [ $? != 0 ]; then
+   usage
+   exit 1
+fi
+
+eval set -- "$ARGS"
+while true;
+do
+    case $1 in
+        -h | --help)       usage; exit 0 ;;
+        -m | --mender)     MENDER=true; shift;;
+        -d | --distro)     DISTRO_NAME="$2"; shift 2;;
+        -- )               shift; break ;;
+        * )                break ;;
+    esac
+done
+
+if [ -z "$DISTRO_NAME" ]; then
+    usage
+    echo "ERROR: You must specify DISTRO." >&2
+    exit 1
+fi
+
+TOP_DIR=$(dirname $(dirname $0))
+TOP_DIR=$(readlink -f "$TOP_DIR")
+LAYER_DIR="${TOP_DIR}/layers/meta-${DISTRO_NAME}"
+
+if [ -d layers/meta-tegrademo ]; then
+
+    echo -n "Creating a distro layer based on meta-tegrademo..."
+    
+    cp -a layers/meta-tegrademo ${LAYER_DIR}
+
+    # Delete tegrademo recipes
+    rm -rf ${LAYER_DIR}/recipes-*
+
+    # Adjust the data in templates
+    if [ "${MENDER}" = true ]; then
+        mv ${LAYER_DIR}/conf/template-tegrademo-mender ${LAYER_DIR}/conf/template-${DISTRO_NAME}
+    else
+        mv ${LAYER_DIR}/conf/template-tegrademo ${LAYER_DIR}/conf/template-${DISTRO_NAME}
+    fi
+    rm -rf ${LAYER_DIR}/conf/template-tegrademo
+    rm -rf ${LAYER_DIR}/conf/template-tegrademo-mender
+
+    # Adjust the data in conf/distro
+    cat ${LAYER_DIR}/conf/distro/tegrademo.conf > ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
+    if [ "${MENDER}" = true ]; then
+        cat ${LAYER_DIR}/conf/distro/tegrademo-mender.conf | tail -n +6 >> ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
+    fi
+    rm -rf ${LAYER_DIR}/conf/distro/tegrademo.conf
+    rm -rf ${LAYER_DIR}/conf/distro/tegrademo-mender.conf
+
+    # Change Layer attributes from tegrademo
+    find ${LAYER_DIR} -type f -exec sed -i "s/tegrademo-mender/${DISTRO_NAME}/; s/tegrademo/${DISTRO_NAME}/" {} \;
+
+    echo "Done!"
+else
+    echo "Warning: layers/meta-tegrademo not present" >&2
+    echo "This script uses meta-tegrademo as template"
+    exit 1
+fi
