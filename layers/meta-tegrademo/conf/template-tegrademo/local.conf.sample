@@ -11,6 +11,7 @@
 #
 #MACHINE ?= "jetson-nano-emmc"
 #MACHINE ?= "jetson-nano-qspi-sd"
+#MACHINE ?= "jetson-nano-2gb-devkit"
 #MACHINE ?= "jetson-tx1"
 #MACHINE ?= "jetson-tx2-4gb"
 #MACHINE ?= "jetson-tx2"
