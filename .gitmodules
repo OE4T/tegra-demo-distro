@@ -1,7 +1,7 @@
 [submodule "poky"]
 	path = repos/poky
 	url = git://git.yoctoproject.org/poky
-	branch = master
+	branch = gatesgarth
 [submodule "repos/meta-openembedded"]
 	path = repos/meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
