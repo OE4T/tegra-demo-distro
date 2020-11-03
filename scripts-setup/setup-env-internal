@@ -112,8 +112,22 @@ if [ ! -e $BUILDDIR/conf/local.conf ]; then
         echo "TD_RC=1"
         exit 1
     fi
+    if ! machine_list | grep -q "$MACHINE"; then
+	echo "ERROR: machine \"$MACHINE\" not found" >&2
+	echo "Available MACHINEs:" >&2
+	machine_list >&2
+	echo "TD_RC=1"
+	exit 1
+    fi
     if [ -z "$DISTRO" ]; then
         DISTRO=$DISTRO_DEFAULT
+    fi
+    if ! distro_list | grep -q "$DISTRO"; then
+	echo "ERROR: distro \"$DISTRO\" not found" >&2
+	echo "Available DISTROs:" >&2
+	distro_list >&2
+	echo "TD_RC=1"
+	exit 1
     fi
     LAYERPATH=$(distro_path $DISTRO)
     NEEDSETUP=yes
