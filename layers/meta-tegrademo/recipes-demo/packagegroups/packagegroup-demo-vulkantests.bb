@@ -5,6 +5,5 @@ LICENSE = "MIT"
 inherit packagegroup
 
 RDEPENDS_${PN} = " \
-    vulkan-demos \
     vulkan-tools \
 "
