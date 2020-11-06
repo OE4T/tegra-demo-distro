@@ -23,7 +23,7 @@ package is located.
 
 1. Clone this repository:
 
-        $ git clone https://github.com/OE4T/tegra-demo-distro.git
+        $ git clone -b dunfell-l4t-r32.4.3 https://github.com/OE4T/tegra-demo-distro.git
 
 2. Initialize the git submodules:
 
