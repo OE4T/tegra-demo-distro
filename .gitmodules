@@ -5,7 +5,7 @@
 [submodule "repos/meta-openembedded"]
 	path = repos/meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
-	branch = master
+	branch = gatesgarth
 [submodule "repos/meta-virtualization"]
 	path = repos/meta-virtualization
 	url = git://git.yoctoproject.org/meta-virtualization
@@ -21,4 +21,4 @@
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
-	branch = master
+	branch = gatesgarth
