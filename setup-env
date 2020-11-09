@@ -62,7 +62,7 @@ TD_VARS="TD_RC TD_SCRIPTDIR TD_TOP THIS_SCRIPT TD_VARS"
 # will emit variable assignments on stdout.
 eval $(TD_TOP="$TD_TOP" "$TD_SCRIPTDIR/setup-env-internal" "$THIS_SCRIPT" "$@")
 if [ $TD_RC -ne 0 ]; then
-    unset $TD_VARS
+    for var in $(echo $TD_VARS); do unset $var; done; unset var
     return 1
 fi
 
@@ -84,7 +84,7 @@ fi
 # Now things are set up to let the OE setup scripts to their jobs
 . $OEROOT/scripts/oe-buildenv-internal &&
     TEMPLATECONF="$TEMPLATECONF" $OEROOT/scripts/oe-setup-builddir || {
-	unset OEROOT DISTRO TEMPLATECONF $TD_VARS
+	for var in $(echo $TD_VARS OEROOT DISTRO TEMPLATECONF); do unset $var; done; unset var
 	return 1
     }
 
@@ -137,6 +137,6 @@ fi
 if [ "`umask | tail -c 2`" = "7" ]; then
     umask 0022
 fi
-unset OEROOT $TD_VARS
+for var in $(echo $TD_VARS OEROOT); do unset $var; done; unset var
 
 [ -z "$BUILDDIR" ] || cd "$BUILDDIR"
