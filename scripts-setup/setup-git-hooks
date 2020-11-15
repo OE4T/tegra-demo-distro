@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+BASEDIR=$(git rev-parse --show-toplevel)
+SCRIPTDIR=$(dirname $0)
+for GITHOOKDIR in ${BASEDIR}/.git/hooks ${BASEDIR}/.git/modules/repos/*/hooks
+do
+    for GITHOOK in ${SCRIPTDIR}/git-scripts/*
+    do
+        GITHOOKFILE=$(basename $GITHOOK)
+        if [ -e ${GITHOOKDIR}/${GITHOOKFILE} ]; then
+            echo "A git hook file aleady exists at ${GITHOOKDIR}/${GITHOOKFILE}, leaving as-is"
+        else
+            echo "Adding ${GITHOOKFILE} to ${GITHOOKDIR}"
+            cp ${GITHOOK} ${GITHOOKDIR}
+            chmod a+x ${GITHOOKDIR}/${GITHOOKFILE}
+        fi
+    done
+done
