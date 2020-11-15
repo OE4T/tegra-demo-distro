@@ -43,6 +43,9 @@ package is located.
 
         $ . ./setup-env --help
 
+4. Optional: Install pre-commit hook for commit autosigning using
+        $ ./scripts-setup/setup-pre-commit-hook.sh
+
 ## Distributions
 
 Use the `--distro` option with `setup-env` to specify a distribution for your build,
