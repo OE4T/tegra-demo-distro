@@ -44,7 +44,7 @@ package is located.
         $ . ./setup-env --help
 
 4. Optional: Install pre-commit hook for commit autosigning using
-        $ ./scripts-setup/setup-pre-commit-hook.sh
+        $ ./scripts-setup/setup-git-hooks
 
 ## Distributions
 
@@ -75,3 +75,9 @@ demo applications.
 | demo-image-sato   | X11 image with Sato UI                                        |
 | demo-image-weston | Wayland with Weston compositor                                |
 | demo-image-full   | Sato image plus nvidia-docker, openCV, multimedia API samples |
+
+# Contributing
+
+Please see the contributor wiki page at [this link](https://github.com/OE4T/meta-tegra/wiki/OE4T-Contributor-Guide).
+Contributions are welcome!
+
