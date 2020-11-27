@@ -32,7 +32,7 @@ MACHINE ??= "qemux86-64"
 # be set to an accessible URL where you have downloaded the tools using
 # the NVIDIA SDK Manager.
 #@TD_SETUP_DEVNET_MIRROR@ - placeholder for automatic insertion by setup-env
-#NVIDIA_DEVNET_MIRROR ?= "${HOME}/Downloads/nvidia/sdkm_downloads"
+#NVIDIA_DEVNET_MIRROR ?= "file:///${HOME}/Downloads/nvidia/sdkm_downloads"
 
 #
 # Where to place downloads
