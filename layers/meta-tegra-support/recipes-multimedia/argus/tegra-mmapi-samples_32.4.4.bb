@@ -4,57 +4,45 @@ LICENSE = "Proprietary & BSD"
 
 require recipes-multimedia/argus/tegra-mmapi-${PV}.inc
 
-SRC_URI += " \
-           file://remove-xxd-reference.patch \
+SRC_URI += "\
            file://jpeg-fixups.patch \
            file://cross-build-fixups.patch \
            file://vector-fixup.patch \
            file://make-getpixel-python3-compatible.patch \
            file://fix-dq-thread-race.patch \
            file://sample-bounding-box.txt \
-"
+           file://0001-Support-tegra_udrm-in-NvDrmRenderer.patch \
+           "
 
-DEPENDS = "libdrm tegra-mmapi virtual/egl virtual/libgles1 virtual/libgles2 jpeg expat gstreamer1.0 glib-2.0 v4l-utils tensorrt cudnn opencv coreutils-native"
+DEPENDS = "libdrm tegra-mmapi virtual/egl virtual/libgles1 virtual/libgles2 jpeg expat gstreamer1.0 glib-2.0 v4l-utils tensorrt cudnn opencv"
 
-LIC_FILES_CHKSUM = "file://LICENSE;md5=2cc00be68c1227a7c42ff3620ef75d05 \
-		    file://argus/LICENSE.TXT;md5=271791ce6ff6f928d44a848145021687"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=2cc00be68c1227a7c42ff3620ef75d05"
 
-PACKAGECONFIG ??= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x11', '', d)}"
-PACKAGECONFIG[x11] = "-DWITH_X11=ON,,virtual/libx11 gtk+3"
-
-inherit cmake pkgconfig cuda python3native
+inherit pkgconfig cuda python3native
 
 B = "${S}"
 
-OECMAKE_SOURCEPATH = "${S}/argus"
-EXTRA_OECMAKE = "-DMULTIPROCESS=ON \
-                 -DCMAKE_INCLUDE_PATH=${S}/include/libjpeg-8b-tegra \
-                 -DJPEG_NAMES=libnvjpeg.so"
+CLEANBROKEN = "1"
 
 do_configure() {
     rm -f ${S}/include/nvbuf_utils.h
-    #sed -i -e's,\(samples/11\),#\1,' ${S}/Makefile
     find samples -name 'Makefile' -exec sed -i -e's,^LDFLAGS,NVLDFLAGS,' -e's,\$(LDFLAGS),$(LDFLAGS) $(NVLDFLAGS),' {} \;
-    cd ${OECMAKE_SOURCEPATH}
-    cmake_do_configure
 }
 
 do_compile() {
-    VERBOSE=1 cmake --build '${B}/argus' -- ${EXTRA_OECMAKE_BUILD}
-    export CPP=`echo ${CXX} | sed -e's, .*,,'`
-    CXX_EXTRA=`echo ${CXX} | sed -e's,^[^ ]*,,'`
+    export CPP="${@cuda_extract_compiler('CXX', d)[0]}"
+    CXX_EXTRA="${@cuda_extract_compiler('CXX', d, prefix='')[1]}"
     export CUDA_PATH=${STAGING_DIR_NATIVE}/usr/local/cuda-${CUDA_VERSION}
     PATH=$CUDA_PATH/bin:$PATH
-    export CPPFLAGS="${CXX_EXTRA} ${CXXFLAGS} -I${STAGING_DIR_TARGET}/usr/local/cuda-${CUDA_VERSION}/include"
+    export CPPFLAGS="${CXX_EXTRA} ${CXXFLAGS} -I${CUDA_PATH}/include"
     CPPFLAGS="$CPPFLAGS `pkg-config --cflags libdrm`"
     CPPFLAGS="$CPPFLAGS `pkg-config --cflags opencv4`"
-    export LDFLAGS="-L${STAGING_DIR_TARGET}/usr/local/cuda-${CUDA_VERSION}/lib ${LDFLAGS}"
+    export LDFLAGS="-L${CUDA_PATH}/lib ${LDFLAGS}"
     CCBIN=`which $CPP`
-    oe_runmake -j1 all TEGRA_ARMABI=${TARGET_ARCH} TARGET_ROOTFS=${STAGING_DIR_TARGET} NVCC=nvcc NVCCFLAGS="--shared -ccbin=${CCBIN}" GENCODE_FLAGS="${CUDA_NVCC_ARCH_FLAGS}" PYTHON="${PYTHON}"
+    oe_runmake -j1 all TEGRA_ARMABI=${HOST_ARCH} TARGET_ROOTFS=${STAGING_DIR_HOST} NVCC=nvcc NVCCFLAGS="--shared -ccbin=${CCBIN}" GENCODE_FLAGS="${CUDA_NVCC_ARCH_FLAGS}" PYTHON="${PYTHON}"
 }
 
 do_install() {
-    DESTDIR="${D}" cmake --build '${B}/argus' --target ${OECMAKE_TARGET_INSTALL}
     install -d ${D}/opt/tegra-mmapi
     cp -R --preserve=mode,timestamps ${S}/data ${D}/opt/tegra-mmapi/
     install -m 0644 ${WORKDIR}/sample-bounding-box.txt ${D}/opt/tegra-mmapi/data/
