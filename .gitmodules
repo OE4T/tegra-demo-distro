@@ -9,15 +9,15 @@
 [submodule "repos/meta-virtualization"]
 	path = repos/meta-virtualization
 	url = git://git.yoctoproject.org/meta-virtualization
-	branch = master
+	branch = gatesgarth
 [submodule "repos/meta-mender"]
 	path = repos/meta-mender
-	url = https://github.com/madisongh/meta-mender.git
-	branch = master
+	url = https://github.com/mendersoftware/meta-mender.git
+	branch = dunfell
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
-	url = https://github.com/OE4T/meta-mender-community.git
-	branch = master-next
+	url = https://github.com/mendersoftware/meta-mender-community.git
+	branch = dunfell
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
