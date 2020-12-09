@@ -1,0 +1,48 @@
+From 424fd871ab8b39d828d738949f809fd123d2afde Mon Sep 17 00:00:00 2001
+From: Dan Walkes <danwalkes@trellis-logic.com>
+Date: Tue, 1 Jan 2019 18:00:39 -0700
+Subject: [PATCH 5/7] Jetson TX2 mender boot commands
+
+Modify u-boot to use bootcmd setting based on
+values which support jetson-tx2 boot partition layout
+and setup.
+---
+ include/env_default.h | 4 ++--
+ include/env_mender.h  | 9 ++++++---
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+
+Index: git/include/env_default.h
+===================================================================
+--- git.orig/include/env_default.h
++++ git/include/env_default.h
+@@ -35,8 +35,8 @@ const uchar default_environment[] = {
+ #ifdef	CONFIG_USE_BOOTARGS
+ 	"bootargs="	CONFIG_BOOTARGS			"\0"
+ #endif
+-#ifdef	CONFIG_BOOTCOMMAND
+-	"bootcmd="	CONFIG_BOOTCOMMAND		"\0"
++#ifdef	CONFIG_MENDER_BOOTCOMMAND
++	"bootcmd="	CONFIG_MENDER_BOOTCOMMAND	"\0"
+ #endif
+ #ifdef	CONFIG_RAMBOOTCOMMAND
+ 	"ramboot="	CONFIG_RAMBOOTCOMMAND		"\0"
+Index: git/include/env_mender.h
+===================================================================
+--- git.orig/include/env_mender.h
++++ git/include/env_mender.h
+@@ -146,9 +146,12 @@
+ 
+ #define CONFIG_MENDER_BOOTCOMMAND                                       \
+     "run mender_setup; "                                                \
+-    MENDER_BOOTARGS                                                     \
+-    MENDER_LOAD_KERNEL_AND_FDT                                          \
+-    "${mender_boot_kernel_type} ${kernel_addr_r} - ${fdt_addr_r}; "     \
++    "setenv distro_bootpart ${mender_boot_part}; "			\
++    "setenv distro_bootpart_hex ${mender_boot_part_hex}; "		\
++    "setenv devnum " __stringify(MENDER_UBOOT_STORAGE_DEVICE) "; " 	\
++    "setenv devtype " __stringify(MENDER_UBOOT_STORAGE_INTERFACE) "; "  \
++    "setenv prefix /boot/; " 						\
++    "sysboot ${devtype} ${devnum}:${distro_bootpart_hex} any ${scriptaddr} ${prefix}extlinux/extlinux.conf; " \
+     "run mender_try_to_recover"
+ 
+ #endif /* !MENDER_AUTO_PROBING */
