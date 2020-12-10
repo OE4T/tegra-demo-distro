@@ -25,12 +25,16 @@ package is located.
 
         $ git clone https://github.com/OE4T/tegra-demo-distro.git
 
-2. Initialize the git submodules:
+2. Switch to the appropriate branch, using the
+   [wiki page](https://github.com/OE4T/tegra-demo-distro/wiki/Which-branch-should-I-use%3F)
+   for guidance.
+
+3. Initialize the git submodules:
 
         $ cd tegra-demo-distro
 		$ git submodule update --init
 
-3. Source the `setup-env` script to create a build directory,
+4. Source the `setup-env` script to create a build directory,
    specifying the MACHINE you want to configure as the default
    for your builds. For example, to set up a build directory
    called `build` that is set up for the Jetson Xavier NX
@@ -43,7 +47,7 @@ package is located.
 
         $ . ./setup-env --help
 
-4. Optional: Install pre-commit hook for commit autosigning using
+5. Optional: Install pre-commit hook for commit autosigning using
         $ ./scripts-setup/setup-git-hooks
 
 ## Distributions
