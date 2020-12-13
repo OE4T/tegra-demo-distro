@@ -6,16 +6,12 @@ PROGNAME=$(basename "$SETUP_SCRIPT")
 SETUP_SCRIPTDIR=$(dirname "$SETUP_SCRIPT")
 TD_TOP="${TD_TOP:-$(readlink -f $SETUP_SCRIPTDIR)}"
 
-DISTRO_LAYERS="meta-tegrademo"
 DISTRO_DEFAULT="tegrademo"
 BUILDDIR_DEFAULT="build"
 
 distro_list() {
-    local d paths
-    
-    for d in $DISTRO_LAYERS; do
-	paths="$paths $TD_TOP/layers/$d/conf/distro"
-    done
+    local paths
+    paths=$(find -L $TD_TOP/layers/ -path '*meta-*/conf/distro/*' -name '*.conf')
     find $paths -maxdepth 1 -name '*.conf' | xargs basename -s .conf | sort -u | awk '{print "\t" $0}'
 }
 
