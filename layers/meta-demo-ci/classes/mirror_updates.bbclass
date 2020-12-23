@@ -83,7 +83,7 @@ python sstate_mirror_update() {
     if d.getVar('SSTATE_SKIP_CREATION') == '1':
         return
 
-    mirror = urllib.parse.parseurl(d.getVar("SSTATE_MIRROR_URL"))
+    mirror = urllib.parse.urlparse(d.getVar("SSTATE_MIRROR_URL"))
     if mirror.scheme == 'file':
         sstatepkg = d.getVar("SSTATE_PKG")
         mirrorpkg = os.path.join(mirror.path, d.getVar("SSTATE_PKGNAME"))
@@ -96,7 +96,7 @@ python sstate_mirror_update() {
         except IOError:
             bb.warn("error copying %s to %s" % (sstatepkg, mirrorpkg))
         bb.utils.unlockfile(lf)
-    elif mirror.scheme == 's3'
+    elif mirror.scheme == 's3':
         from oeaws import s3session
 
         mirrorpath = mirror.path.split('/')
