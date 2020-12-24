@@ -7,7 +7,6 @@ inherit packagegroup
 RDEPENDS_${PN} = " \
     clutter-1.0-examples \
     gtk+3-demo \
-    wayland-utils \
     weston \
     weston-examples \
     weston-init \
