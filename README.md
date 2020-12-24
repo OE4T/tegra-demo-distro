@@ -3,6 +3,8 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the meta-tegra BSP layer.
 
+![Build status](https://builder.madison.systems/badges/tegrademo-master.svg)
+
 ## Prerequisites
 
 See the [Yocto Project Quick Build](https://www.yoctoproject.org/docs/3.1.2/brief-yoctoprojectqs/brief-yoctoprojectqs.html)
