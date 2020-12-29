@@ -1,0 +1,82 @@
+#!/bin/sh
+
+mnt=
+LABELCHARS="AB"
+COPY_MACHINE_ID=@COPY_MACHINE_ID@
+
+cleanup() {
+    [ -n "$mnt" ] || return
+    for d in sys proc dev run; do
+	if mountpoint -q "${mnt}/${d}"; then
+	    umount "${mnt}/${d}" >/dev/null 2>&1 || true
+	fi
+    done
+    if mountpoint -q "$mnt"; then
+        umount "$mnt" >/dev/null 2>&1 || true
+    fi
+    rmdir "$mnt" >/dev/null 2>&1 || true
+}
+
+echo "Installing NVIDIA bootloader update payload"
+
+num_slots=`nvbootctrl get-number-slots`
+if [ $num_slots != 2 ]; then
+    echo "Enabling A/B update mode using nv_update_engine"
+    nv_update_engine --enable-ab
+    if [ ! "$?" -eq 0 ]; then
+        echo "ERR: could not enable A/B update by using nv_update_engine" >&2
+        exit 1
+    fi
+fi
+current_slot=`nvbootctrl get-current-slot`
+echo "Current boot slot: $current_slot"
+otherslot=`expr 1 - $current_slot`
+cfglbl="\"RootfsPart${LABELCHARS:$otherslot:1}\""
+devnam=`grep -h "$cfglbl:" /etc/mender/mender.conf /var/lib/mender/mender.conf | cut -d: -f2 | cut -d, -f1 | tr -d '" '`
+if [ -z "$devnam" ]; then
+    echo "ERR: could not determine device name for boot slot $otherslot" >&2
+    exit 1
+fi
+mnt=`mktemp -d -t nvbup.XXXXXX`
+if [ -z "$mnt" -o ! -d "$mnt" ]; then
+    echo "ERR: could not create directory for mounting install partition" >&2
+    exit 1
+fi
+mount "$devnam" "$mnt"
+if [ ! -d "${mnt}/opt/ota_package" ]; then
+    echo "ERR: Missing /opt/ota_package directory in installed rootfs" >&2
+    cleanup
+    exit 1
+fi
+# nv_update_engine needs access to these filesystems,
+# so bind-mount them into the new rootfs for the chroot
+mount --bind /sys "${mnt}/sys"
+mount --bind /proc "${mnt}/proc"
+mount --bind /dev "${mnt}/dev"
+mount -t tmpfs tmpfs "${mnt}/run"
+# Run the update engine in the context of the just-installed rootfs
+# to ensure that the TNSPEC in the config file it uses matches the
+# TNSPEC in the update payload.  But first we have to set up the
+# configuration file with the TNSPEC.
+if [ -L "${mnt}/etc/nv_boot_control.conf" -a -x "${mnt}/usr/bin/setup-nv-boot-control" ]; then
+    mkdir -p "${mnt}/run/tegra-nv-bootctrl"
+    if ! chroot "${mnt}" /usr/bin/setup-nv-boot-control; then
+	echo "ERR: could not initialize nv_boot_control.conf in new rootfs" >&2
+    fi
+fi
+if ! chroot "${mnt}" /usr/sbin/nv_update_engine --install no-reboot; then
+    echo "ERR: bootloader update failed" >&2
+    cleanup
+    exit 1
+fi
+echo "Successful bootloader update"
+if [ -n "$COPY_MACHINE_ID" ]; then
+    curid=$(systemd-machine-id-setup --print)
+    storedid=$(chroot "${mnt}" /usr/bin/tegra-bootinfo -n -v machine_id 2>/dev/null)
+    if [ "$curid" != "$storedid" ]; then
+	chroot "${mnt}" /usr/bin/tegra-bootinfo --initialize 2>/dev/null
+	chroot "${mnt}" /usr/bin/tegra-bootinfo -V machine_id "$curid"
+    fi
+fi
+cleanup
+exit 0
