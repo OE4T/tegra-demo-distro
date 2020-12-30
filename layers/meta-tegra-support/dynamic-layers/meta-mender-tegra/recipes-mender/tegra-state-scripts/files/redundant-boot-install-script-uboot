@@ -4,7 +4,7 @@ mnt=
 
 cleanup() {
     [ -n "$mnt" ] || return
-    for d in sys proc dev run; do
+    for d in sys proc dev; do
 	if mountpoint -q "${mnt}/${d}"; then
 	    umount "${mnt}/${d}" >/dev/null 2>&1 || true
 	fi
@@ -17,50 +17,24 @@ cleanup() {
 
 echo "Installing NVIDIA bootloader update payload"
 
-num_slots=`nvbootctrl get-number-slots`
-if [ $num_slots != 2 ]; then
-    echo "Enabling A/B update mode using nv_update_engine"
-    nv_update_engine --enable-ab
-    if [ ! "$?" -eq 0 ]; then
-        echo "ERR: could not enable A/B update by using nv_update_engine" >&2
-        exit 1
-    fi
-fi
-current_slot=`nvbootctrl get-current-slot`
-echo "Current boot slot: $current_slot"
-
 new_boot_part=`fw_printenv -n mender_boot_part`
 mnt=`mktemp -d -t nvbup.XXXXXX`
 if [ -z "$mnt" -o ! -d "$mnt" ]; then
     echo "ERR: could not create directory for mounting install partition" >&2
     exit 1
 fi
-# Support delta updates by mounting the rootfs read only
-mount -o ro /dev/mmcblk0p${new_boot_part} "$mnt"
+mount /dev/mmcblk0p${new_boot_part} "$mnt"
 if [ ! -d "${mnt}/opt/ota_package" ]; then
     echo "ERR: Missing /opt/ota_package directory in installed rootfs" >&2
     cleanup
     exit 1
 fi
-# nv_update_engine needs access to these filesystems,
+# tegra-bootloader-update needs access to these filesystems,
 # so bind-mount them into the new rootfs for the chroot
 mount --bind /sys "${mnt}/sys"
 mount --bind /proc "${mnt}/proc"
 mount --bind /dev "${mnt}/dev"
-# Mount an overlay for /var/run so the /var/lib/nv_boot_control.conf symlink becomes writable
-mount -t tmpfs tmpfs ${mnt}/run
-
-# Run the update engine in the context of the just-installed rootfs
-# to ensure that the TNSPEC in the config file it uses matches the
-# TNSPEC in the update payload. But first we have to set up the
-# configuration file with the TNSPEC.
-if [ -L "${mnt}/etc/nv_boot_control.conf" -a -x "${mnt}/usr/bin/setup-nv-boot-control" ]; then
-    mkdir -p "${mnt}/run/tegra-nv-bootctrl"
-    if ! chroot "${mnt}" /usr/bin/setup-nv-boot-control; then
-	echo "ERR: could not initialize nv_boot_control.conf in new rootfs" >&2
-    fi
-fi
-if ! chroot "${mnt}" /usr/sbin/nv_update_engine --install no-reboot; then
+if ! chroot "${mnt}" /usr/bin/tegra-bootloader-update /opt/ota_package/bl_update_payload; then
     echo "ERR: bootloader update failed" >&2
     cleanup
     exit 1
