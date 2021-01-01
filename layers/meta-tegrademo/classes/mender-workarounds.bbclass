@@ -7,6 +7,9 @@ BB_HASHBASE_WHITELIST_remove = "MENDER_MACHINE"
 
 DISTRO_FEATURES_BACKFILL_remove = "systemd"
 
+BBMASK += "/meta-mender-core/recipes-devtools/e2fsprogs/"
+BBMASK += "/meta-mender-core/recipes-core/systemd/"
+
 MENDER_DATA_PART_FSTAB_OPTS ?= "defaults,data=journal"
 OS_RELEASE_VERSION ??= "${BUILDNAME}"
 
