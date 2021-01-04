@@ -1,0 +1,1 @@
+PARTLABEL=SWAP	none	swap	nofail,x-systemd.makefs,x-systemd.device-timeout=60s
