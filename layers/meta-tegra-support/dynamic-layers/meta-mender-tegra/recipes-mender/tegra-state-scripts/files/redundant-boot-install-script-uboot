@@ -34,7 +34,7 @@ if [ -z "$mnt" -o ! -d "$mnt" ]; then
     echo "ERR: could not create directory for mounting install partition" >&2
     exit 1
 fi
-mount /dev/mmcblk0p${new_boot_part} "$mnt"
+mount -o ro /dev/mmcblk0p${new_boot_part} "$mnt"
 if [ ! -d "${mnt}/opt/ota_package" ]; then
     echo "ERR: Missing /opt/ota_package directory in installed rootfs" >&2
     cleanup
