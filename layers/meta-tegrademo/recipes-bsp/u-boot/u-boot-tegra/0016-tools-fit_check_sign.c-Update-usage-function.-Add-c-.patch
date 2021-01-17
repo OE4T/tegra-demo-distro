@@ -1,0 +1,31 @@
+From ce6473bd73a0afd37f0256811bb13b7f7aa0dc1a Mon Sep 17 00:00:00 2001
+From: Ilies CHERGUI <ilies.chergui@gmail.com>
+Date: Sun, 10 Jan 2021 20:07:39 +0000
+Subject: [PATCH] tools/fit_check_sign.c: Update usage function. Add -c option
+ to set the configuration name.
+
+Signed-off-by: Ilies CHERGUI <ilies.chergui@gmail.com>
+---
+ tools/fit_check_sign.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/tools/fit_check_sign.c b/tools/fit_check_sign.c
+index 9375d5cf72..5573842d25 100644
+--- a/tools/fit_check_sign.c
++++ b/tools/fit_check_sign.c
+@@ -25,9 +25,10 @@
+ 
+ void usage(char *cmdname)
+ {
+-	fprintf(stderr, "Usage: %s -f fit file -k key file\n"
++	fprintf(stderr, "Usage: %s -f fit file -k key file -c config name\n"
+ 			 "          -f ==> set fit file which should be checked'\n"
+-			 "          -k ==> set key file which contains the key'\n",
++			 "          -k ==> set key file which contains the key'\n"
++			 "          -c ==> set the configuration name'\n",
+ 		cmdname);
+ 	exit(EXIT_FAILURE);
+ }
+-- 
+2.17.1
+
