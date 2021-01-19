@@ -1,0 +1,24 @@
+From d63d5e2c0568edf566a575e4d688ab30dbe4c03e Mon Sep 17 00:00:00 2001
+From: Ilies CHERGUI <ilies.chergui@gmail.com>
+Date: Sat, 30 Jan 2021 20:52:29 +0000
+Subject: [PATCH] tegra210/bootm: Increase CONFIG_SYS_BOOTM_LEN to 64MB.
+
+Signed-off-by: Ilies CHERGUI <ilies.chergui@gmail.com>
+---
+ include/configs/tegra210-common.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/include/configs/tegra210-common.h b/include/configs/tegra210-common.h
+index 35cead04de..2e658be055 100644
+--- a/include/configs/tegra210-common.h
++++ b/include/configs/tegra210-common.h
+@@ -91,4 +91,6 @@
+ /* GPU needs setup */
+ #define CONFIG_TEGRA_GPU
+ 
++#define CONFIG_SYS_BOOTM_LEN   (64 << 20)      /* Increase max gunzip size */
++
+ #endif /* _TEGRA210_COMMON_H_ */
+-- 
+2.17.1
+

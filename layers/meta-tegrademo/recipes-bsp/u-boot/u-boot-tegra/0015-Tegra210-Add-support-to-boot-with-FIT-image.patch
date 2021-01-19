@@ -1,0 +1,48 @@
+From e86c47d990bab1a851aff84e65b071674df6e659 Mon Sep 17 00:00:00 2001
+From: Ilies CHERGUI <ilies.chergui@gmail.com>
+Date: Sun, 31 Jan 2021 13:31:45 +0000
+Subject: [PATCH] Tegra210: Add support to boot with FIT image.
+
+Signed-off-by: Ilies CHERGUI <ilies.chergui@gmail.com>
+---
+ include/configs/p3450-0000.h | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/include/configs/p3450-0000.h b/include/configs/p3450-0000.h
+index 2457b6f8ac..f8a21f6c02 100644
+--- a/include/configs/p3450-0000.h
++++ b/include/configs/p3450-0000.h
+@@ -41,11 +41,29 @@
+ 
+ #define CONFIG_PREBOOT
+ 
++/* FIT Image environment settings */
++#define FITIMAGE_ENV_SETTINGS \
++    "mmcdev=0\0" \
++    "mmcpart=1\0" \
++    "devnum=1\0" \
++    "fitpart=1\0" \
++    "prefix=/boot\0" \
++    "mmcfit_name=fitImage\0" \
++    "fit_addr=0x90000000\0" \
++    "mmcloadfit=load mmc ${devnum}:${fitpart} ${fit_addr} " \
++        "${prefix}/${mmcfit_name}\0" \
++    "mmcargs=setenv bootargs ${cbootargs} " \
++        "root=/dev/mmcblk${mmcdev}p${mmcpart} rw rootwait\0" \
++    "mmc_mmc_fit=run mmcloadfit;run mmcargs; bootm ${fit_addr} - ${fdt_addr}\0" \
++
+ #define BOARD_EXTRA_ENV_SETTINGS \
+ 	"preboot=if test -e mmc " DEFAULT_MMC_DEV ":1 /u-boot-preboot.scr; then " \
+ 		"load mmc " DEFAULT_MMC_DEV ":1 ${scriptaddr} /u-boot-preboot.scr; " \
+ 		"source ${scriptaddr}; " \
+-	"fi\0"
++	"fi\0" \
++	FITIMAGE_ENV_SETTINGS
++
++#define CONFIG_BOOTCOMMAND		"run mmc_mmc_fit"
+ 
+ /* General networking support */
+ #include "tegra-common-usb-gadget.h"
+-- 
+2.17.1
+
