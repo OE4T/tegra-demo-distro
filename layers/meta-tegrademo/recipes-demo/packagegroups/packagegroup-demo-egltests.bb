@@ -6,6 +6,7 @@ inherit packagegroup
 
 RDEPENDS_${PN} = " \
     eglstreams-kms-example \
+    gstreamer-tests \
     l4t-graphics-demos-egldevice \
     tegra-udrm-probeconf \
 "
