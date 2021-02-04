@@ -6,7 +6,7 @@ COPY_MACHINE_ID=@COPY_MACHINE_ID@
 
 cleanup() {
     [ -n "$mnt" ] || return
-    for d in sys proc dev; do
+    for d in sys proc dev run; do
 	if mountpoint -q "${mnt}/${d}"; then
 	    umount "${mnt}/${d}" >/dev/null 2>&1 || true
 	fi
@@ -48,6 +48,9 @@ fi
 mount --bind /sys "${mnt}/sys"
 mount --bind /proc "${mnt}/proc"
 mount --bind /dev "${mnt}/dev"
+# for tegra-bootinfo
+mount --bind /run "${mnt}/run"
+
 if ! chroot "${mnt}" /usr/bin/tegra-bootloader-update /opt/ota_package/bl_update_payload; then
     echo "ERR: bootloader update failed" >&2
     cleanup
