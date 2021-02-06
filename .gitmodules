@@ -21,4 +21,4 @@
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
-	branch = dunfell-l4t-r32.4.3
+	branch = dunfell-l4t-r32.5.0
