@@ -143,13 +143,37 @@
         <partition name="LNX" type="data">
             <allocation_policy> sequential </allocation_policy>
             <filesystem_type> basic </filesystem_type>
-            <size> 753664 </size>
+            <size> 720896 </size>
             <file_system_attribute> 0 </file_system_attribute>
             <allocation_attribute> 0x8 </allocation_attribute>
             <percent_reserved> 0 </percent_reserved>
             <filename> LNXFILE </filename>
             <description> **Required.** Contains U-Boot, which loads and launches the kernel from
               the rootfs at `/boot`. </description>
+        </partition>
+
+        <partition name="EXS" type="data">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> 65536 </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <partition_attribute> 0 </partition_attribute>
+            <allocation_attribute> 8 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+            <filename> EKSFILE </filename>
+            <description> **Optional.** Contains the encrypted keys. </description>
+        </partition>
+
+        <partition name="BMP" type="data">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> 196608 </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 0x8 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+            <filename> bmp.blob </filename>
+            <description> **Optional.** Contains BMP images for splash screen display during
+              boot. </description>
         </partition>
 
         <partition name="RP4" type="data">
@@ -167,8 +191,8 @@
         <partition name="UBENV" type="data">
             <allocation_policy> sequential </allocation_policy>
             <filesystem_type> basic </filesystem_type>
-	    <start_location> 0x3B0000 </start_location>
-            <size> 131072 </size>
+	    <start_location> 0x3D0000 </start_location>
+            <size> 65536 </size>
             <file_system_attribute> 0 </file_system_attribute>
             <allocation_attribute> 8 </allocation_attribute>
             <percent_reserved> 0 </percent_reserved>
