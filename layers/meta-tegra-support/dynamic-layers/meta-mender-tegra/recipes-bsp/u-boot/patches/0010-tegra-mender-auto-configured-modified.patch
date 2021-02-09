@@ -367,7 +367,7 @@ Index: git/include/config_distro_bootcmd.h
 ===================================================================
 --- git.orig/include/config_distro_bootcmd.h
 +++ git/include/config_distro_bootcmd.h
-@@ -498,7 +498,6 @@
+@@ -504,7 +504,6 @@
  		"done\0"
  
  #ifndef CONFIG_BOOTCOMMAND

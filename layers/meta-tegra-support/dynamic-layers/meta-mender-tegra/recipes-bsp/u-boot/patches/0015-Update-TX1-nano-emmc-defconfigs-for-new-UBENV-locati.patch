@@ -28,7 +28,7 @@ Index: git/configs/p3450-0002_defconfig
 ===================================================================
 --- git.orig/configs/p3450-0002_defconfig
 +++ git/configs/p3450-0002_defconfig
-@@ -64,9 +64,10 @@ CONFIG_USB_STORAGE=y
+@@ -63,9 +63,10 @@ CONFIG_USB_STORAGE=y
  CONFIG_DOS_PARTITION=y
  CONFIG_CMD_CACHE=y
  CONFIG_ENV_SIZE=0x20000
