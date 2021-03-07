@@ -7,10 +7,10 @@ if [ -n "$WAYLAND_DISPLAY" ]; then
 elif [ -n "$DISPLAY" ]; then
     VIDEOSINK="nv3dsink"
     IMAGESINK="xvimagesink"
-    TRANSFORM=""
+    TRANSFORM="! video/x-raw(memory:NVMM),format=(string)NV12"
 else
     VIDEOSINK="nvdrmvideosink"
     IMAGESINK="$VIDEOSINK"
-    TRANSFORM=""
+    TRANSFORM="! video/x-raw(memory:NVMM),format=(string)NV12"
 fi
 AUDIOSINK="autoaudiosink"
