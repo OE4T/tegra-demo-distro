@@ -1,0 +1,26 @@
+From dd26434ffb945f32c9ae2cf3262c3f83e5588d61 Mon Sep 17 00:00:00 2001
+From: Ilies CHERGUI <ilies.chergui@gmail.com>
+Date: Mon, 15 Mar 2021 19:33:24 +0000
+Subject: [PATCH] 06-klt_tracker: minor update in usage
+
+Signed-off-by: Ilies CHERGUI <ilies.chergui@gmail.com>
+---
+ 06-klt_tracker/main.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/06-klt_tracker/main.cpp b/06-klt_tracker/main.cpp
+index cb8b26d..f1714e5 100644
+--- a/06-klt_tracker/main.cpp
++++ b/06-klt_tracker/main.cpp
+@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
+         if (argc != 5)
+         {
+             throw std::runtime_error(std::string("Usage: ") + argv[0] +
+-                                     " <cpu|pva|cuda> <input_video> <bbox descr> <output>");
++                                     " <cpu|pva|cuda> <input_video> <bbox descr> <output_video>");
+         }
+ 
+         std::string strBackend     = argv[1];
+-- 
+2.17.1
+
