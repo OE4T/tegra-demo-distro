@@ -62,6 +62,23 @@ Currently supported distributions are listed below:
 | tegrademo         | Default distro used to demonstrate/test meta-tegra features   |
 | tegrademo-mender  | Adds [mender](https://www.mender.io/) OTA support             |
 
+### tegrademo-mender
+
+The tegrademo-mender distro demonstrates [mender](https://www.mender.io/) OTA update
+support with customizations on the tegrademo distribution including:
+
+1. Dual A/B rootfs support with read-only-rootfs.
+2. Integration with cboot and [tegra-boot-tools](https://github.com/OE4T/tegra-boot-tools)
+ to support persistent systemd machine-id settings on read only rootfs.
+3. Boot slot and rootfs partition synchronization through boot tools and bootloader
+integration.
+
+The synchronization of boot slot and root filesystem partition is more complicated to
+manage and test with via u-boot (see [this issue](https://github.com/BoulderAI/meta-mender-community/pull/1#issue-516955713)
+for detail).  For this reason, the tegrademo-mender distribution defaults to use the
+cboot bootloader on Jetson TX2, instead of the default u-boot bootloader used by
+meta-tegra.  If you need to use a different bootloader you can customize the setting
+of `PREFERRED_PROVIDER_virtual/bootloader_tegra186` in your distro layer.
 
 ## Images
 
