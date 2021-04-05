@@ -32,4 +32,4 @@ replacement_read_only_rootfs_hook() {
 }
 
 ROOTFS_POSTPROCESS_COMMAND_remove_tegrademo-mender = "read_only_rootfs_hook;"
-ROOTFS_POSTPROCESS_COMMAND_append_tegrademo-mender = " replacement_read_only_rootfs_hook;"
+ROOTFS_POSTPROCESS_COMMAND_append_tegrademo-mender = "${@bb.utils.contains('IMAGE_FEATURES', 'read-only-rootfs', ' replacement_read_only_rootfs_hook;', '', d)}"
