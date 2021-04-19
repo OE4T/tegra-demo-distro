@@ -3,7 +3,7 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the meta-tegra BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-master.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-hardknott.svg)
 
 Metadata layers are brought in as git submodules:
 
@@ -37,7 +37,7 @@ package is located.
 
 1. Clone this repository:
 
-        $ git clone https://github.com/OE4T/tegra-demo-distro.git
+        $ git clone -b hardknott https://github.com/OE4T/tegra-demo-distro.git
 
 2. Switch to the appropriate branch, using the
    [wiki page](https://github.com/OE4T/tegra-demo-distro/wiki/Which-branch-should-I-use%3F)
