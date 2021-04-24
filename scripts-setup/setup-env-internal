@@ -57,11 +57,6 @@ $(distro_list)
 Available machines:
 $(machine_list)
 
-Environment variables:
-    NVIDIA_DEVNET_MIRROR     URL or pathname of NVIDIA SDK Manager downloads.
-                             Default: \$HOME/Downloads/nvidia/sdkm_downloads
-
-
 Examples:
 - To create a new Yocto build directory:
   $ . $PROGNAME --machine jetson-tx2 --distro testdistro build-testdistro
@@ -144,14 +139,12 @@ if echo "$NVIDIA_DEVNET_MIRROR" | egrep -q "^[^:]+://"; then
     TD_DEVNET_MIRROR="$NVIDIA_DEVNET_MIRROR"
     if [ "${NVIDIA_DEVNET_MIRROR:0:7}" = "file://" ]; then
 	if [ ! -d "${NVIDIA_DEVNET_MIRROR:7}" ]; then
-	    echo "NVIDIA_DEVNET_MIRROR location not found; some recipes may not be available" >&2
 	    TD_DEVNET_MIRROR=
 	fi
     fi
 else
     TD_DEVNET_MIRROR="file://$NVIDIA_DEVNET_MIRROR"
     if [ ! -d "$NVIDIA_DEVNET_MIRROR" ]; then
-	echo "NVIDIA_DEVNET_MIRROR location not found; some recipes may not be available" >&2
 	TD_DEVNET_MIRROR=
     fi
 fi
