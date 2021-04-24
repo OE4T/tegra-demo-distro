@@ -27,12 +27,6 @@ will need gcc and g++ 8 (on Ubuntu, packages `gcc-8` and `g++-8`).
 For burning SDcards (for the Jetson Nano or Jetson Xavier NX developer
 kits), the `bmap-tools` package is recommended.
 
-For building CUDA applications, you must download the CUDA host-side
-tools using the NVIDIA SDK Manager (NVIDIA Developer Network login
-required). You should set the environment variable NVIDIA_DEVNET_MIRROR
-to the path of the directory where the `.deb` file for the tools
-package is located.
-
 ## Setting up
 
 1. Clone this repository:
