@@ -24,16 +24,6 @@
 # This sets the default machine to be qemux86-64 if no other machine is selected:
 MACHINE ??= "qemux86-64"
 
-# Where to find NVIDIA binary packages
-#
-# The CUDA host-side tools are only available through a URL that requires
-# authentication with an NVIDIA Developer Network login, and so cannot be
-# fetched directly by Bitbake. The NVIDIA_DEVNET MIRROR variable should
-# be set to an accessible URL where you have downloaded the tools using
-# the NVIDIA SDK Manager.
-#@TD_SETUP_DEVNET_MIRROR@ - placeholder for automatic insertion by setup-env
-#NVIDIA_DEVNET_MIRROR ?= "file:///${HOME}/Downloads/nvidia/sdkm_downloads"
-
 #
 # Where to place downloads
 #
