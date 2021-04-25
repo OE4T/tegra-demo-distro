@@ -96,20 +96,11 @@ if [ -n "$TD_NEEDSETUP" ]; then
     # Replace placeholder comments with default settings
     sed -e"/@TD_SETUP_MACHINE@/c \MACHINE ?= \"$TD_MACHINE\"" \
         -e"/@TD_SETUP_DISTRO@/c \DISTRO ?= \"$TD_DISTRO\"" -i "$BUILDDIR/conf/local.conf"
-    if [ -n "$TD_DEVNET_MIRROR" ]; then
-	sed -e"/@TD_SETUP_DEVNET_MIRROR@/c \NVIDIA_DEVNET_MIRROR ?= \"$TD_DEVNET_MIRROR\"" \
-	    -i "$BUILDDIR/conf/local.conf"
-	devnet_info__="NVIDIA_DEVNET_MIRROR=$TD_DEVNET_MIRROR"
-    else
-	sed -e"/@TD_SETUP_DEVNET_MIRROR@/d" -i "$BUILDDIR/conf/local.conf"
-	devnet_info__="(no setting for NVIDIA_DEVNET_MIRROR)"
-    fi
     cat <<EOF
 
 Your build environment has been configured with:
     MACHINE=$TD_MACHINE
     DISTRO=$TD_DISTRO
-    $devnet_info__
 EOF
     for s__ in .oe/$TD_DISTRO .yocto/$TD_DISTRO .oe .yocto ; do
         if [ -e "$HOME/$s__/site.conf" ]; then
