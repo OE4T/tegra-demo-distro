@@ -4,6 +4,7 @@ SRC_URI_append_cot = " \
   file://enable-fitimage-support.cfg \
   ${@'file://enable-fitimage-signing.cfg' if d.getVar('UBOOT_SIGN_ENABLE') == '1' else ''} \
 "
+SRC_URI_append_cot_mender-uboot = " file://0018-env-enable-fit-image-support-with-mender.patch"
 
 RDEPENDS_${PN}_remove_cot = "${PN}-extlinux"
 
