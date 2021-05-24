@@ -103,7 +103,7 @@ if [ ! -e $BUILDDIR/conf/local.conf ]; then
         echo "TD_RC=1"
         exit 1
     fi
-    if ! machine_list | grep -q "$MACHINE"; then
+    if ! machine_list | grep -qx "[[:space:]]*$MACHINE"; then
 	echo "ERROR: machine \"$MACHINE\" not found" >&2
 	echo "Available MACHINEs:" >&2
 	machine_list >&2
