@@ -1,0 +1,52 @@
+From fa73b07336d782652278e745ab484e2e5c679f3a Mon Sep 17 00:00:00 2001
+From: Ilies CHERGUI <ilies.chergui@gmail.com>
+Date: Thu, 20 May 2021 00:58:19 +0100
+Subject: [PATCH] env: enable fit image support with mender
+
+Signed-off-by: Ilies CHERGUI <ilies.chergui@gmail.com>
+---
+ include/env_mender.h | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/include/env_mender.h b/include/env_mender.h
+index fbed122807..e02ce3ac57 100644
+--- a/include/env_mender.h
++++ b/include/env_mender.h
+@@ -144,15 +144,29 @@
+     "load ${mender_uboot_root} ${kernel_addr_r} /boot/${mender_kernel_name}; "
+ #endif
+ 
+-#define CONFIG_MENDER_BOOTCOMMAND                                       \
++#define CONFIG_MENDER_BOOTCOMMAND_COMMON                                \
+     "run mender_setup; "                                                \
+-    "setenv distro_bootpart ${mender_boot_part}; "			\
+-    "setenv distro_bootpart_hex ${mender_boot_part_hex}; "		\
+-    "setenv devnum " __stringify(MENDER_UBOOT_STORAGE_DEVICE) "; " 	\
++    "setenv distro_bootpart ${mender_boot_part}; "                      \
++    "setenv distro_bootpart_hex ${mender_boot_part_hex}; "              \
++    "setenv devnum " __stringify(MENDER_UBOOT_STORAGE_DEVICE) "; "      \
+     "setenv devtype " __stringify(MENDER_UBOOT_STORAGE_INTERFACE) "; "  \
+-    "setenv prefix /boot/; " 						\
++    "setenv prefix /boot/; "                                            \
++
++#ifndef CONFIG_FIT
++#define CONFIG_MENDER_BOOTCOMMAND                                       \
++    CONFIG_MENDER_BOOTCOMMAND_COMMON                                    \
+     "sysboot ${devtype} ${devnum}:${distro_bootpart_hex} any ${scriptaddr} ${prefix}extlinux/extlinux.conf; " \
+     "run mender_try_to_recover"
++#else
++#define CONFIG_MENDER_BOOTCOMMAND                                       \
++    CONFIG_MENDER_BOOTCOMMAND_COMMON                                    \
++    MENDER_BOOTARGS                                                     \
++    "setenv bootargs ${bootargs} ${cbootargs} ro rootwait; "            \
++    "setenv load_fitimage load ${devtype} ${devnum}:${distro_bootpart_hex} ${fit_addr} ${prefix}${mmcfit_name}; " \
++    "run load_fitimage; "                                               \
++    "bootm ${fit_addr} - ${fdt_addr}; "                                 \
++    "run mender_try_to_recover"
++#endif /* CONFIG_FIT */
+ 
+ #endif /* !MENDER_AUTO_PROBING */
+ 
+-- 
+2.17.1
+
