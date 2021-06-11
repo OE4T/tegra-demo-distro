@@ -19,7 +19,7 @@ kits), the `bmap-tools` package is recommended.
 
 1. Clone this repository:
 
-        $ git clone -b dunfell-l4t-r32.4.3 https://github.com/OE4T/tegra-demo-distro.git
+        $ git clone -b dunfell-l4t-r32.5.0 https://github.com/OE4T/tegra-demo-distro.git
 
 2. Initialize the git submodules:
 
