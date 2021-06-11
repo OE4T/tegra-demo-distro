@@ -3,7 +3,7 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the meta-tegra BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-dunfell.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-dunfell-32-5-0.svg)
 
 Metadata layers are brought in as git submodules:
 
