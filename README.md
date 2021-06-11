@@ -5,6 +5,17 @@ using Yocto Project tools and the meta-tegra BSP layer.
 
 ![Build status](https://builder.madison.systems/badges/tegrademo-dunfell.svg)
 
+Metadata layers are brought in as git submodules:
+
+| Layer Repo            | Branch              | Description                                         |
+| --------------------- | --------------------|---------------------------------------------------- |
+| poky                  | dunfell             | OE-Core from poky repo at yoctoproject.org          |
+| meta-tegra            | dunfell-l4t-r32.5.0 | L4T BSP layer - L4T R32.5.1/JetPack 4.5.1           |
+| meta-openembedded     | dunfell             | OpenEmbedded layers                                 |
+| meta-virtualization   | dunfell             | Virtualization layer for docker support             |
+| meta-mender           | dunfell             | For meta-mender-core layer used in tegrademo-mender |
+| meta-mender-community | dunfell             | For meta-mender-tegra integration layer             |
+
 ## Prerequisites
 
 See the [Yocto Project Quick Build](https://www.yoctoproject.org/docs/3.1.2/brief-yoctoprojectqs/brief-yoctoprojectqs.html)
