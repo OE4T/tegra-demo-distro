@@ -70,9 +70,9 @@ if ! chroot "${mnt}" /usr/bin/tegra-bootloader-update --dry-run /opt/ota_package
 		exit 1
 	    fi
 	else
-	    echo "ERR: cannot perform bootloader update" >&2
-	    cleanup
-	    exit 1
+        echo "WARN: VER partitions are corrupted" >&2
+        echo "WARN: Please refer to https://github.com/OE4T/tegra-demo-distro/pull/113 for additional context" >&2
+        echo "WARN: Attempting update anyway" >&2
 	fi
     else
 	echo "ERR: cannot perform bootloader update" >&2
