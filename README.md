@@ -89,6 +89,9 @@ demo applications.
 | demo-image-weston | Wayland with Weston compositor                                |
 | demo-image-full   | Sato image plus nvidia-docker, openCV, multimedia API samples |
 
+## Notice for change in boot tools
+To support [OTA reflashing](https://github.com/OE4T/meta-tegra/wiki/Over-the-air-reflashing-process), we have updated the distro to use [tegra-boot-tools](https://github.com/OE4T/tegra-boot-tools) instead of NVIDIA's tegra-redundant-boot.
+
 # Contributing
 
 Please see the contributor wiki page at [this link](https://github.com/OE4T/meta-tegra/wiki/OE4T-Contributor-Guide).
