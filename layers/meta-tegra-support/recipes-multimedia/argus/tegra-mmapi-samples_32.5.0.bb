@@ -4,14 +4,14 @@ LICENSE = "Proprietary & BSD"
 
 require recipes-multimedia/argus/tegra-mmapi-${PV}.inc
 
-SRC_URI += "\
-           file://jpeg-fixups.patch \
+SRC_URI += "file://jpeg-fixups.patch \
            file://cross-build-fixups.patch \
            file://vector-fixup.patch \
            file://make-getpixel-python3-compatible.patch \
            file://fix-dq-thread-race.patch \
            file://sample-bounding-box.txt \
            file://0001-Support-tegra_udrm-in-NvDrmRenderer.patch \
+           file://0002-Remove-DO-NOT-USE-declarations-from-v4l2_nv_extensio.patch \
            "
 
 DEPENDS = "libdrm tegra-mmapi virtual/egl virtual/libgles1 virtual/libgles2 jpeg expat gstreamer1.0 glib-2.0 v4l-utils tensorrt cudnn opencv"
