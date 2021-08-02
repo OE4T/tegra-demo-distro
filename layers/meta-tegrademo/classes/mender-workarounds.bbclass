@@ -20,7 +20,7 @@ update_version_files () {
     fi
 
     if [ -f $dest/${sysconfdir}/os-release ]; then
-        sed -i -r -e's,^VERSION=.*,VERSION="${OS_RELEASE_VERSION}",' \
+        sed --follow-symlinks -i -r -e's,^VERSION=.*,VERSION="${OS_RELEASE_VERSION}",' \
 	    -e's,^VERSION_ID=.*,VERSION_ID="${BUILDNAME}",' \
 	    -e's,^PRETTY_NAME=.*,PRETTY_NAME="${DISTRO_NAME} ${BUILDNAME}",' \
 	    $dest/${sysconfdir}/os-release
