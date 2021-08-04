@@ -14,10 +14,10 @@ Index: jetson_multimedia_api/include/NvDrmRenderer.h
 ===================================================================
 --- jetson_multimedia_api.orig/include/NvDrmRenderer.h
 +++ jetson_multimedia_api/include/NvDrmRenderer.h
-@@ -265,6 +265,7 @@ private:
-     int flippedFd;
+@@ -266,6 +266,7 @@ private:
      bool flipPending;
      bool renderingStarted;
+     bool planeIsSet;
 +    bool isNvdc;
  
      uint32_t hdrBlobId;
@@ -53,7 +53,7 @@ Index: jetson_multimedia_api/samples/common/classes/NvDrmRenderer.cpp
    int i;
    conn = aconn;
    crtc = acrtc;
-@@ -195,9 +199,18 @@ NvDrmRenderer::NvDrmRenderer(const char
+@@ -196,9 +200,18 @@ NvDrmRenderer::NvDrmRenderer(const char
    log_level = LOG_LEVEL_ERROR;
    last_render_time.tv_sec = 0;
  
@@ -74,7 +74,7 @@ Index: jetson_multimedia_api/samples/common/classes/NvDrmRenderer.cpp
      goto error;
    }
    // Obtain DRM-KMS resources
-@@ -828,6 +841,7 @@ NvDrmRenderer::createDumbBO(int width, i
+@@ -833,6 +846,7 @@ NvDrmRenderer::createDumbBO(int width, i
    /* prepare buffer for memory mapping */
    memset(&mreq, 0, sizeof(mreq));
    mreq.handle = creq.handle;
@@ -82,7 +82,7 @@ Index: jetson_multimedia_api/samples/common/classes/NvDrmRenderer.cpp
    ret = drmIoctl(drm_fd, DRM_IOCTL_MODE_MAP_DUMB, &mreq);
    if (ret) {
      COMP_ERROR_MSG("cannot map dumb buffer\n");
-@@ -835,7 +849,21 @@ NvDrmRenderer::createDumbBO(int width, i
+@@ -840,7 +854,21 @@ NvDrmRenderer::createDumbBO(int width, i
      goto err_destroy;
    }
  
