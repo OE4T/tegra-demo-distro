@@ -13,7 +13,7 @@ Index: jetson_multimedia_api/samples/Rules.mk
  # Verbose flag
  ifeq ($(VERBOSE), 1)
  AT =
-@@ -39,11 +35,6 @@ else
+@@ -39,71 +35,21 @@ else
  AT = @
  endif
  
@@ -22,10 +22,21 @@ Index: jetson_multimedia_api/samples/Rules.mk
 -TEGRA_ARMABI ?= aarch64-linux-gnu
 -endif
 -
- # Location of the target rootfs
- ifeq ($(shell uname -m), aarch64)
- TARGET_ROOTFS :=
-@@ -62,49 +53,16 @@ CLASS_DIR 	:= $(TOP_DIR)/samples/common/
+-# Location of the target rootfs
+-ifeq ($(shell uname -m), aarch64)
+-TARGET_ROOTFS :=
+-else
+-ifeq ($(TARGET_ROOTFS),)
+-$(error Please specify the target rootfs path if you are cross-compiling)
+-endif
+-endif
+-
+-# Location of the CUDA Toolkit
+-CUDA_PATH 	:= /usr/local/cuda
+-
+ # Use absolute path for better access from everywhere
+ TOP_DIR 	:= $(shell pwd | awk '{split($$0, f, "/samples"); print f[1]}')
+ CLASS_DIR 	:= $(TOP_DIR)/samples/common/classes
  ALGO_CUDA_DIR 	:= $(TOP_DIR)/samples/common/algorithm/cuda
  ALGO_TRT_DIR 	:= $(TOP_DIR)/samples/common/algorithm/trt
  
@@ -71,12 +82,11 @@ Index: jetson_multimedia_api/samples/Rules.mk
  LDFLAGS += \
  	-lpthread -lv4l2 -lEGL -lGLESv2 -lX11 \
  	-lnvbuf_utils -lnvjpeg -lnvosd -ldrm \
- 	-lcuda -lcudart \
--	-lnvinfer -lnvparsers -lnvonnxparser \
+-	-lcuda -lcudart \
 -	-L"$(TARGET_ROOTFS)/$(CUDA_PATH)/lib64" \
 -	-L"$(TARGET_ROOTFS)/usr/lib/$(TEGRA_ARMABI)" \
 -	-L"$(TARGET_ROOTFS)/usr/lib/$(TEGRA_ARMABI)/tegra"
-+	-lnvinfer -lnvparsers -lnvonnxparser
++	-lcuda -lcudart
 Index: jetson_multimedia_api/samples/v4l2cuda/Makefile
 ===================================================================
 --- jetson_multimedia_api.orig/samples/v4l2cuda/Makefile

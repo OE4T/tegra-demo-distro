@@ -6,7 +6,6 @@ require recipes-multimedia/argus/tegra-mmapi-${PV}.inc
 
 SRC_URI += "file://jpeg-fixups.patch \
            file://cross-build-fixups.patch \
-           file://vector-fixup.patch \
            file://make-getpixel-python3-compatible.patch \
            file://fix-dq-thread-race.patch \
            file://sample-bounding-box.txt \
