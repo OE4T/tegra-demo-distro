@@ -1,2 +1,2 @@
-RDEPENDS_${PN}_remove = "tegra-redundant-boot"
-RDEPENDS_${PN}_append = " tegra-boot-tools-updater"
+RDEPENDS:${PN}:remove = "tegra-redundant-boot"
+RDEPENDS:${PN}:append = " tegra-boot-tools-updater"

@@ -1,1 +1,1 @@
-DEPENDS_append = " python3-pillow-native"
+DEPENDS:append = " python3-pillow-native"

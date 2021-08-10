@@ -20,14 +20,14 @@ do_install() {
     fi
 }
 
-pkg_postinst_${PN}() {
+pkg_postinst:${PN}() {
     if [ -e $D${sysconfdir}/docker-overlay.fstab ]; then
         cat $D${sysconfdir}/docker-overlay.fstab >> $D${sysconfdir}/fstab
         rm -f $D${sysconfdir}/docker-overlay.fstab
     fi
 }
-ALLOW_EMPTY_${PN} = "1"
-FILES_${PN} = "${systemd_system_unitdir} ${sysconfdir}"
-RDEPENDS_${PN} = "base-files"
+ALLOW_EMPTY:${PN} = "1"
+FILES:${PN} = "${systemd_system_unitdir} ${sysconfdir}"
+RDEPENDS:${PN} = "base-files"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 

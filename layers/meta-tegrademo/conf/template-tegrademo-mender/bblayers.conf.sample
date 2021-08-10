@@ -23,5 +23,5 @@ BBLAYERS ?= " \
   "
 
 # XXX temporary, until Mender supports gatesgarth
-LAYERSERIES_COMPAT_mender_append = " hardknott"
-LAYERSERIES_COMPAT_meta-mender-tegra_append = " hardknott"
+LAYERSERIES_COMPAT_mender:append = " hardknott"
+LAYERSERIES_COMPAT_meta-mender-tegra:append = " hardknott"

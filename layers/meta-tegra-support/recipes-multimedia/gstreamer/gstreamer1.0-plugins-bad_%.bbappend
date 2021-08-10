@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " faad"
+PACKAGECONFIG:append = " faad"

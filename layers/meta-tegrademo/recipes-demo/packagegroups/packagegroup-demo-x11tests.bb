@@ -4,7 +4,7 @@ LICENSE = "MIT"
 
 inherit packagegroup
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     cuda-samples \
     gstreamer-tests \
     l4t-graphics-demos-x11 \

@@ -1,1 +1,1 @@
-RDEPENDS_${PN} += "docker-conf"
+RDEPENDS:${PN} += "docker-conf"

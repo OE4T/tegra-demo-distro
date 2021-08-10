@@ -4,7 +4,7 @@ LICENSE = "MIT"
 
 inherit packagegroup
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     eglstreams-kms-example \
     gstreamer-tests \
     l4t-graphics-demos-egldevice \

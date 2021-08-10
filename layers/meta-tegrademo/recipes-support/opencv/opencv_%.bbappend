@@ -1,1 +1,1 @@
-PSEUDO_IGNORE_PATHS_append = ",${WORKDIR}/contrib"
+PSEUDO_IGNORE_PATHS:append = ",${WORKDIR}/contrib"

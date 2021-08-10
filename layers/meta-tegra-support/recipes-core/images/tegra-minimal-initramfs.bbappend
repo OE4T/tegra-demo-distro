@@ -1,1 +1,1 @@
-ROOTFS_POSTPROCESS_COMMAND_remove = "rootfs_version_info;"
+ROOTFS_POSTPROCESS_COMMAND:remove = "rootfs_version_info;"

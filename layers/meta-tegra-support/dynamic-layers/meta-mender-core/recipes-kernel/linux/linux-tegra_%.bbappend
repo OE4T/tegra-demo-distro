@@ -1,6 +1,6 @@
 # Undo the following additions made by meta-mender-core,
 # which does not apply to tegra platforms
-SRC_URI_remove_mender-grub = "${@if_kernel_recipe(' file://enable_efi_stub.cfg', '', d)}"
+SRC_URI:remove:mender-grub = "${@if_kernel_recipe(' file://enable_efi_stub.cfg', '', d)}"
 
 # Rather ugly hack to ensure that meta-mender-core's files directory
 # is also removed from consideration, since linux-yocto.bbclass adds

@@ -1,14 +1,14 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append_cot = " \
+SRC_URI:append:cot = " \
   file://enable-fitimage-support.cfg \
   ${@'file://enable-fitimage-signing.cfg' if d.getVar('UBOOT_SIGN_ENABLE') == '1' else ''} \
 "
-SRC_URI_append_cot_mender-uboot = " file://0018-env-enable-fit-image-support-with-mender.patch"
+SRC_URI:append:cot:mender-uboot = " file://0018-env-enable-fit-image-support-with-mender.patch"
 
-RDEPENDS_${PN}_remove_cot = "${PN}-extlinux"
+RDEPENDS:${PN}:remove:cot = "${PN}-extlinux"
 
-do_deploy_append_cot() {
+do_deploy:append:cot() {
   if [ "${UBOOT_SIGN_ENABLE}" = "1" -a -n "${UBOOT_DTB_BINARY}" ] ; then
     uboot_deployed_image="${DEPLOYDIR}/${UBOOT_IMAGE}"
     rm -f ${DEPLOYDIR}/u-boot-${MACHINE}*.backup

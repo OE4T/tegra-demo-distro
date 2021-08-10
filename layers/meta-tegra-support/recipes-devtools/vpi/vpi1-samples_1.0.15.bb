@@ -8,7 +8,7 @@ COMPATIBLE_MACHINE = "(tegra)"
 
 inherit l4t_deb_pkgfeed cuda cmake
 
-SRC_COMMON_DEBS = "vpi1-samples_${PV}_arm64.deb;subdir=vpi1-samples"
+SRC_COMMON_DEBS = "vpi1-samples_${PV}:arm64.deb;subdir=vpi1-samples"
 SRC_URI[sha256sum] = "98ea137962cb4bbfb1a778faf1cc3b19e27bbd0473aa7ab21cf9fde3a0469d9b"
 
 SRC_URI += "file://CMakeLists.txt;subdir=vpi1-samples/opt/nvidia/vpi1/samples \
@@ -24,4 +24,4 @@ S = "${WORKDIR}/vpi1-samples/opt/nvidia/vpi1/samples"
 
 DEPENDS = "libnvvpi1 opencv"
 
-FILES_${PN} = "${VPI_PREFIX}"
+FILES:${PN} = "${VPI_PREFIX}"

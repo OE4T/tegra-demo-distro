@@ -34,4 +34,4 @@ do_install() {
     install -m 0644 ${B}/data-overlay-setup.service ${D}${systemd_system_unitdir}/
 }
 
-SYSTEMD_SERVICE_${PN} = "data-overlay-setup.service"
+SYSTEMD_SERVICE:${PN} = "data-overlay-setup.service"

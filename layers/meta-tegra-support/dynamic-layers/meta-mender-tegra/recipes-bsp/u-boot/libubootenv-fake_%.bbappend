@@ -1,3 +1,3 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${BPN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${BPN}:"
 
-RDEPENDS_${PN} += "tegra-boot-tools"
+RDEPENDS:${PN} += "tegra-boot-tools"

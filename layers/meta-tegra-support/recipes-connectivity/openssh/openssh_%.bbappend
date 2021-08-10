@@ -1,2 +1,2 @@
-RRECOMMENDS_${PN}-sshd_remove_tegra = "rng-tools"
-RRECOMMENDS_${PN}-sshd_append_tegra = " haveged"
+RRECOMMENDS:${PN}-sshd:remove:tegra = "rng-tools"
+RRECOMMENDS:${PN}-sshd:append:tegra = " haveged"

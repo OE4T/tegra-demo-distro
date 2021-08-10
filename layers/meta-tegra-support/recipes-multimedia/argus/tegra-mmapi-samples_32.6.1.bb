@@ -64,6 +64,6 @@ do_install() {
     install -m 0755 ${S}/samples/v4l2cuda/capture-cuda ${D}/opt/tegra-mmapi/bin/
 }
 
-FILES_${PN} += "/opt/tegra-mmapi"
-RDEPENDS_${PN} += "tegra-libraries-libv4l-plugins"
+FILES:${PN} += "/opt/tegra-mmapi"
+RDEPENDS:${PN} += "tegra-libraries-libv4l-plugins"
 

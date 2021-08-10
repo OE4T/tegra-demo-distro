@@ -13,5 +13,5 @@ do_install() {
 }
 
 do_install[depends] += "linux-tegra:do_deploy"
-FILES_${PN} = "/boot/fitImage*"
+FILES:${PN} = "/boot/fitImage*"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
