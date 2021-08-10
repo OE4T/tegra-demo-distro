@@ -22,6 +22,6 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-tegrademo \
   "
 
-# XXX temporary, until Mender supports gatesgarth
-LAYERSERIES_COMPAT_mender:append = " hardknott"
-LAYERSERIES_COMPAT_meta-mender-tegra:append = " hardknott"
+# XXX temporary, until Mender supports honister
+LAYERSERIES_COMPAT_mender:append = " honister"
+LAYERSERIES_COMPAT_meta-mender-tegra:append = " honister"

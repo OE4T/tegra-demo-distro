@@ -12,7 +12,7 @@ SRCREV = "${AUTOREV}"
 PV = "1.0+git${SRCPV}"
 
 COMPATIBLE_MACHINE = "(tegra)"
-PACKAGE_ARCH_tegra = "${TEGRA_PKGARCH}"
+PACKAGE_ARCH:tegra = "${TEGRA_PKGARCH}"
 
 S = "${WORKDIR}/git"
 
