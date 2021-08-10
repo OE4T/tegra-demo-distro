@@ -13,14 +13,14 @@ Signed-off-by: Matt Madison <matt@madison.systems>
  configs/p3541-0000_defconfig | 6 +++---
  2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/configs/p3450-0000_defconfig b/configs/p3450-0000_defconfig
-index 0fe9b5fb52..9907eaedb8 100644
---- a/configs/p3450-0000_defconfig
-+++ b/configs/p3450-0000_defconfig
-@@ -60,9 +60,9 @@ CONFIG_USB_XHCI_TEGRA=y
- CONFIG_USB_STORAGE=y
+Index: git/configs/p3450-0000_defconfig
+===================================================================
+--- git.orig/configs/p3450-0000_defconfig
++++ git/configs/p3450-0000_defconfig
+@@ -61,9 +61,9 @@ CONFIG_USB_STORAGE=y
  CONFIG_DOS_PARTITION=y
  CONFIG_CMD_CACHE=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
 -CONFIG_ENV_SIZE=0x10000
 -CONFIG_ENV_OFFSET=0x3b0000
 -CONFIG_ENV_OFFSET_REDUND=0x3c0000
@@ -30,10 +30,10 @@ index 0fe9b5fb52..9907eaedb8 100644
  CONFIG_SYS_REDUNDAND_ENVIRONMENT=y
  # CONFIG_ENV_IS_NOWHERE is not set
  # CONFIG_ENV_IS_IN_EEPROM is not set
-diff --git a/configs/p3541-0000_defconfig b/configs/p3541-0000_defconfig
-index 708e6d0398..4443cd9a7f 100644
---- a/configs/p3541-0000_defconfig
-+++ b/configs/p3541-0000_defconfig
+Index: git/configs/p3541-0000_defconfig
+===================================================================
+--- git.orig/configs/p3541-0000_defconfig
++++ git/configs/p3541-0000_defconfig
 @@ -1,9 +1,9 @@
  CONFIG_ARM=y
  CONFIG_ARCH_TEGRA=y
@@ -47,6 +47,3 @@ index 708e6d0398..4443cd9a7f 100644
  CONFIG_SYS_REDUNDAND_ENVIRONMENT=y
  CONFIG_ENV_SECT_SIZE=0x1000
  CONFIG_NR_DRAM_BANKS=16
--- 
-2.27.0
-
