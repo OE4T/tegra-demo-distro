@@ -8,16 +8,16 @@
 	branch = master
 [submodule "repos/meta-virtualization"]
 	path = repos/meta-virtualization
-	url = git://git.yoctoproject.org/meta-virtualization
-	branch = master
+	url = https://gitlab.com/OE4T/meta-virtualization.git
+	branch = temp-overrides-conversion
 [submodule "repos/meta-mender"]
 	path = repos/meta-mender
-	url = https://github.com/mendersoftware/meta-mender.git
-	branch = dunfell
+	url = https://github.com/madisongh/meta-mender.git
+	branch = dunfell-with-overrides-conversion
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
-	url = https://github.com/mendersoftware/meta-mender-community.git
-	branch = dunfell
+	url = https://github.com/OE4T/meta-mender-community.git
+	branch = dunfell-with-overrides-conversion
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
