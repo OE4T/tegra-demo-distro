@@ -3,14 +3,14 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the meta-tegra BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-dunfell-32-5-0.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-dunfell-32-6.svg)
 
 Metadata layers are brought in as git submodules:
 
 | Layer Repo            | Branch              | Description                                         |
 | --------------------- | --------------------|---------------------------------------------------- |
 | poky                  | dunfell             | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | dunfell-l4t-r32.5.0 | L4T BSP layer - L4T R32.5.1/JetPack 4.5.1           |
+| meta-tegra            | dunfell             | L4T BSP layer - L4T R32.6.1/JetPack 4.6             |
 | meta-openembedded     | dunfell             | OpenEmbedded layers                                 |
 | meta-virtualization   | dunfell             | Virtualization layer for docker support             |
 | meta-mender           | dunfell             | For meta-mender-core layer used in tegrademo-mender |
@@ -30,12 +30,12 @@ kits), the `bmap-tools` package is recommended.
 
 1. Clone this repository:
 
-        $ git clone -b dunfell-l4t-r32.5.0 https://github.com/OE4T/tegra-demo-distro.git
+        $ git clone -b dunfell https://github.com/OE4T/tegra-demo-distro.git
 
 2. Initialize the git submodules:
 
         $ cd tegra-demo-distro
-		$ git submodule update --init
+	$ git submodule update --init
 
 3. Source the `setup-env` script to create a build directory,
    specifying the MACHINE you want to configure as the default
