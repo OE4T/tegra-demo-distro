@@ -10,7 +10,7 @@ Metadata layers are brought in as git submodules:
 | Layer Repo            | Branch  | Description                                         |
 | --------------------- | --------|---------------------------------------------------- |
 | poky                  | master  | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | master  | L4T BSP layer - L4T R32.5.1/JetPack 4.5.1           |
+| meta-tegra            | master  | L4T BSP layer - L4T R32.6.1/JetPack 4.6             |
 | meta-openembedded     | master  | OpenEmbedded layers                                 |
 | meta-virtualization   | master  | Virtualization layer for docker support             |
 | meta-mender           | dunfell | For meta-mender-core layer used in tegrademo-mender |
