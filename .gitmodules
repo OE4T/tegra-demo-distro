@@ -8,8 +8,8 @@
 	branch = master
 [submodule "repos/meta-virtualization"]
 	path = repos/meta-virtualization
-	url = https://gitlab.com/OE4T/meta-virtualization.git
-	branch = temp-overrides-conversion
+	url = git://git.yoctoproject.org/meta-virtualization
+	branch = master
 [submodule "repos/meta-mender"]
 	path = repos/meta-mender
 	url = https://github.com/madisongh/meta-mender.git
