@@ -9,7 +9,7 @@ fi
 
 if readlink -f /sys/class/video4linux/video0 2>/dev/null | grep -q usb; then
     gst-launch-1.0 v4l2src num-buffers=300 ! 'video/x-raw,format=(string)YUY2,width=640,height=480,framerate=(fraction)30/1' ! \
-		   nvvidconv ! 'video/x-raw(memory:NVMM),format=(string)NV12' $TRANSFORM ! queue ! $VIDEOSINK
+		   nvvidconv $TRANSFORM ! queue ! $VIDEOSINK
 else
     gst-launch-1.0 nvarguscamerasrc timeout=10 ! 'video/x-raw(memory:NVMM),width=640,height=480,format=(string)NV12,framerate=(fraction)30/1' ! \
 		   nvvidconv $TRANSFORM ! queue ! $VIDEOSINK
