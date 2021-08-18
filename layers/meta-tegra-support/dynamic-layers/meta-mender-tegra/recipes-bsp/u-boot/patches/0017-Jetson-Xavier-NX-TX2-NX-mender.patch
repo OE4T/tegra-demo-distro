@@ -2,10 +2,10 @@ Index: git/configs/p3636-0001_defconfig
 ===================================================================
 --- git.orig/configs/p3636-0001_defconfig
 +++ git/configs/p3636-0001_defconfig
-@@ -41,3 +41,34 @@ CONFIG_POSITION_INDEPENDENT=y
- CONFIG_BOOTP_PREFER_SERVERIP=y
+@@ -42,3 +42,34 @@ CONFIG_BOOTP_PREFER_SERVERIP=y
  CONFIG_CMD_CACHE=y
  CONFIG_NVME=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
 +CONFIG_ENV_SIZE=0x20000
 +CONFIG_ENV_OFFSET=0x3bb000
 +CONFIG_ENV_OFFSET_REDUND=0x3db000

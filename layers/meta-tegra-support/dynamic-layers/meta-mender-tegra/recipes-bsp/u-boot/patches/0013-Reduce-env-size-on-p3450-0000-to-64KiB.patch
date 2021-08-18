@@ -12,10 +12,10 @@ Index: git/configs/p3450-0000_defconfig
 ===================================================================
 --- git.orig/configs/p3450-0000_defconfig
 +++ git/configs/p3450-0000_defconfig
-@@ -65,9 +65,9 @@ CONFIG_USB_XHCI_TEGRA=y
- CONFIG_USB_STORAGE=y
+@@ -66,9 +66,9 @@ CONFIG_USB_STORAGE=y
  CONFIG_DOS_PARTITION=y
  CONFIG_CMD_CACHE=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
 -CONFIG_ENV_SIZE=0x20000
 +CONFIG_ENV_SIZE=0x10000
  CONFIG_ENV_OFFSET=0x3b0000
