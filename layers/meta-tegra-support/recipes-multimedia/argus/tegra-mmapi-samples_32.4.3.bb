@@ -12,7 +12,8 @@ SRC_URI += " \
            file://make-getpixel-python3-compatible.patch \
            file://fix-dq-thread-race.patch \
            file://sample-bounding-box.txt \
-"
+           file://0002-Avoid-segfaults-in-NvEglRenderer-overlay-text-displa.patch \
+           "
 
 DEPENDS = "libdrm tegra-mmapi virtual/egl virtual/libgles1 virtual/libgles2 jpeg expat gstreamer1.0 glib-2.0 v4l-utils tensorrt cudnn opencv coreutils-native"
 
