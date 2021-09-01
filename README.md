@@ -19,7 +19,7 @@ Metadata layers are brought in as git submodules:
 
 ## Prerequisites
 
-See the [Yocto Project Quick Build](https://www.yoctoproject.org/docs/3.1.2/brief-yoctoprojectqs/brief-yoctoprojectqs.html)
+See the [Yocto Project Quick Build](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
 documentation for information on setting up your build host.
 In addition to the packages mentioned in that documentation, you
 will need gcc and g++ 8 (on Ubuntu, packages `gcc-8` and `g++-8`).
@@ -40,7 +40,7 @@ kits), the `bmap-tools` package is recommended.
 3. Initialize the git submodules:
 
         $ cd tegra-demo-distro
-		$ git submodule update --init
+        $ git submodule update --init
 
 4. Source the `setup-env` script to create a build directory,
    specifying the MACHINE you want to configure as the default
