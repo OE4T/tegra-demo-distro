@@ -7,7 +7,7 @@ DEPENDS = "libdrm virtual/egl"
 
 SRC_REPO ?= "github.com/madisongh/eglstreams-kms-example"
 SRCBRANCH ?= "master"
-SRC_URI = "git://${SRC_REPO};branch=${SRCBRANCH}"
+SRC_URI = "git://${SRC_REPO};branch=${SRCBRANCH};protocol=https"
 SRCREV = "${AUTOREV}"
 PV = "1.0+git${SRCPV}"
 
