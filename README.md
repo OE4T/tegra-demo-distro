@@ -7,19 +7,19 @@ using Yocto Project tools and the meta-tegra BSP layer.
 
 Metadata layers are brought in as git submodules:
 
-| Layer Repo            | Branch  | Description                                         |
-| --------------------- | --------|---------------------------------------------------- |
-| poky                  | master  | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | master  | L4T BSP layer - L4T R32.5.1/JetPack 4.5.1           |
-| meta-openembedded     | master  | OpenEmbedded layers                                 |
-| meta-virtualization   | master  | Virtualization layer for docker support             |
-| meta-mender           | dunfell | For meta-mender-core layer used in tegrademo-mender |
-| meta-mender-community | dunfell | For meta-mender-tegra integration layer             |
+| Layer Repo            | Branch    | Description                                         |
+| --------------------- | ----------|---------------------------------------------------- |
+| poky                  | hardknott | OE-Core from poky repo at yoctoproject.org          |
+| meta-tegra            | hardknott | L4T BSP layer - L4T R32.5.1/JetPack 4.5.1           |
+| meta-openembedded     | hardknott | OpenEmbedded layers                                 |
+| meta-virtualization   | hardknott | Virtualization layer for docker support             |
+| meta-mender           | dunfell   | For meta-mender-core layer used in tegrademo-mender |
+| meta-mender-community | dunfell   | For meta-mender-tegra integration layer             |
 
 
 ## Prerequisites
 
-See the [Yocto Project Quick Build](https://www.yoctoproject.org/docs/3.1.2/brief-yoctoprojectqs/brief-yoctoprojectqs.html)
+See the [Yocto Project Quick Build](https://docs.yoctoproject.org/3.3.2/brief-yoctoprojectqs/index.html)
 documentation for information on setting up your build host.
 In addition to the packages mentioned in that documentation, you
 will need gcc and g++ 8 (on Ubuntu, packages `gcc-8` and `g++-8`).
@@ -40,7 +40,7 @@ kits), the `bmap-tools` package is recommended.
 3. Initialize the git submodules:
 
         $ cd tegra-demo-distro
-		$ git submodule update --init
+        $ git submodule update --init
 
 4. Source the `setup-env` script to create a build directory,
    specifying the MACHINE you want to configure as the default
