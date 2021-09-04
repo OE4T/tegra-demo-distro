@@ -8,11 +8,10 @@ COMPATIBLE_MACHINE = "(tegra)"
 
 inherit l4t_deb_pkgfeed cuda cmake
 
-SRC_COMMON_DEBS = "vpi1-samples_${PV}:arm64.deb;subdir=vpi1-samples"
-SRC_URI[sha256sum] = "98ea137962cb4bbfb1a778faf1cc3b19e27bbd0473aa7ab21cf9fde3a0469d9b"
+SRC_COMMON_DEBS = "vpi1-samples_${PV}_arm64.deb;subdir=vpi1-samples"
+SRC_URI[sha256sum] = "81d68bbad3381fe74ca882b112bc5a39edbddf0deb930046efe583ad6eb89fec"
 
-SRC_URI += "file://CMakeLists.txt;subdir=vpi1-samples/opt/nvidia/vpi1/samples \
-            file://0001-06-klt_tracker-minor-update-in-usage.patch"
+SRC_URI += "file://CMakeLists.txt;subdir=vpi1-samples/opt/nvidia/vpi1/samples"
 
 VPI_PREFIX = "/opt/nvidia/vpi1"
 EXTRA_OECMAKE = "-DCMAKE_INSTALL_PREFIX:PATH=${VPI_PREFIX}"
