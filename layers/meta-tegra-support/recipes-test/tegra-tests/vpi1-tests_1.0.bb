@@ -17,4 +17,4 @@ do_install() {
 }
 
 PACKAGE_ARCH = "${TEGRA_PKGARCH}"
-RDEPENDS:${PN} = "vpi1-samples tegra-tools-jetson-clocks"
+RDEPENDS_${PN} = "vpi1-samples tegra-tools-jetson-clocks"
