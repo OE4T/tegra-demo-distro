@@ -1,6 +1,9 @@
 #!/bin/sh
 
 mnt=
+UBOOTVARS="bootcount mender_boot_part mender_boot_part_hex upgrade_available"
+ubvarfile=
+install_fwenv=
 
 cleanup() {
     [ -n "$mnt" ] || return
@@ -15,19 +18,15 @@ cleanup() {
     rmdir "$mnt" >/dev/null 2>&1 || true
 }
 
-echo "Installing NVIDIA bootloader update payload"
+save_vars() {
+    local v
+    ubvarfile=$(mktemp -p "$1" ubvars.XXXXXX)
+    for v in $UBOOTVARS; do
+ 	    fw_printenv $v >>$ubvarfile
+    done
+}
 
-num_slots=`nvbootctrl get-number-slots`
-if [ $num_slots != 2 ]; then
-    echo "Enabling A/B update mode using nv_update_engine"
-    nv_update_engine --enable-ab
-    if [ ! "$?" -eq 0 ]; then
-        echo "ERR: could not enable A/B update by using nv_update_engine" >&2
-        exit 1
-    fi
-fi
-current_slot=`nvbootctrl get-current-slot`
-echo "Current boot slot: $current_slot"
+echo "Installing NVIDIA bootloader update payload"
 
 new_boot_part=`fw_printenv -n mender_boot_part`
 mnt=`mktemp -d -t nvbup.XXXXXX`
@@ -35,36 +34,70 @@ if [ -z "$mnt" -o ! -d "$mnt" ]; then
     echo "ERR: could not create directory for mounting install partition" >&2
     exit 1
 fi
-# Support delta updates by mounting the rootfs read only
-mount -o ro /dev/mmcblk0p${new_boot_part} "$mnt"
+mount /dev/mmcblk0p${new_boot_part} "$mnt"
 if [ ! -d "${mnt}/opt/ota_package" ]; then
     echo "ERR: Missing /opt/ota_package directory in installed rootfs" >&2
     cleanup
     exit 1
 fi
-# nv_update_engine needs access to these filesystems,
+# tegra-bootloader-update needs access to these filesystems,
 # so bind-mount them into the new rootfs for the chroot
 mount --bind /sys "${mnt}/sys"
 mount --bind /proc "${mnt}/proc"
 mount --bind /dev "${mnt}/dev"
-# Mount an overlay for /var/run so the /var/lib/nv_boot_control.conf symlink becomes writable
-mount -t tmpfs tmpfs ${mnt}/run
+mount -t tmpfs tmpfs "${mnt}/run"
 
-# Run the update engine in the context of the just-installed rootfs
-# to ensure that the TNSPEC in the config file it uses matches the
-# TNSPEC in the update payload. But first we have to set up the
-# configuration file with the TNSPEC.
-if [ -L "${mnt}/etc/nv_boot_control.conf" -a -x "${mnt}/usr/bin/setup-nv-boot-control" ]; then
-    mkdir -p "${mnt}/run/tegra-nv-bootctrl"
-    if ! chroot "${mnt}" /usr/bin/setup-nv-boot-control; then
-	echo "ERR: could not initialize nv_boot_control.conf in new rootfs" >&2
+# Check for u-boot environment location change; save vars for restoration
+# into the new environment after the update
+if [ -e "$mnt/usr/share/u-boot/fw_env.config" ]; then
+    if ! diff -qbi /etc/fw_env.config $mnt/usr/share/u-boot/fw_env.config > /dev/null 2>&1; then
+        save_vars "${mnt}/run"
+        install_fwenv=yes
     fi
 fi
-if ! chroot "${mnt}" /usr/sbin/nv_update_engine --install no-reboot; then
+
+if ! chroot "${mnt}" /usr/bin/tegra-bootloader-update --dry-run /opt/ota_package/bl_update_payload >/dev/null 2>&1; then
+    # If the tool reports that the version partitions are corrupted, this is an update on a tegra210
+    # device with the old partition layout where the U-Boot environment overwrote the version partition(s),
+    # in which case we recover via complete initialization.
+    if chroot "${mnt}" /usr/bin/tegra-bootloader-update --dry-run /opt/ota_package/bl_update_payload 2>&1 | grep -q 'version partitions are corrupted'; then
+        # For the recoverable case, we will have also detected a change the U-Boot environment change
+        if [ -n "$install_fwenv" ]; then
+            echo "Detected bootloader partition upgrade, reinitializing" >&2
+            if ! chroot "${mnt}" /usr/bin/tegra-bootloader-update --initialize /opt/ota_package/bl_update_payload; then
+                echo "ERR: bootloader re-initialization failed" >&2
+                cleanup
+                exit 1
+            fi
+        else
+            echo "ERR: cannot perform bootloader update" >&2
+            cleanup
+            exit 1
+        fi
+    else
+        echo "ERR: cannot perform bootloader update" >&2
+        cleanup
+        exit 1
+    fi
+elif ! chroot "${mnt}" /usr/bin/tegra-bootloader-update /opt/ota_package/bl_update_payload; then
     echo "ERR: bootloader update failed" >&2
     cleanup
     exit 1
 fi
+
+# If the U-Boot environment config has changed, propagate the important variables
+ # to the new environment
+if [ -n "$install_fwenv" ]; then
+    if ! chroot "${mnt}" /usr/bin/fw_setenv -c /usr/share/u-boot/fw_env.config -s /run/$(basename "$ubvarfile"); then
+        echo "ERR: could not restore U-Boot environment after bootloader update" >&2
+        cleanup
+        exit 1
+    fi
+    if [ -L /etc/fw_env.config ]; then
+        cp $mnt/usr/share/u-boot/fw_env.config $(readlink /etc/fw_env.config)
+    fi
+fi
+
 echo "Successful bootloader update"
 cleanup
 exit 0
