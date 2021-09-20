@@ -7,9 +7,9 @@ COPY_MACHINE_ID=@COPY_MACHINE_ID@
 cleanup() {
     [ -n "$mnt" ] || return
     for d in sys proc dev; do
-	if mountpoint -q "${mnt}/${d}"; then
-	    umount "${mnt}/${d}" >/dev/null 2>&1 || true
-	fi
+        if mountpoint -q "${mnt}/${d}"; then
+            umount "${mnt}/${d}" >/dev/null 2>&1 || true
+        fi
     done
     if mountpoint -q "$mnt"; then
         umount "$mnt" >/dev/null 2>&1 || true
@@ -58,8 +58,8 @@ if [ -n "$COPY_MACHINE_ID" ]; then
     curid=$(systemd-machine-id-setup --print)
     storedid=$(chroot "${mnt}" /usr/bin/tegra-bootinfo -n -v machine_id 2>/dev/null)
     if [ "$curid" != "$storedid" ]; then
-	chroot "${mnt}" /usr/bin/tegra-bootinfo --initialize 2>/dev/null
-	chroot "${mnt}" /usr/bin/tegra-bootinfo -V machine_id "$curid"
+        chroot "${mnt}" /usr/bin/tegra-bootinfo --initialize 2>/dev/null
+        chroot "${mnt}" /usr/bin/tegra-bootinfo -V machine_id "$curid"
     fi
 fi
 cleanup

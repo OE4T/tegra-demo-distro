@@ -24,12 +24,12 @@ while [ -n "$1" ]; do
             ;;
         upgrade_available)
             [ -n "$quiet" ] || echo -n "$1="
-	    if [ -e "/var/lib/mender/upgrade_available" ]; then
-		echo "1"
-	    else
-		echo "0"
-	    fi
-           ;;
+        if [ -e "/var/lib/mender/upgrade_available" ]; then
+            echo "1"
+        else
+            echo "0"
+        fi
+         ;;
         *)
            echo "ERR: no such variable: $1" >&2
            exit 1
