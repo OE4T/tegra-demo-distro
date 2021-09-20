@@ -19,20 +19,20 @@ fi
 if [ "${devnam##/dev/mmcblk}" != "${devnam}" ]; then
     bootpart=`fw_printenv -n mender_boot_part`
     if [ -z "$bootpart" ]; then
-	echo "ERR: could not retrieve mender_boot_part from U-Boot env" >&2
-	exit 1
+        echo "ERR: could not retrieve mender_boot_part from U-Boot env" >&2
+        exit 1
     fi
     devnampart=`expr "${devnam##/dev/mmcblk*p}" \+ 0 2>/dev/null`
     if [ -z "$devnampart" ]; then
-	echo "ERR: could not extract partition number from rootfs device name" >&2
-	exit 1
+        echo "ERR: could not extract partition number from rootfs device name" >&2
+        exit 1
     fi
     if [ $bootpart -ne $devnampart ]; then
-	altslot=$(expr 1 - $curslot)
-	echo "Detected Tegra bootloader upgrade failure, resetting boot slot to $altslot" >&2
-	echo "*** Reboot required ***" >&2
-	tegra-boot-control --set-active $altslot
-	exit 1
+        altslot=$(expr 1 - $curslot)
+        echo "Detected Tegra bootloader upgrade failure, resetting boot slot to $altslot" >&2
+        echo "*** Reboot required ***" >&2
+        tegra-boot-control --set-active $altslot
+        exit 1
     fi
 fi
 exit 0
