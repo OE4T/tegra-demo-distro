@@ -22,3 +22,7 @@
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
 	branch = dunfell
+[submodule "repos/meta-tegra-community"]
+	path = repos/meta-tegra-community
+	url = https://github.com/OE4T/meta-tegra-community.git
+	branch = dunfell
