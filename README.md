@@ -11,11 +11,11 @@ Metadata layers are brought in as git submodules:
 | --------------------- | ----------|---------------------------------------------------- |
 | poky                  | hardknott | OE-Core from poky repo at yoctoproject.org          |
 | meta-tegra            | hardknott | L4T BSP layer - L4T R32.5.1/JetPack 4.5.1           |
+| meta-tegra-community  | hardknott | OE4T layer with additions from the community        |
 | meta-openembedded     | hardknott | OpenEmbedded layers                                 |
 | meta-virtualization   | hardknott | Virtualization layer for docker support             |
 | meta-mender           | dunfell   | For meta-mender-core layer used in tegrademo-mender |
 | meta-mender-community | dunfell   | For meta-mender-tegra integration layer             |
-
 
 ## Prerequisites
 
