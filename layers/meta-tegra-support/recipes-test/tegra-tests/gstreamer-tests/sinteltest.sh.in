@@ -1,7 +1,0 @@
-#!/bin/sh
-
-. @DATADIR@/gstreamer-tests/confvars
-
-gst-launch-1.0 filesrc location=@DATADIR@/gstreamer-tests/sintel_trailer-1080p.mp4 ! qtdemux name=demux \
-	       demux.audio_0 ! queue ! faad ! $AUDIOSINK \
-	       demux.video_0 ! queue ! h264parse ! nvv4l2decoder enable-max-performance=1 enable-frame-type-reporting=1 $TRANSFORM ! $VIDEOSINK
