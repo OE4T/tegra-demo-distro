@@ -21,8 +21,6 @@ Metadata layers are brought in as git submodules:
 
 See the [Yocto Project Quick Build](https://docs.yoctoproject.org/3.1.10/brief-yoctoprojectqs/brief-yoctoprojectqs.html)
 documentation for information on setting up your build host.
-In addition to the packages mentioned in that documentation, you
-will need gcc and g++ 8 (on Ubuntu, packages `gcc-8` and `g++-8`).
 
 For burning SDcards (for the Jetson Nano or Jetson Xavier NX developer
 kits), the `bmap-tools` package is recommended.
