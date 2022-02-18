@@ -1,7 +1,7 @@
 # Version of layers configuration, specific to
 # each defined distro in the repository.
 # Format: ${DISTRO}-<version>
-TD_BBLAYERS_CONF_VERSION = "tegrademo-mender-6"
+TD_BBLAYERS_CONF_VERSION = "tegrademo-mender-7"
 
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
@@ -23,6 +23,6 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-tegrademo \
   "
 
-# XXX temporary, until Mender supports honister
-LAYERSERIES_COMPAT_mender:append = " honister"
-LAYERSERIES_COMPAT_meta-mender-tegra:append = " honister"
+# XXX temporary, until Mender supports something newer
+LAYERSERIES_COMPAT_mender:append = " honister kirkstone"
+LAYERSERIES_COMPAT_meta-mender-tegra:append = " honister kirkstone"
