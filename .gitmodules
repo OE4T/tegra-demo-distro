@@ -13,7 +13,7 @@
 [submodule "repos/meta-mender"]
 	path = repos/meta-mender
 	url = https://github.com/madisongh/meta-mender.git
-	branch = dunfell-with-overrides-conversion
+	branch = dunfell-kirkstone-compat
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
 	url = https://github.com/OE4T/meta-mender-community.git
