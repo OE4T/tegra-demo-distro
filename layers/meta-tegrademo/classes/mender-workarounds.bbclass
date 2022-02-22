@@ -1,9 +1,9 @@
 # Work around the global export of this variable
 # that is added in mender-setup.bbclass
 unset MENDER_MACHINE[export]
-# and the addition of the variable to the whitelist
-# which changes the signature for all tasks
-BB_HASHBASE_WHITELIST:remove = "MENDER_MACHINE"
+# and the addition of the variable to the ignore
+# list, which changes the signature for all tasks
+BB_BASEHASH_IGNORE_VARS:remove = "MENDER_MACHINE"
 
 DISTRO_FEATURES_BACKFILL:remove = "systemd"
 
