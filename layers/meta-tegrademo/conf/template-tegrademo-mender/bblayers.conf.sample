@@ -24,5 +24,5 @@ BBLAYERS ?= " \
   "
 
 # XXX temporary, until Mender supports something newer
-LAYERSERIES_COMPAT_mender:append = " honister kirkstone"
-LAYERSERIES_COMPAT_meta-mender-tegra:append = " honister kirkstone"
+LAYERSERIES_COMPAT_mender:append = " kirkstone"
+LAYERSERIES_COMPAT_meta-mender-tegra:append = " kirkstone"
