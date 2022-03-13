@@ -5,9 +5,9 @@ LICENSE = "MIT"
 inherit packagegroup
 
 RDEPENDS:${PN} = " \
-    haveged \
     procps \
     sshfs-fuse \
     strace \
     tegra-tools-tegrastats \
 "
+RDEPENDS:${PN}:append:tegra210 = " haveged"
