@@ -3,19 +3,22 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the meta-tegra BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-dunfell-32-6.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-wip-dunfell-32-7.svg)
 
 Metadata layers are brought in as git submodules:
 
 | Layer Repo            | Branch              | Description                                         |
 | --------------------- | --------------------|---------------------------------------------------- |
 | poky                  | dunfell             | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | dunfell             | L4T BSP layer - L4T R32.6.1/JetPack 4.6             |
+| meta-tegra            | dunfell             | L4T BSP layer - L4T R32.7.1/JetPack 4.6.1           |
 | meta-tegra-community  | dunfell             | OE4T layer with additions from the community        |
 | meta-openembedded     | dunfell             | OpenEmbedded layers                                 |
 | meta-virtualization   | dunfell             | Virtualization layer for docker support             |
 | meta-mender           | dunfell             | For meta-mender-core layer used in tegrademo-mender |
-| meta-mender-community | dunfell             | For meta-mender-tegra integration layer             |
+| meta-mender-community | dunfell-l4t-r32.7.1 | For meta-mender-tegra integration layer             |
+
+**NOTE:** The meta-mender-community repo and branch are temporarily from the OE4T fork, pending a PR with the R32.7.1 update
+          in the upstream repo.
 
 ## Prerequisites
 
