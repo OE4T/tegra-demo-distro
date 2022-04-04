@@ -15,10 +15,7 @@ Metadata layers are brought in as git submodules:
 | meta-openembedded     | dunfell             | OpenEmbedded layers                                 |
 | meta-virtualization   | dunfell             | Virtualization layer for docker support             |
 | meta-mender           | dunfell             | For meta-mender-core layer used in tegrademo-mender |
-| meta-mender-community | dunfell-l4t-r32.7.1 | For meta-mender-tegra integration layer             |
-
-**NOTE:** The meta-mender-community repo and branch are temporarily from the OE4T fork, pending a PR with the R32.7.1 update
-          in the upstream repo.
+| meta-mender-community | dunfell             | For meta-mender-tegra integration layer             |
 
 ## Prerequisites
 
