@@ -12,7 +12,7 @@ Metadata layers are brought in as git submodules:
 | poky                  | kirkstone  | OE-Core from poky repo at yoctoproject.org          |
 | meta-tegra            | kirkstone  | L4T BSP layer - L4T R32.7.1/JetPack 4.6.1           |
 | meta-tegra-community  | kirkstone  | OE4T layer with additions from the community        |
-| meta-openembedded     | master     | OpenEmbedded layers                                 |
+| meta-openembedded     | kirkstone  | OpenEmbedded layers                                 |
 | meta-virtualization   | master     | Virtualization layer for docker support             |
 | meta-mender           | *          | For meta-mender-core layer used in tegrademo-mender |
 | meta-mender-community | *          | For meta-mender-tegra integration layer             |
