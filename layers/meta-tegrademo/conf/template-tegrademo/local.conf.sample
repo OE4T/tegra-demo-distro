@@ -93,8 +93,8 @@ MACHINE ??= "qemux86-64"
 #  - 'package_ipk' for ipk files are used by opkg (a debian style embedded package manager)
 #  - 'package_rpm' for rpm style packages
 # E.g.: PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
-# We default to rpm:
-PACKAGE_CLASSES ?= "package_rpm"
+# The tegrademo distro defaults to rpm:
+#PACKAGE_CLASSES ?= "package_rpm"
 
 #
 # SDK target architecture
