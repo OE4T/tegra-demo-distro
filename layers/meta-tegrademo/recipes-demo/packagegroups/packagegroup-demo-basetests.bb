@@ -8,3 +8,5 @@ RDEPENDS:${PN} = " \
     cuda-samples \
     gpu-burn \
 "
+
+RDEPENDS:${PN}:append:tegra194 = " optee-test-prebuilt"
