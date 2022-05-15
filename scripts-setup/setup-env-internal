@@ -113,7 +113,7 @@ if [ ! -e $BUILDDIR/conf/local.conf ]; then
     if [ -z "$DISTRO" ]; then
         DISTRO=$DISTRO_DEFAULT
     fi
-    if ! distro_list | grep -q "$DISTRO"; then
+    if ! distro_list | egrep -qx "[[:space:]]*$DISTRO"; then
 	echo "ERROR: distro \"$DISTRO\" not found" >&2
 	echo "Available DISTROs:" >&2
 	distro_list >&2
