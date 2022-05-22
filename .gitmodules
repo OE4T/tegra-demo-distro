@@ -21,7 +21,7 @@
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
-	branch = wip-l4t-r32.7.2
+	branch = master
 [submodule "repos/meta-tegra-community"]
 	path = repos/meta-tegra-community
 	url = https://github.com/OE4T/meta-tegra-community
