@@ -17,7 +17,7 @@
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
 	url = https://github.com/OE4T/meta-mender-community.git
-	branch = dunfell-with-overrides-conversion
+	branch = kirkstone-next-r32.7.2
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
