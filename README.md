@@ -7,19 +7,19 @@ using Yocto Project tools and the meta-tegra BSP layer.
 
 Metadata layers are brought in as git submodules:
 
-| Layer Repo            | Branch  | Description                                         |
-| --------------------- | --------|---------------------------------------------------- |
-| poky                  | master  | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | master  | L4T BSP layer - L4T R32.7.1/JetPack 4.6.1           |
-| meta-tegra-community  | master  | OE4T layer with additions from the community        |
-| meta-openembedded     | master  | OpenEmbedded layers                                 |
-| meta-virtualization   | master  | Virtualization layer for docker support             |
-| meta-mender           | *       | For meta-mender-core layer used in tegrademo-mender |
-| meta-mender-community | *       | For meta-mender-tegra integration layer             |
+| Layer Repo            | Branch         | Description                                         |
+| --------------------- | ---------------|---------------------------------------------------- |
+| poky                  | master         | OE-Core from poky repo at yoctoproject.org          |
+| meta-tegra            | master         | L4T BSP layer - L4T R32.7.2/JetPack 4.6.2           |
+| meta-tegra-community  | master         | OE4T layer with additions from the community        |
+| meta-openembedded     | master         | OpenEmbedded layers                                 |
+| meta-virtualization   | master         | Virtualization layer for docker support             |
+| meta-mender           | *              | For meta-mender-core layer used in tegrademo-mender |
+| meta-mender-community | kirkstone-next | For meta-mender-tegra integration layer             |
 
-The `meta-mender` and `meta-mender-community` layers are hosted in local forks of the upstream
-Mender repositories. The branches are based on upstream `dunfell` content, with changes applied to
-accommodate the overrides syntax changes in OE-Core.
+The `meta-mender` layer is hosted in a local fork of the upstream Mender repository. The branch
+is based on upstream `dunfell` content, with changes applied to accommodate the overrides
+syntax changes in OE-Core.
 
 ## Prerequisites
 
