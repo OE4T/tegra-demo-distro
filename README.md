@@ -3,19 +3,24 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the meta-tegra BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-master.svg)
+**PLEASE NOTE** This is a work-in-progress branch for updating to
+JetPack 5.0.2/L4T R35.1.0. It is **not** for production use.
+Also note that the `tegrademo-mender` distro *does not yet work*.
 
 Metadata layers are brought in as git submodules:
 
 | Layer Repo            | Branch         | Description                                         |
 | --------------------- | ---------------|---------------------------------------------------- |
 | poky                  | master         | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | master         | L4T BSP layer - L4T R32.7.2/JetPack 4.6.2           |
-| meta-tegra-community  | master         | OE4T layer with additions from the community        |
+| meta-tegra            | (see note)     | L4T BSP layer - L4T R35.1.0/JetPack 5.0.2           |
+| meta-tegra-community  | (see note)     | OE4T layer with additions from the community        |
 | meta-openembedded     | master         | OpenEmbedded layers                                 |
 | meta-virtualization   | master         | Virtualization layer for docker support             |
 | meta-mender           | *              | For meta-mender-core layer used in tegrademo-mender |
 | meta-mender-community | kirkstone-next | For meta-mender-tegra integration layer             |
+
+The `meta-tegra` and `meta-tegra-community` layers are currently pointing to work-in-progress
+branches for JetPack 5.0.2 testing.
 
 The `meta-mender` layer is hosted in a local fork of the upstream Mender repository. The branch
 is based on upstream `dunfell` content, with changes applied to accommodate the overrides
