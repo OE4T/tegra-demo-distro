@@ -5,7 +5,7 @@ LICENSE = "MIT"
 inherit packagegroup
 
 RDEPENDS:${PN} = " \
-    gstreamer-tests \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'gstreamer-tests', '', d)} \
     l4t-graphics-demos-wayland \
     weston-examples \
 "
