@@ -10,4 +10,5 @@ RDEPENDS:${PN} = " \
     sshfs-fuse \
     strace \
     tegra-tools-tegrastats \
+    optee-client-prebuilt \
 "
