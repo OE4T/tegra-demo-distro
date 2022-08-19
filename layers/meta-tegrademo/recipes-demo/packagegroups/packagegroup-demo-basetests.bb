@@ -7,4 +7,5 @@ inherit packagegroup
 RDEPENDS:${PN} = " \
     cuda-samples \
     gpu-burn \
+    optee-test-prebuilt \
 "
