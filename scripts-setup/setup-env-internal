@@ -59,7 +59,7 @@ $(machine_list)
 
 Examples:
 - To create a new Yocto build directory:
-  $ . $PROGNAME --machine jetson-tx2 --distro testdistro build-testdistro
+  $ . $PROGNAME --machine jetson-xavier-nx-devkit --distro testdistro build-testdistro
 
 - To use an existing Yocto build directory:
   $ . $PROGNAME build-testdistro
