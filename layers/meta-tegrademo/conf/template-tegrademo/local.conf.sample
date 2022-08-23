@@ -9,17 +9,10 @@
 # You need to select a specific machine to target the build with.
 # The following machines are avilable in the meta-tegra layer:
 #
-#MACHINE ?= "jetson-nano-devkit-emmc"
-#MACHINE ?= "jetson-nano-devkit"
-#MACHINE ?= "jetson-nano-2gb-devkit"
-#MACHINE ?= "jetson-tx1-devkit"
-#MACHINE ?= "jetson-tx2-devkit-4gb"
-#MACHINE ?= "jetson-tx2-devkit"
-#MACHINE ?= "jetson-devkit-tx2i"
+#MACHINE ?= "jetson-agx-orin-devkit"
 #MACHINE ?= "jetson-agx-xavier-devkit"
 #MACHINE ?= "jetson-xavier-nx-devkit"
 #MACHINE ?= "jetson-xavier-nx-devkit-emmc"
-#MACHINE ?= "jetson-xavier-nx-devkit-tx2-nx"
 #@TD_SETUP_MACHINE@ - placeholder for automatic insertion by setup-env
 #
 # This sets the default machine to be qemux86-64 if no other machine is selected:
@@ -79,8 +72,6 @@ MACHINE ??= "qemux86-64"
 #@TD_SETUP_DISTRO@ - placeholder for automatic insertion by setup-env
 # Base distro for meta-tegra
 #DISTRO ?= "tegrademo"
-# Base distro with Mender OTA update support:
-#DISTRO ?= "tegrademo-mender"
 
 #
 # Package Management configuration
