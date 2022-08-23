@@ -5,7 +5,6 @@ using Yocto Project tools and the meta-tegra BSP layer.
 
 **PLEASE NOTE** This is a work-in-progress branch for updating to
 JetPack 5.0.2/L4T R35.1.0. It is **not** for production use.
-Also note that the `tegrademo-mender` distro *does not yet work*.
 
 Metadata layers are brought in as git submodules:
 
@@ -16,15 +15,9 @@ Metadata layers are brought in as git submodules:
 | meta-tegra-community  | (see note)     | OE4T layer with additions from the community        |
 | meta-openembedded     | master         | OpenEmbedded layers                                 |
 | meta-virtualization   | master         | Virtualization layer for docker support             |
-| meta-mender           | *              | For meta-mender-core layer used in tegrademo-mender |
-| meta-mender-community | kirkstone-next | For meta-mender-tegra integration layer             |
 
 The `meta-tegra` and `meta-tegra-community` layers are currently pointing to work-in-progress
 branches for JetPack 5.0.2 testing.
-
-The `meta-mender` layer is hosted in a local fork of the upstream Mender repository. The branch
-is based on upstream `dunfell` content, with changes applied to accommodate the overrides
-syntax changes in OE-Core.
 
 ## Prerequisites
 
@@ -77,25 +70,6 @@ Currently supported distributions are listed below:
 | Distribution name | Description                                                   |
 | ----------------- | ------------------------------------------------------------- |
 | tegrademo         | Default distro used to demonstrate/test meta-tegra features   |
-| tegrademo-mender  | Adds [mender](https://www.mender.io/) OTA support             |
-
-### tegrademo-mender
-
-The tegrademo-mender distro demonstrates [mender](https://www.mender.io/) OTA update
-support with customizations on the tegrademo distribution including:
-
-1. Dual A/B rootfs support with read-only-rootfs.
-2. Integration with cboot and [tegra-boot-tools](https://github.com/OE4T/tegra-boot-tools)
- to support persistent systemd machine-id settings on read only rootfs.
-3. Boot slot and rootfs partition synchronization through boot tools and bootloader
-integration.
-
-The synchronization of boot slot and root filesystem partition is more complicated to
-manage and test with via u-boot (see [this issue](https://github.com/BoulderAI/meta-mender-community/pull/1#issue-516955713)
-for detail).  For this reason, the tegrademo-mender distribution defaults to use the
-cboot bootloader on Jetson TX2, instead of the default u-boot bootloader used by
-meta-tegra.  If you need to use a different bootloader you can customize the setting
-of `PREFERRED_PROVIDER_virtual/bootloader_tegra186` in your distro layer.
 
 ## Images
 
