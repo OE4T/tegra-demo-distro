@@ -1,33 +1,27 @@
 # tegra-demo-distro
 
 Reference/demo distribution for NVIDIA Jetson platforms
-using Yocto Project tools and the meta-tegra BSP layer.
+using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegra) BSP layer.
 
 ![Build status](https://builder.madison.systems/badges/tegrademo-kirkstone.svg)
 
 Metadata layers are brought in as git submodules:
 
-| Layer Repo            | Branch     | Description                                         |
-| --------------------- | -----------|---------------------------------------------------- |
-| poky                  | kirkstone  | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | kirkstone  | L4T BSP layer - L4T R32.7.2/JetPack 4.6.2           |
-| meta-tegra-community  | kirkstone  | OE4T layer with additions from the community        |
-| meta-openembedded     | kirkstone  | OpenEmbedded layers                                 |
-| meta-virtualization   | master     | Virtualization layer for docker support             |
-| meta-mender           | *          | For meta-mender-core layer used in tegrademo-mender |
-| meta-mender-community | *          | For meta-mender-tegra integration layer             |
-
-The `meta-mender` and `meta-mender-community` layers are hosted in local forks of the upstream
-Mender repositories. The branches are based on upstream `dunfell` content, with changes applied to
-accommodate the overrides syntax changes in OE-Core.
+| Layer Repo            | Branch         | Description                                         |
+| --------------------- | ---------------|---------------------------------------------------- |
+| poky                  | kirkstone      | OE-Core from poky repo at yoctoproject.org          |
+| meta-tegra            | kirkstone      | L4T BSP layer - L4T R35.1.0/JetPack 5.0.2           |
+| meta-tegra-community  | kirkstone      | OE4T layer with additions from the community        |
+| meta-openembedded     | kirkstone      | OpenEmbedded layers                                 |
+| meta-virtualization   | kirkstone      | Virtualization layer for docker support             |
 
 ## Prerequisites
 
 See the [Yocto Project Quick Build](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
 documentation for information on setting up your build host.
 
-For burning SDcards (for the Jetson Nano or Jetson Xavier NX developer
-kits), the `bmap-tools` package is recommended.
+For burning SDcards (for Jetson Xavier NX developer kits), the `bmap-tools`
+package is recommended.
 
 ## Setting up
 
@@ -72,25 +66,6 @@ Currently supported distributions are listed below:
 | Distribution name | Description                                                   |
 | ----------------- | ------------------------------------------------------------- |
 | tegrademo         | Default distro used to demonstrate/test meta-tegra features   |
-| tegrademo-mender  | Adds [mender](https://www.mender.io/) OTA support             |
-
-### tegrademo-mender
-
-The tegrademo-mender distro demonstrates [mender](https://www.mender.io/) OTA update
-support with customizations on the tegrademo distribution including:
-
-1. Dual A/B rootfs support with read-only-rootfs.
-2. Integration with cboot and [tegra-boot-tools](https://github.com/OE4T/tegra-boot-tools)
- to support persistent systemd machine-id settings on read only rootfs.
-3. Boot slot and rootfs partition synchronization through boot tools and bootloader
-integration.
-
-The synchronization of boot slot and root filesystem partition is more complicated to
-manage and test with via u-boot (see [this issue](https://github.com/BoulderAI/meta-mender-community/pull/1#issue-516955713)
-for detail).  For this reason, the tegrademo-mender distribution defaults to use the
-cboot bootloader on Jetson TX2, instead of the default u-boot bootloader used by
-meta-tegra.  If you need to use a different bootloader you can customize the setting
-of `PREFERRED_PROVIDER_virtual/bootloader_tegra186` in your distro layer.
 
 ## Images
 
@@ -111,4 +86,3 @@ demo applications.
 
 Please see the contributor wiki page at [this link](https://github.com/OE4T/meta-tegra/wiki/OE4T-Contributor-Guide).
 Contributions are welcome!
-
