@@ -62,8 +62,8 @@ if [ -d layers/meta-tegrademo ]; then
     rm -rf ${LAYER_DIR}/recipes-*
 
     # Adjust the data in templates
-    mv ${LAYER_DIR}/conf/template-tegrademo ${LAYER_DIR}/conf/template-${DISTRO_NAME}
-    rm -rf ${LAYER_DIR}/conf/template-tegrademo
+    mv ${LAYER_DIR}/conf/templates/tegrademo ${LAYER_DIR}/conf/templates/${DISTRO_NAME}
+    rm -rf ${LAYER_DIR}/conf/templates/tegrademo
 
     # Adjust the data in conf/distro
     cat ${LAYER_DIR}/conf/distro/tegrademo.conf > ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
