@@ -10,14 +10,6 @@
 	path = repos/meta-virtualization
 	url = git://git.yoctoproject.org/meta-virtualization
 	branch = kirkstone
-[submodule "repos/meta-mender"]
-	path = repos/meta-mender
-	url = https://github.com/madisongh/meta-mender.git
-	branch = dunfell-kirkstone-compat
-[submodule "repos/meta-mender-community"]
-	path = repos/meta-mender-community
-	url = https://github.com/mendersoftware/meta-mender-community.git
-	branch = kirkstone-next
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
