@@ -14,12 +14,8 @@ Metadata layers are brought in as git submodules:
 | meta-tegra-community  | kirkstone-l4t-r32.7.x  | OE4T layer with additions from the community        |
 | meta-openembedded     | kirkstone              | OpenEmbedded layers                                 |
 | meta-virtualization   | kirkstone              | Virtualization layer for docker support             |
-| meta-mender           | *                      | For meta-mender-core layer used in tegrademo-mender |
+| meta-mender           | kirkstond              | For meta-mender-core layer used in tegrademo-mender |
 | meta-mender-community | kirkstone-next         | For meta-mender-tegra integration layer             |
-
-The `meta-mender` layer is hosted in a local fork of the upstream Mender repository.
-The branch is based on upstream `dunfell` content, with changes applied to
-accommodate the overrides syntax changes in OE-Core.
 
 ## Prerequisites
 
