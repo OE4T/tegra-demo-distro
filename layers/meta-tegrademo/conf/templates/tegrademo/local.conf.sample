@@ -18,13 +18,6 @@
 # This sets the default machine to be qemux86-64 if no other machine is selected:
 MACHINE ??= "qemux86-64"
 
-# Where to find NVIDIA binary packages
-#
-# For use when recipes require packages that can only be downloaded
-# with an NVIDIA Developer Network login.
-#@TD_SETUP_DEVNET_MIRROR@ - placeholder for automatic insertion by setup-env
-#NVIDIA_DEVNET_MIRROR ?= "file:///${HOME}/Downloads/nvidia/sdkm_downloads"
-
 #
 # Where to place downloads
 #
