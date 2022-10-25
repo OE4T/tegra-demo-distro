@@ -3,17 +3,17 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegra) BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-master.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-langdale.svg)
 
 Metadata layers are brought in as git submodules:
 
 | Layer Repo            | Branch         | Description                                         |
 | --------------------- | ---------------|---------------------------------------------------- |
-| poky                  | master         | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | master         | L4T BSP layer - L4T R35.1.0/JetPack 5.0.2           |
-| meta-tegra-community  | master         | OE4T layer with additions from the community        |
-| meta-openembedded     | master         | OpenEmbedded layers                                 |
-| meta-virtualization   | master         | Virtualization layer for docker support             |
+| poky                  | langdale       | OE-Core from poky repo at yoctoproject.org          |
+| meta-tegra            | langdale       | L4T BSP layer - L4T R35.1.0/JetPack 5.0.2           |
+| meta-tegra-community  | langdale       | OE4T layer with additions from the community        |
+| meta-openembedded     | langdale       | OpenEmbedded layers                                 |
+| meta-virtualization   | langdale       | Virtualization layer for docker support             |
 
 ## Prerequisites
 
