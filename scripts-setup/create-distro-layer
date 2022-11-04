@@ -75,9 +75,15 @@ if [ -d layers/meta-tegrademo ]; then
     rm -rf ${LAYER_DIR}/conf/template-tegrademo-mender
 
     # Adjust the data in conf/distro
-    cat ${LAYER_DIR}/conf/distro/tegrademo.conf > ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
+    cp ${LAYER_DIR}/conf/distro/tegrademo.conf ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
     if [ "${MENDER}" = true ]; then
-        cat ${LAYER_DIR}/conf/distro/tegrademo-mender.conf | tail -n +6 >> ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
+        cp ${LAYER_DIR}/conf/distro/tegrademo-mender.conf ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
+        # The mender layer needs to require the tegrademo.conf file and then replace the "include"
+        # line at the top to reference this file.  However, we can't let the global find/replace below
+        # remove the include.  So rename this file ${DISTRO_NAME} base and replace the reference here
+        # before the global find/replace below.
+        cp ${LAYER_DIR}/conf/distro/tegrademo.conf ${LAYER_DIR}/conf/distro/${DISTRO_NAME}-base.conf
+        sed -i "s/tegrademo.conf/${DISTRO_NAME}-base.conf/" ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
     fi
     rm -rf ${LAYER_DIR}/conf/distro/tegrademo.conf
     rm -rf ${LAYER_DIR}/conf/distro/tegrademo-mender.conf
