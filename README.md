@@ -15,7 +15,7 @@ Metadata layers are brought in as git submodules:
 | meta-openembedded     | kirkstone              | OpenEmbedded layers                                 |
 | meta-virtualization   | kirkstone              | Virtualization layer for docker support             |
 | meta-mender           | kirkstone              | For meta-mender-core layer used in tegrademo-mender |
-| meta-mender-community | kirkstone-next         | For meta-mender-tegra integration layer             |
+| meta-mender-community | kirkstone              | For meta-mender-tegra integration layer             |
 
 ## Prerequisites
 
