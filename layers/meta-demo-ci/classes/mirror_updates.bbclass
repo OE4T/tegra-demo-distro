@@ -117,7 +117,7 @@ python () {
     try:
         from oeaws import s3session
     except ImportError:
-        pass
+        s3session = None
 
     if bb.utils.to_boolean(d.getVar("UPDATE_DOWNLOADS_MIRROR")):
         mirror = urllib.parse.urlparse(d.getVar("DOWNLOADS_MIRROR_URL"))
