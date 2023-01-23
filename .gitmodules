@@ -16,8 +16,8 @@
 	branch = dunfell
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
-	url = https://github.com/OE4T/meta-mender-community.git
-	branch = dunfell-l4t-r32.7.3
+	url = https://github.com/mendersoftware/meta-mender-community.git
+	branch = dunfell
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
