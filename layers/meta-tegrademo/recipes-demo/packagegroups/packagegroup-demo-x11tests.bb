@@ -9,7 +9,6 @@ RDEPENDS:${PN} = " \
     cuda-samples \
     gstreamer-tests \
     l4t-graphics-demos-x11 \
-    libgl-mesa \
     mesa-demos \
     nvgstapps \
 "
