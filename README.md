@@ -10,7 +10,7 @@ Metadata layers are brought in as git submodules:
 | Layer Repo            | Branch         | Description                                         |
 | --------------------- | ---------------|---------------------------------------------------- |
 | poky                  | langdale       | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | langdale       | L4T BSP layer - L4T R35.1.0/JetPack 5.0.2           |
+| meta-tegra            | langdale       | L4T BSP layer - L4T R35.2.1/JetPack 5.1             |
 | meta-tegra-community  | langdale       | OE4T layer with additions from the community        |
 | meta-openembedded     | langdale       | OpenEmbedded layers                                 |
 | meta-virtualization   | langdale       | Virtualization layer for docker support             |
