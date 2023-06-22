@@ -18,3 +18,12 @@
 	path = repos/meta-tegra-community
 	url = https://github.com/OE4T/meta-tegra-community
 	branch = kirkstone
+[submodule "repos/meta-mender"]
+	path = repos/meta-mender
+	url = https://github.com/mendersoftware/meta-mender.git
+	branch = kirkstone
+[submodule "repos/meta-mender-community"]
+	path = repos/meta-mender-community
+	url = https://github.com/maciej-narojczyk/meta-mender-community.git
+	branch = naroj/dev3
+
