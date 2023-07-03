@@ -9,5 +9,7 @@ RDEPENDS:${PN} = " \
     sshfs-fuse \
     strace \
     tegra-tools-tegrastats \
+    ${ENTROPY_HELPER} \
 "
-RDEPENDS:${PN}:append:tegra210 = " haveged"
+ENTROPY_HELPER = "rng-tools"
+ENTROPY_HELPER:tegra210 = "haveged"
