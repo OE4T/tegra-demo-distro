@@ -17,7 +17,7 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-virtualization \
   ##OEROOT##/meta-tegra-community \
   ##OEROOT##/meta-mender-core \
-  ##OEROOT##/meta-mender-tegra \
+  ##OEROOT##/meta-mender-tegra/meta-mender-tegra-jetpack4 \
   ##OEROOT##/meta-tegra-support \
   ##OEROOT##/meta-demo-ci \
   ##OEROOT##/meta-tegrademo \

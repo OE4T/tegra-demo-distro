@@ -16,8 +16,8 @@
 	branch = kirkstone
 [submodule "repos/meta-mender-community"]
 	path = repos/meta-mender-community
-	url = https://github.com/mendersoftware/meta-mender-community.git
-	branch = kirkstone
+	url = https://github.com/theyoctojester/meta-mender-community.git
+	branch = oe4t-kirkstone-refactor
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
