@@ -22,6 +22,11 @@ SSTATE_MIRROR_URL ??= ""
 
 python downloads_mirror_update() {
     import os, shutil, urllib.parse
+    try:
+        from oeaws import aws_env
+        aws_env.fix_env(d)
+    except ImportError:
+        pass
 
     src_uri = (d.getVar("SRC_URI") or "").split()
     if len(src_uri) == 0:
@@ -79,6 +84,11 @@ python downloads_mirror_update() {
 
 python sstate_mirror_update() {
     import os, shutil, urllib.parse
+    try:
+        from oeaws import aws_env
+        aws_env.fix_env(d)
+    except ImportError:
+        pass
 
     if d.getVar('SSTATE_SKIP_CREATION') == '1':
         return
@@ -117,7 +127,7 @@ python () {
     try:
         from oeaws import s3session
     except ImportError:
-        s3session = None
+        pass
 
     if bb.utils.to_boolean(d.getVar("UPDATE_DOWNLOADS_MIRROR")):
         mirror = urllib.parse.urlparse(d.getVar("DOWNLOADS_MIRROR_URL"))
