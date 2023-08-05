@@ -13,7 +13,7 @@ dependencies, installed prior to use.
 Copyright (c) 2019-2020, Matthew Madison <matt@madison.systems>
 """
 
-import aws_env
+from oeaws import aws_env
 import bb
 
 
