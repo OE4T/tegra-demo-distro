@@ -19,7 +19,7 @@ REQUIRED_TD_BBLAYERS_CONF_VERSION = "${DISTRO}-5"
 
 LOCALCONF_VERSION = "2"
 
-TD_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan systemd pam virtualization"
+TD_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan systemd pam virtualization usrmerge"
 
 DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${TD_DEFAULT_DISTRO_FEATURES}"
 
