@@ -27,6 +27,10 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7e19", GROUP="plu
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7f21", GROUP="plugdev"
 # Jetson Orin AGX
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7023", GROUP="plugdev"
+# Jetson Orin Nano (P3767-0003 and P3767-0005 with 8GB)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7523", GROUP="plugdev"
+# Jetson Orin Nano (P3767-0004 with 4GB)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7623", GROUP="plugdev"
 EOF
 udevadm control --reload
 echo "udev settings applied, please disconnect/reconnect your device"
