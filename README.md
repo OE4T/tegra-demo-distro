@@ -3,7 +3,7 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegra) BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-master.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-mickledore.svg)
 
 Metadata layers are brought in as git submodules:
 
@@ -13,7 +13,7 @@ Metadata layers are brought in as git submodules:
 | meta-tegra            | mickledore     | L4T BSP layer - L4T R35.4.1/JetPack 5.1.2           |
 | meta-tegra-community  | mickledore     | OE4T layer with additions from the community        |
 | meta-openembedded     | mickledore     | OpenEmbedded layers                                 |
-| meta-virtualization   | master         | Virtualization layer for docker support             |
+| meta-virtualization   | mickledore     | Virtualization layer for docker support             |
 
 ## Prerequisites
 
