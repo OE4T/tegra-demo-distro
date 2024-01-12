@@ -54,6 +54,4 @@ INHERIT += "uninative"
 
 LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264"
 
-OLDEST_KERNEL:aarch64 = "5.10"
-
 USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
