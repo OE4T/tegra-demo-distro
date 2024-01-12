@@ -53,5 +53,3 @@ require conf/distro/include/security_flags.inc
 INHERIT += "uninative"
 
 LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264"
-
-OLDEST_KERNEL:aarch64 = "5.10"
