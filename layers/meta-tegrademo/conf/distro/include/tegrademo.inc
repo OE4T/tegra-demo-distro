@@ -41,9 +41,6 @@ SANITY_TESTED_DISTROS ?= " \
             ubuntu-22.04 \n \
             "
 
-# CUDA 10.2 requires gcc 8
-CUDA_GCCVERSION = "8.%"
-
 # Most NVIDIA-supplied services expect systemd
 INIT_MANAGER = "systemd"
 
