@@ -22,3 +22,6 @@
 	path = repos/meta-tegra-community
 	url = https://github.com/OE4T/meta-tegra-community
 	branch = kirkstone-l4t-r32.7.x
+[submodule "repos/meta-tegra"]
+	path = repos/meta-tegra
+	url = git@github.com:Trellis-Logic/meta-tegra.git
