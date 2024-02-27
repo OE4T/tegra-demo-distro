@@ -82,6 +82,12 @@ demo applications.
 | demo-image-weston | Wayland with Weston compositor                                |
 | demo-image-full   | Sato image plus nvidia-docker, openCV, multimedia API samples |
 
+### Update image demo
+
+A [swupdate](https://sbabic.github.io/swupdate/) demo image is also available which supports
+A/B rootfs updates to any of the supported images.  For details refer to
+[layers/meta-tegrademo/dynamic-layers/meta-swupdate/README.md](layers/meta-tegrademo/dynamic-layers/meta-swupdate/README.md).
+
 # Contributing
 
 Please see the contributor wiki page at [this link](https://github.com/OE4T/meta-tegra/wiki/OE4T-Contributor-Guide).
