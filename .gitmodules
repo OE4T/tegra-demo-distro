@@ -18,3 +18,6 @@
 	path = repos/meta-tegra-community
 	url = https://github.com/OE4T/meta-tegra-community
 	branch = kirkstone
+[submodule "repos/meta-dsensos"]
+	path = repos/meta-dsensos
+	url = git@github.com:DistributedSpectrum/meta-dsensos.git
