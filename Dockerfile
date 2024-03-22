@@ -11,13 +11,17 @@ RUN apt-get update && apt-get -y install gawk wget git diffstat unzip texinfo gc
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
-RUN useradd -m ds-build \
-    && echo "ds-build:ds-build" | chpasswd \
-    && adduser ds-build sudo
+ARG UNAME=sam
+ARG UID=1001
+ARG GID=1001
+
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+USER $UNAME
 
 WORKDIR /yocto
 
-USER ds-build
+#USER ds-build
 
 VOLUME ["/yocto"]
 
