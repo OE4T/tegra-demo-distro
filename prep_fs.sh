@@ -97,6 +97,10 @@ else
   exit
 fi
 
+# Disable password ssh 
+echo "Disabling password ssh..."
+sudo sed -i -e '/^PasswordAuthentication[[:space:]]/s/^/#/' -e '$aPasswordAuthentication no' ${curdir}/rootfs-${machine}/mnt/etc/ssh/sshd_config
+
 
 # copy the tailscale auth key to the image
 
