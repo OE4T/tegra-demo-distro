@@ -19,7 +19,7 @@ python tegra_distro_update_bblayersconf() {
 
     # On any mismatch, just use the template
     newconf = sanity_conf_read(os.path.join(distro_layerdir, 'conf',
-                                            'template-{}'.format(d.getVar('DISTRO')),
+                                            'templates/{}'.format(d.getVar('DISTRO')),
                                             'bblayers.conf.sample'))
     with open(bblayers_conf_file(d), "w") as f:
         f.write(''.join([line.replace('##OEROOT##', root).replace('##COREBASE##', root) for line in newconf]))
