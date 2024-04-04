@@ -8,7 +8,7 @@
 
 
 image=ds-image-sato
-machine=jetson-xavier-nx-devkit-emmc
+machine=jetson-xavier-nx-devkit
 builddir=build
 
 set -e
@@ -48,7 +48,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Check that the appropriate directory in /tmp exists
-if [ ! -d /tmp/ds-flash-jetson-xavier-nx-devkit-emmc ]; then
+if [ ! -d /tmp/ds-flash-${machine} ]; then
   echo "The directory /tmp/ds-flash-jetson-xavier-nx-devkit-emmc does not exist"
   exit
 fi

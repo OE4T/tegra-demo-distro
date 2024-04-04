@@ -8,6 +8,7 @@ RUN apt-get update && apt-get -y install gawk wget git diffstat unzip texinfo gc
          python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev python3-subunit mesa-common-dev \
          zstd liblz4-tool file locales libacl1 npm python3-venv
 
+RUN apt-get -y install tmux vim
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
