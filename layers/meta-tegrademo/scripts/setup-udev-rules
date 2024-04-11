@@ -25,8 +25,18 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7019", GROUP="plu
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7e19", GROUP="plugdev"
 # Jetson Nano
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7f21", GROUP="plugdev"
-# Jetson Orin AGX
+# Jetson Orin AGX (P3701-0000 Developer Kit module), (P3701-0005 with 64GB), (P3701-0008 with 64GB)
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7023", GROUP="plugdev"
+# Jetson Orin AGX (P3701-0004 with 32GB)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7223", GROUP="plugdev"
+# Jetson Orin NX (P3767-0000 with 16GB)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7323", GROUP="plugdev"
+# Jetson Orin NX (P3767-0001 with 8GB)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7423", GROUP="plugdev"
+# Jetson Orin Nano (P3767-0003 and P3767-0005 with 8GB)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7523", GROUP="plugdev"
+# Jetson Orin Nano (P3767-0004 with 4GB)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7623", GROUP="plugdev"
 EOF
 udevadm control --reload
 echo "udev settings applied, please disconnect/reconnect your device"
