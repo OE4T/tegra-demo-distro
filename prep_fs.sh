@@ -104,6 +104,27 @@ sudo sed -i -e '/^PasswordAuthentication[[:space:]]/s/^/#/' -e '$aPasswordAuthen
 
 # copy the tailscale auth key to the image
 
+# add the /data mount point
+echo "Ensuring /data directory exists..."
+if [ ! -d ${curdir}/rootfs-${machine}/mnt/data ]; then
+    mkdir ${curdir}/rootfs-${machine}/mnt/data
+    echo "/data directory created."
+else
+    echo "/data directory already exists."
+fi
+
+# mount the ssd 
+echo "Adding fstab entry for /dev/nvme0n1..."
+FSTAB_ENTRY="/dev/nvme0n1 /data ext4 defaults 0 2"
+
+# First, ensure the entry does not already exist to avoid duplicates
+if ! grep -q "/dev/nvme0n1" ${curdir}/rootfs-${machine}/mnt/etc/fstab; then
+    echo "$FSTAB_ENTRY" >> ${curdir}/rootfs-${machine}/mnt/etc/fstab
+    echo "fstab entry added."
+else
+    echo "fstab entry for /dev/nvme0n1 already exists."
+fi
+
 # unmount the fs image
 echo "Unmounting the image..."
 umount ${curdir}/rootfs-${machine}/mnt
