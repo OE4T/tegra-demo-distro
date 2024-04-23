@@ -1,6 +1,7 @@
 #!/bin/bash
 image=ds-image-sato
-machine=jetson-xavier-nx-devkit
+#image=demo-image-sato
+machine=jetson-orin-nx-devkit
 builddir=build
 
 scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
