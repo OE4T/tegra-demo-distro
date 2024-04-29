@@ -20,6 +20,7 @@ RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 USER $UNAME
 
+RUN mkdir -p /home/$UNAME/.ssh && ssh-keyscan github.com > /home/$UNAME/.ssh/known_hosts
 WORKDIR /yocto
 
 #USER ds-build
