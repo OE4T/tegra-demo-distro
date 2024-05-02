@@ -1,3 +1,7 @@
+# ds-tegra-demo-distro
+Follow setup and usage instructions here:
+https://www.notion.so/distributedspectrum/Building-and-Flashing-Sensor-Images-using-Yocto-c4a053f75b7a4895a9716cca6d0f4083
+
 # tegra-demo-distro
 
 Reference/demo distribution for NVIDIA Jetson platforms
