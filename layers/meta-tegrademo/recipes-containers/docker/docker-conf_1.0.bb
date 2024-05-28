@@ -7,16 +7,14 @@ SRC_URI = "\
     file://docker-overlay.fstab \
 "
 
-S = "${WORKDIR}"
-
 do_install() {
-    if [ -s ${S}/docker-storage-redirect.conf ]; then
+    if [ -s ${UNPACKDIR}/docker-storage-redirect.conf ]; then
         install -d ${D}${systemd_system_unitdir}/docker.service.d
-        install -m 0644 ${S}/docker-storage-redirect.conf ${D}${systemd_system_unitdir}/docker.service.d/
+        install -m 0644 ${UNPACKDIR}/docker-storage-redirect.conf ${D}${systemd_system_unitdir}/docker.service.d/
     fi
-    if [ -s ${S}/docker-overlay.fstab ]; then
+    if [ -s ${UNPACKDIR}/docker-overlay.fstab ]; then
         install -d ${D}${sysconfdir}
-        install -m 0644 ${S}/docker-overlay.fstab ${D}${sysconfdir}/
+        install -m 0644 ${UNPACKDIR}/docker-overlay.fstab ${D}${sysconfdir}/
     fi
 }
 

@@ -15,14 +15,13 @@ SRC_URI:append:secureboot = " \
 SWUPDATE_BOARDNAME ??= "${MACHINE}"
 SWUPDATE_HWREVISION ??= "1.0"
 
-S = "${WORKDIR}"
 B = "${WORKDIR}/build"
 
 do_compile() {
     rm -f ${B}/hwrevision
     echo "${SWUPDATE_BOARDNAME} ${SWUPDATE_HWREVISION}" > ${B}/hwrevision
     sed -e's,@MODEL@,${SWUPDATE_BOARDNAME},g' \
-	${S}/swupdate.cfg.in > ${B}/swupdate.cfg.in    
+	${UNPACKDIR}/swupdate.cfg.in > ${B}/swupdate.cfg.in
 }
 
 do_install() {
@@ -32,13 +31,13 @@ do_install() {
     install -d ${D}${datadir}/swupdate
     install -m 0644 ${B}/swupdate.cfg.in ${D}${datadir}/swupdate/
     install -d ${D}${libexecdir}/swupdate
-    install -m 0755 ${S}/swupdate-genconfig.sh ${D}${libexecdir}/swupdate/swupdate-genconfig
+    install -m 0755 ${UNPACKDIR}/swupdate-genconfig.sh ${D}${libexecdir}/swupdate/swupdate-genconfig
     install -d ${D}${sysconfdir}/systemd/system/swupdate.service.d
-    install -m 0644 ${S}/swupdate-mods.conf ${D}${sysconfdir}/systemd/system/swupdate.service.d/
+    install -m 0644 ${UNPACKDIR}/swupdate-mods.conf ${D}${sysconfdir}/systemd/system/swupdate.service.d/
 }
 
 do_install:append:secureboot() {
-    install -m 0644 ${S}/swupdate.pem ${D}${datadir}/swupdate/
+    install -m 0644 ${UNPACKDIR}/swupdate.pem ${D}${datadir}/swupdate/
 }
 
 FILES:${PN} += "${datadir}/swupdate"
