@@ -9,12 +9,14 @@ SRC_URI = "\
     file://data-overlay-setup.service.in \
 "
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 B = "${WORKDIR}/build"
 
 inherit systemd
 
 do_compile() {
-    for inf in ${UNPACKDIR}/*.in; do
+    for inf in ${S}/*.in; do
         [ -e $inf ] || continue
         outf=$(basename $inf .in)
         sed -e 's,@BINDIR@,${bindir},g' \
