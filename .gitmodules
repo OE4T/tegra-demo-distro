@@ -21,3 +21,6 @@
 [submodule "repos/meta-dsensos"]
 	path = repos/meta-dsensos
 	url = git@github.com:DistributedSpectrum/meta-dsensos.git
+[submodule "repos/meta-lts-mixins"]
+	path = repos/meta-lts-mixins
+	url = git://git.yoctoproject.org/meta-lts-mixins
