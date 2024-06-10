@@ -11,6 +11,6 @@ DISTRO=$2
 shift 2
 
 # Set up the environment
-source /yocto/setup-env --machine $MACHINE --distro $DISTRO
+source /yocto/setup-env --machine $MACHINE --distro $DISTRO /yocto/build
 
 exec /bin/bash

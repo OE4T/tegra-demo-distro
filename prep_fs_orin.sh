@@ -8,7 +8,7 @@
 
 
 image=ds-image-sato
-machine=jetson-orin-nx-devkit
+machine=jetson-orin-nx-a603
 builddir=build
 hostname=ds-onx-yocto
 
@@ -114,6 +114,19 @@ else
     echo "/data directory already exists."
 fi
 
+# edit the default power model and fan model
+echo "Setting the default power model to 3 (should be 20W)"
+sed -i -e 's/< PM_CONFIG DEFAULT=[0-9]\+ >/ PM_CONFIG DEFAULT=3 >/'  ${curdir}/rootfs-${machine}/mnt/etc/nvpmodel.conf
+
+echo "Setting the default fan control setting to cool"
+sed -i -e 's/FAN_DEFAULT_PROFILE [^ ]\+/FAN_DEFAULT_PROFILE cool/' ${curdir}/rootfs-${machine}/mnt/etc/nvfancontrol.conf
+
+
+# Unpack the sensor-portal-precompiled.tar.gz tarball into /opt/ds
+echo "Unpacking sensor-portal-precompiled.tar.gz into /opt/ds..."
+# mkdir -p ${curdir}/rootfs-${machine}/mnt/opt/ds
+tar -xzf ${curdir}/sensor-portal-precompiled.tar.gz -C ${curdir}/rootfs-${machine}/mnt/opt/ds/
+echo "Unpacking completed."
 
 # unmount the fs image
 echo "Unmounting the image..."
