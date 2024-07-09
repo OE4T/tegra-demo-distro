@@ -60,7 +60,7 @@ echo "Checking for existing sparse image..."
 if [ -f /tmp/ds-flash-${machine}/${image}.ext4.img ]; then
   echo "The file /tmp/ds-flash-${machine}/${image}.ext4.img already exists"
   echo "Deleting old sparse image..."
-  rm /tmp/ds-flash-jetson-xavier-nx-devkit-emmc/${image}.ext4.img
+  rm /tmp/ds-flash-jetson-orin-nx-a603/${image}.ext4.img
   echo "Old sparse image deleted"
 fi
 
@@ -116,7 +116,7 @@ fi
 
 # edit the default power model and fan model
 echo "Setting the default power model to 3 (should be 20W)"
-sed -i -e 's/< PM_CONFIG DEFAULT=[0-9]\+ >/ PM_CONFIG DEFAULT=3 >/'  ${curdir}/rootfs-${machine}/mnt/etc/nvpmodel.conf
+sed -i -e 's/< PM_CONFIG DEFAULT=[0-9]\+ >/ < PM_CONFIG DEFAULT=3 >/'  ${curdir}/rootfs-${machine}/mnt/etc/nvpmodel.conf
 
 echo "Setting the default fan control setting to cool"
 sed -i -e 's/FAN_DEFAULT_PROFILE [^ ]\+/FAN_DEFAULT_PROFILE cool/' ${curdir}/rootfs-${machine}/mnt/etc/nvfancontrol.conf
