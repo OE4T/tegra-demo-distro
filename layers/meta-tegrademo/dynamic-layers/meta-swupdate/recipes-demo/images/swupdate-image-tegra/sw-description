@@ -40,7 +40,7 @@ software =
 				files: (
 					{
 						filename = "tegra-bl.cap";
-						path = "/opt/nvidia/esp/EFI/UpdateCapsule/TEGRA_BL.Cap";
+						path = "/boot/efi/EFI/UpdateCapsule/TEGRA_BL.Cap";
 						properties = {create-destination = "true";}
 					}
 				);
@@ -87,7 +87,7 @@ software =
 				files: (
 					{
 						filename = "tegra-bl.cap";
-						path = "/opt/nvidia/esp/EFI/UpdateCapsule/TEGRA_BL.Cap";
+						path = "/boot/efi/EFI/UpdateCapsule/TEGRA_BL.Cap";
 						properties = {create-destination = "true";}
 					}
 				);
