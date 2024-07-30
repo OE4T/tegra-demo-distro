@@ -35,4 +35,7 @@ KERNEL_B_DTB_PARTNAME:tegra194 = "kernel-dtb_b"
 IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-uefi-capsules"
 
 # images and files that will be included in the .swu image
-SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE}"
+DTBFILE_PATH = "${@'${EXTERNAL_KERNEL_DEVICETREE}/${DTBFILE}' if len(d.getVar('EXTERNAL_KERNEL_DEVICETREE')) else '${DTBFILE}'}"
+SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE_PATH}"
+
+do_swuimage[depends] += "${DTB_EXTRA_DEPS}"
