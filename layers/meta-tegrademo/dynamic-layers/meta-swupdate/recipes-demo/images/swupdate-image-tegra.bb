@@ -23,13 +23,9 @@ ROOTFS_FILENAME ?= "${SWUPDATE_CORE_IMAGE_NAME}-${MACHINE}.rootfs.tar.gz"
 
 # Handle differences in redundant partition naming on t194 platforms
 KERNEL_A_PARTNAME = "A_kernel"
-KERNEL_A_PARTNAME:tegra194 = "kernel"
 KERNEL_A_DTB_PARTNAME = "A_kernel-dtb"
-KERNEL_A_DTB_PARTNAME:tegra194 = "kernel-dtb"
 KERNEL_B_PARTNAME = "B_kernel"
-KERNEL_B_PARTNAME:tegra194 = "kernel_b"
 KERNEL_B_DTB_PARTNAME = "B_kernel-dtb"
-KERNEL_B_DTB_PARTNAME:tegra194 = "kernel-dtb_b"
 
 # images to build before building swupdate image
 IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-uefi-capsules"
