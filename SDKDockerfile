@@ -41,20 +41,20 @@ RUN chown developer:developer /home/developer/
 # Copy the Yocto SDK installer into the container
 COPY ./build/tmp/deploy/sdk/ /home/developer/sdk/
 
-# Set the user and working directory
-USER developer
-WORKDIR /home/developer
-
-# Find the SDK installer script and execute it
-RUN SDK_INSTALLER=$(find /home/developer/sdk/ -name "*.sh" | head -n 1) && \
-    chmod +x "$SDK_INSTALLER" && \
+# Find the SDK installer script in the specified directory without recursing
+RUN SDK_INSTALLER=$(find /home/developer/sdk/ -maxdepth 1 -name "*.sh" | head -n 1) && \
+    echo "Found SDK installer: $SDK_INSTALLER" && \
     bash -x "$SDK_INSTALLER" -y
 
 # Clean up to reduce the image size
 RUN rm -rf /home/developer/sdk/
 
+# Set the user and working directory
+USER developer
+WORKDIR /home/developer
+
 # Find the SDK environment setup script and add it to .bashrc for future sessions
-RUN SDK_ENV=$(find /opt/ -name "environment-setup-*" | head -n 1) && \
+RUN SDK_ENV=$(find /opt/ -maxdepth 1 -name "environment-setup-*" | head -n 1) && \
     echo "source $SDK_ENV" >> /home/developer/.bashrc
 
 # Expose any ports if necessary (adjust as per your needs)
