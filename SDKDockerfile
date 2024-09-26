@@ -1,0 +1,65 @@
+# Use an Ubuntu base image (you can customize this as per your requirements)
+FROM ubuntu:20.04
+
+# Set the environment variables for non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install basic dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    locales \
+    sudo \
+    curl \
+    wget \
+    git \
+    tar \
+    xz-utils \
+    unzip \
+    vim \
+    libncurses5-dev \
+    libncursesw5-dev \
+    python3 \
+    python3-pip \
+    cmake \
+    make \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the locale (optional, adjust if necessary)
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+# Create a user for development (optional but recommended)
+RUN useradd -ms /bin/bash developer && echo "developer:developer" | chpasswd && adduser developer sudo
+
+RUN chmod 777 /home/developer/
+RUN chown developer:developer /home/developer/
+
+# Copy the Yocto SDK installer into the container
+COPY ./build/tmp/deploy/sdk/ /home/developer/sdk/
+
+# Set the user and working directory
+USER developer
+WORKDIR /home/developer
+
+# Find the SDK installer script and execute it
+RUN SDK_INSTALLER=$(find /home/developer/sdk/ -name "*.sh" | head -n 1) && \
+    chmod +x "$SDK_INSTALLER" && \
+    bash -x "$SDK_INSTALLER" -y
+
+# Clean up to reduce the image size
+RUN rm -rf /home/developer/sdk/
+
+# Find the SDK environment setup script and add it to .bashrc for future sessions
+RUN SDK_ENV=$(find /opt/ -name "environment-setup-*" | head -n 1) && \
+    echo "source $SDK_ENV" >> /home/developer/.bashrc
+
+# Expose any ports if necessary (adjust as per your needs)
+EXPOSE 22
+
+# Keep the container running and ensure the environment is sourced
+CMD ["bash", "--login"]
+
