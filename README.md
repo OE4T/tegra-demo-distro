@@ -7,13 +7,13 @@ using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegr
 
 Metadata layers are brought in as git submodules:
 
-| Layer Repo            | Branch         | Description                                         |
-| --------------------- | ---------------|---------------------------------------------------- |
-| poky                  | scarthgap      | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | scarthgap      | L4T BSP layer - L4T R35.5.0/JetPack 5.1.3           |
-| meta-tegra-community  | scarthgap      | OE4T layer with additions from the community        |
-| meta-openembedded     | scarthgap      | OpenEmbedded layers                                 |
-| meta-virtualization   | scarthgap      | Virtualization layer for docker support             |
+| Layer Repo            | Branch                   | Description                                         |
+| --------------------- | -------------------------|---------------------------------------------------- |
+| poky                  | scarthgap                | OE-Core from poky repo at yoctoproject.org          |
+| meta-tegra            | scarthgap-l4t-r35.x      | L4T BSP layer - L4T R35.6.0/JetPack 5.1.6           |
+| meta-tegra-community  | scarthgap-l4t-r35.x      | OE4T layer with additions from the community        |
+| meta-openembedded     | scarthgap                | OpenEmbedded layers                                 |
+| meta-virtualization   | scarthgap                | Virtualization layer for docker support             |
 
 ## Prerequisites
 
