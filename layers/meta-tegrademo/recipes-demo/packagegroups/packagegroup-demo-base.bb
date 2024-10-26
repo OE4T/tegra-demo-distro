@@ -5,7 +5,6 @@ LICENSE = "MIT"
 inherit packagegroup
 
 RDEPENDS:${PN} = " \
-    haveged \
     procps \
     sshfs-fuse \
     strace \
