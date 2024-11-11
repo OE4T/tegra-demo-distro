@@ -23,10 +23,12 @@ TD_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan sy
 
 DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${TD_DEFAULT_DISTRO_FEATURES}"
 
-# Jetson platforms do not use linux-yocto, but for QEMU testing
-# align with the poky distro.
-PREFERRED_VERSION_linux-yocto ?= "5.19%"
-PREFERRED_VERSION_linux-yocto-rt ?= "5.19%"
+# As of L4T R36, Jetson platforms can use linux-yocto
+# instead of linux-jammy-nvidia-tegra
+TEGRA_DEFAULT_KERNEL ?= "linux-yocto"
+PREFERRED_PROVIDER_virtual/kernel:tegra = "${TEGRA_DEFAULT_KERNEL}"
+PREFERRED_VERSION_linux-yocto ?= "6.10%"
+PREFERRED_VERSION_linux-yocto-rt ?= "6.10%"
 
 SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
 SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}"
@@ -45,6 +47,7 @@ INIT_MANAGER = "systemd"
 require conf/distro/include/no-static-libs.inc
 require conf/distro/include/yocto-uninative.inc
 require conf/distro/include/security_flags.inc
+require conf/distro/include/yocto-space-optimize.inc
 INHERIT += "uninative"
 
 LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264"
