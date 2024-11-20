@@ -69,6 +69,10 @@ if [ -d layers/meta-tegrademo ]; then
     cat ${LAYER_DIR}/conf/distro/tegrademo.conf > ${LAYER_DIR}/conf/distro/${DISTRO_NAME}.conf
     rm -rf ${LAYER_DIR}/conf/distro/tegrademo.conf
 
+    # Adjust the data in conf/distro/include
+    cat ${LAYER_DIR}/conf/distro/include/tegrademo.inc > ${LAYER_DIR}/conf/distro/include/${DISTRO_NAME}.inc
+    rm -rf ${LAYER_DIR}/conf/distro/include/tegrademo.inc
+
     # Change Layer attributes from tegrademo
     find ${LAYER_DIR} -type f -exec sed -i "s/tegrademo/${DISTRO_NAME}/" {} \;
 
