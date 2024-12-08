@@ -1,0 +1,20 @@
+header:
+  version: 14
+
+machine: jetson-orin-nano-devkit-nvme
+
+target:
+  - swupdate-image-tegra
+
+
+repos:
+  meta-swupdate:
+    url: https://github.com/sbabic/meta-swupdate
+    path: layers/meta-swupdate
+
+local_conf_header:
+    swupdate-tegra: |
+      IMAGE_INSTALL:append = " swupdate"
+      USE_REDUNDANT_FLASH_LAYOUT = "1"
+      IMAGE_FSTYPES:append = " tar.gz"
+      SWUPDATE_CORE_IMAGE_NAME ?= "demo-image-base"

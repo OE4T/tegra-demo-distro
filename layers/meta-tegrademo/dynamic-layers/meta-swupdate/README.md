@@ -9,6 +9,42 @@ also contains relevant images and submodules used to build tegra images.
 However, this is not strictly required.  The only dependency required
 is the [meta-tegra](https://github.com/OE4T/meta-tegra) layer.
 
+## Build with KAS
+
+The files under [conf/kas](conf/kas) support building with
+the [kas](https://kas.readthedocs.io/).
+
+The setups here represent the last configuration tested.
+
+### Install kas
+```
+pip3 install kas
+```
+
+### Build with kas
+
+Use the scripts at [scripts](scripts), for instance
+
+```
+./scripts/build-jetson-orin-nano-devkit-nvme.sh
+```
+to build for the jetson-orin-nano-devkit-nvme `MACHINE` on the
+default branch configuration.
+
+The default build will build for whatever branch of this
+repository you've cloned and latest branch of corresponding
+repositories.
+
+To build the latest tested configuration instead, use kas
+build to specify the swupdate-oe4t-lasttested.yml file from
+the base directory, for instance:
+
+```
+kas build layers/meta-tegrademo/dynamic-layers/meta-swupdate/conf/kas/swupdate-oe4t-lasttested.yml
+```
+You may need to modify the machine setting or set KAS_MACHINE appropriately.
+
+
 ## Build with tegra-demo-distro
 
 Use these instructions to add to tegra-demo-distro on whatever

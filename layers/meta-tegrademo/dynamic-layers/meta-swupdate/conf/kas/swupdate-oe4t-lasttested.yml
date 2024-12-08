@@ -1,0 +1,5 @@
+header:
+  version: 14
+  includes:
+    - layers/meta-tegrademo/dynamic-layers/meta-swupdate/conf/kas/swupdate-oe4t.yml
+    - layers/meta-tegrademo/dynamic-layers/meta-swupdate/conf/kas/include/tegra-demo-distro-swupdate-lasttested.yml
