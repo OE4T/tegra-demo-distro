@@ -92,3 +92,25 @@ swupdate -i </path/to/swu/file>
   * The root partition should change
   * The `nvbootctrl dump-slots-info` output should show boot
 from the alternate boot slot with `Capsule update status:1`.
+
+# Build Options
+
+The tegra_swupdate.bbclass contains global configuration options
+for the swupdate demo.
+
+## TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT
+
+Set
+```
+TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT = "true"
+```
+in your local.conf or layer to only run the capsule update when
+a different bootloader version is detected in the alternate slot,
+where bootloader version is set based on ${L4T_VERSION} but can
+be modified by overriding variable `TEGRA_SWUPDATE_BOOTLOADER_VERSION`
+
+When this variable is set, the capsule payload will not be installed
+as a part of the update when the alternate partition is found to contain
+the same bootloader release version (rootfs was built with the same
+value of `TEGRA_SWUPDATE_BOOTLOADER_VERSION`.  Instead, the rootfs
+will be switched to the alternate rootfs.
