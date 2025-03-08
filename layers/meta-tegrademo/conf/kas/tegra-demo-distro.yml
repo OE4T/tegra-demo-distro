@@ -1,8 +1,7 @@
 header:
   version: 14
   includes:
-    - repo: meta-tegrademo
-      file: conf/kas/include/tegra-demo-distro-branch.yml
+    - layers/meta-tegrademo/conf/kas/include/tegra-demo-distro-branch.yml
 
 distro: tegrademo
 
@@ -12,21 +11,18 @@ target:
 machine: jetson-orin-nano-devkit
 
 repos:
-  meta-tegra-support:
-    path: ../tegra-demo-distro/layers/meta-tegra-support
-
-  meta-tegrademo:
-    path: ../tegra-demo-distro/layers/meta-tegrademo
-
-  meta-demo-ci:
-    path: ../tegra-demo-distro/layers/meta-demo-ci
+  tegra-demo-distro:
+    layers:
+      layers/meta-tegra-support:
+      layers/meta-tegrademo:
+      layers/meta-demo-ci:
 
   meta-tegra:
-    path: ../tegra-demo-distro/repos/meta-tegra
+    path: repos/meta-tegra
     url: https://github.com/OE4T/meta-tegra.git
 
   meta-openembedded:
-    path: ../tegra-demo-distro/repos/meta-openembedded
+    path: repos/meta-openembedded
     url: https://git.openembedded.org/meta-openembedded
     layers:
       meta-filesystems:
@@ -36,15 +32,15 @@ repos:
 
 
   meta-tegra-community:
-    path: ../repos/meta-tegra-community
+    path: repos/meta-tegra-community
     url: https://github.com/OE4T/meta-tegra-community
 
   meta-virtualization:
-    path: ../repos/meta-virtualization
+    path: repos/meta-virtualization
     url: https://git.yoctoproject.org/meta-virtualization
 
   poky:
-    path: ../repos/poky
+    path: repos/poky
     url: https://git.yoctoproject.org/poky
     layers:
       meta:
