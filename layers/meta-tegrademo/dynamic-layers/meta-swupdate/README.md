@@ -23,7 +23,13 @@ pip3 install kas
 
 ### Build with kas
 
-Use the scripts at [scripts](scripts), for instance
+Start by cloning this repo with
+
+```
+git clone <url> --shallow-submodules
+```
+
+Then use the scripts at [scripts](scripts) to kick of the build for instance
 
 ```
 ./scripts/build-jetson-orin-nano-devkit-nvme.sh

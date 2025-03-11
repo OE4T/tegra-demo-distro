@@ -8,6 +8,6 @@ fi
 base_layer_path=$(realpath $(dirname $0))/../
 echo "move to the base repo directory"
 pushd $(dirname $0)/../../../../../
-echo "Ensure we've setup submodules at least once"
-git submodule update --init --recursive
+echo "Ensure we've initialized submodules before running kas on cloned repo with submodules"
+git submodule update --init --no-fetch --recommend-shallow
 kas build --update ${base_layer_path}/conf/kas/swupdate-oe4t.yml
