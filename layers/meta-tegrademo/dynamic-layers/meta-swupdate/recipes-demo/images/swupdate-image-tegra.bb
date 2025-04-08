@@ -30,10 +30,12 @@ KERNEL_B_DTB_PARTNAME = "B_kernel-dtb"
 KERNEL_B_DTB_PARTNAME:tegra194 = "kernel-dtb_b"
 
 # images to build before building swupdate image
-IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-uefi-capsules tegra-swupdate-script"
+IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-uefi-capsules tegra-swupdate-script tegra-espimage"
+
+ESP_ARCHIVE ?= "${TEGRA_ESP_IMAGE}-${MACHINE}.tar.gz"
 
 # images and files that will be included in the .swu image
-SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE} tegra-swupdate-script.lua"
+SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE} tegra-swupdate-script.lua ${ESP_ARCHIVE}"
 
 # Add a link using the core image name.swu to the resulting swu image
 do_swuimage:append() {
