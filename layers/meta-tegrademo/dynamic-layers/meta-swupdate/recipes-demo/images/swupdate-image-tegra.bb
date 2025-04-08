@@ -34,3 +34,8 @@ IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-uefi-capsules tegra-swupdate-
 
 # images and files that will be included in the .swu image
 SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE} tegra-swupdate-script.lua"
+
+# Add a link using the core image name.swu to the resulting swu image
+do_swuimage:append() {
+    os.symlink(d.getVar("IMAGE_NAME") + ".swu", d.getVar("SWUPDATE_CORE_IMAGE_NAME") + "-" + d.getVar("MACHINE") + ".swu")
+}
