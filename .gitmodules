@@ -13,7 +13,7 @@
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
-	branch = scarthgap
+	branch = wip-scarthgap-l4t-r36.4.3
 [submodule "repos/meta-tegra-community"]
 	path = repos/meta-tegra-community
 	url = https://github.com/OE4T/meta-tegra-community
