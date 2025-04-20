@@ -3,14 +3,16 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegra) BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-scarthgap.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-wip-scarthgap-36-4-3.svg)
+
+**WORK IN PROGRESS** Do not use for production.
 
 Metadata layers are brought in as git submodules:
 
 | Layer Repo            | Branch         | Description                                         |
 | --------------------- | ---------------|---------------------------------------------------- |
 | poky                  | scarthgap      | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | scarthgap      | L4T BSP layer - L4T R36.4.0/JetPack 6.1             |
+| meta-tegra            | wip-scarthgap-l4t-r36.4.3      | L4T BSP layer - L4T R36.4.3/JetPack 6.2             |
 | meta-tegra-community  | scarthgap      | OE4T layer with additions from the community        |
 | meta-openembedded     | scarthgap      | OpenEmbedded layers                                 |
 | meta-virtualization   | scarthgap      | Virtualization layer for docker support             |
