@@ -23,10 +23,8 @@ TD_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan sy
 
 DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${TD_DEFAULT_DISTRO_FEATURES}"
 
-# Jetson platforms do not use linux-yocto, but for QEMU testing
-# align with the poky distro.
-PREFERRED_VERSION_linux-yocto ?= "5.19%"
-PREFERRED_VERSION_linux-yocto-rt ?= "5.19%"
+PREFERRED_VERSION_linux-yocto ?= "6.6%"
+PREFERRED_VERSION_linux-yocto-rt ?= "6.6%"
 
 SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
 SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}"
