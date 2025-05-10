@@ -13,7 +13,7 @@ Metadata layers are brought in as git submodules:
 | meta-tegra            | walnascar      | L4T BSP layer - L4T R36.4.3/JetPack 6.2             |
 | meta-tegra-community  | walnascar      | OE4T layer with additions from the community        |
 | meta-openembedded     | walnascar      | OpenEmbedded layers                                 |
-| meta-virtualization   | master         | Virtualization layer for docker support             |
+| meta-virtualization   | walnascar      | Virtualization layer for docker support             |
 
 ## Prerequisites
 
