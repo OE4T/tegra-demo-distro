@@ -6,4 +6,5 @@ inherit packagegroup
 
 RDEPENDS:${PN} = " \
     vulkan-tools \
+    tegra-libraries-vulkan \
 "
