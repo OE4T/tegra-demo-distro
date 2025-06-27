@@ -7,8 +7,7 @@ inherit devicetree
 
 COMPATIBLE_MACHINE = "(tegra)"
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+S = "${UNPACKDIR}"
 
 SRC_URI = "\
     file://tegra194-p2888-0001-p2822-0000-oe4t.dts \

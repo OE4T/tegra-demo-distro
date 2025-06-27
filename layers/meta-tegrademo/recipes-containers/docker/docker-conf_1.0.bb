@@ -7,8 +7,7 @@ SRC_URI = "\
     file://docker-overlay.fstab \
 "
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+S = "${UNPACKDIR}"
 
 do_install() {
     if [ -s ${S}/docker-storage-redirect.conf ]; then
