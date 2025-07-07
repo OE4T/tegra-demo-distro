@@ -10,7 +10,7 @@ Metadata layers are brought in as git submodules:
 | Layer Repo            | Branch                   | Description                                         |
 | --------------------- | -------------------------|---------------------------------------------------- |
 | poky                  | scarthgap                | OE-Core from poky repo at yoctoproject.org          |
-| meta-tegra            | scarthgap-l4t-r35.x      | L4T BSP layer - L4T R35.6.1/JetPack 5.1.5           |
+| meta-tegra            | scarthgap-l4t-r35.x      | L4T BSP layer - L4T R35.6.2/JetPack 5.1.5           |
 | meta-tegra-community  | scarthgap-l4t-r35.x      | OE4T layer with additions from the community        |
 | meta-openembedded     | scarthgap                | OpenEmbedded layers                                 |
 | meta-virtualization   | scarthgap                | Virtualization layer for docker support             |
