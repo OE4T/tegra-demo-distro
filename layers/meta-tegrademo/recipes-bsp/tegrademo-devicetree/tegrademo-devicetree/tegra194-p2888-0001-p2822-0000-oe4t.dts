@@ -1,9 +1,0 @@
-#include "tegra194-p2888-0001-p2822-0000.dts"
-
-/* adds compatible string for oe4t, for demonstration purposes */
-/ {
-	nvidia,dtsfilename = __FILE__;
-	nvidia,dtbbuildtime = __DATE__, __TIME__;
-
-	compatible = "oe4t,p2822-0000+p2888-0001+tegrademo", "nvidia,galen", "nvidia,jetson-xavier", "nvidia,p2822-0000+p2888-0001", "nvidia,tegra194";
-};
