@@ -7,29 +7,27 @@ inherit devicetree
 
 COMPATIBLE_MACHINE = "(tegra)"
 
+DEPENDS += "nvidia-kernel-oot"
+
 SRC_URI = "\
-    file://tegra194-p2888-0001-p2822-0000-oe4t.dts \
-    file://tegra194-p3668-all-p3509-0000-oe4t.dts \
+    file://tegra234-p3737-0000+p3701-0000-oe4t.dts \
+    file://tegra234-p3768-0000+p3767-0000-oe4t.dts \
 "
 
-KERNEL_INCLUDE = " \
-    ${STAGING_KERNEL_DIR}/nvidia/soc/tegra/kernel-include \
-    ${STAGING_KERNEL_DIR}/nvidia/platform/tegra/common/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/soc/t19x/kernel-include \
-    ${STAGING_KERNEL_DIR}/nvidia/soc/t19x/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/platform/t19x/common/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/soc/t23x/kernel-include \
-    ${STAGING_KERNEL_DIR}/nvidia/soc/t23x/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/platform/t23x/common/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/platform/t19x/galen/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/platform/t19x/jakku/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/platform/t19x/mccoy/kernel-dts \
-    ${STAGING_KERNEL_DIR}/nvidia/platform/t23x/concord/kernel-dts \
-    ${STAGING_KERNEL_DIR}/scripts/dtc/include-prefixes \
+DT_INCLUDE = " \
+    ${RECIPE_SYSROOT}/usr/src/device-tree/nvidia/tegra/nv-public \
+    ${RECIPE_SYSROOT}/usr/src/device-tree/nvidia/t23x/nv-public/include/kernel \
+    ${RECIPE_SYSROOT}/usr/src/device-tree/nvidia/t23x/nv-public/include/nvidia-oot \
+    ${RECIPE_SYSROOT}/usr/src/device-tree/nvidia/t23x/nv-public/include/platforms \
+    ${RECIPE_SYSROOT}/usr/src/device-tree/nvidia/t23x/nv-public \
+    ${RECIPE_SYSROOT}/usr/src/device-tree/nvidia/t23x/nv-public/nv-platform \
+    ${S} \
+    ${KERNEL_INCLUDE} \
 "
 
-# Straight from arch/arm64/boot/dts in kernel source tree
-DTC_PPFLAGS:append = " -DLINUX_VERSION=504 -DTEGRA_HOST1X_DT_VERSION=1"
+
+# From kernel-devicetree/generic-dts/Makefile
+DTC_PPFLAGS:append = " -DLINUX_VERSION=600 -DTEGRA_HOST1X_DT_VERSION=2"
 
 # re-implement function from devicetree.bbclass to preserve order of KERNEL_INCLUDE
 def expand_includes(varname, d):
