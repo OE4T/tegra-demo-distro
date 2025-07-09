@@ -1,0 +1,6 @@
+#include "tegra234-p3768-0000+p3767-0000-nv-super.dts"
+
+/* adds compatible string for oe4t, for demonstration purposes */
+/ {
+	compatible = "oe4t,p3768-0000+p3767-0000+tegrademo", "nvidia,p3768-0000+p3767-0000-super", "nvidia,p3767-0000", "nvidia,tegra234";
+};

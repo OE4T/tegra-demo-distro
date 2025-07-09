@@ -1,9 +1,0 @@
-#include "tegra194-p3668-all-p3509-0000.dts"
-
-/* adds compatible string for oe4t, for demonstration purposes */
-/ {
-	nvidia,dtsfilename = __FILE__;
-	nvidia,dtbbuildtime = __DATE__, __TIME__;
-
-	compatible = "oe4t,p3449-0000+p3668-0000+tegrademo", "nvidia,p3449-0000+p3668-0000", "nvidia,p3449-0000+p3668-0001", "nvidia,p3509-0000+p3668-0000", "nvidia,p3509-0000+p3668-0001", "nvidia,tegra194";
-};
