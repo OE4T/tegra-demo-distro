@@ -14,6 +14,7 @@ S = "${UNPACKDIR}"
 SRC_URI = "\
     file://tegra234-p3737-0000+p3701-0000-oe4t.dts \
     file://tegra234-p3768-0000+p3767-0000-oe4t.dts \
+    file://tegra234-p3768-0000+p3767-0005-oe4t.dts \
 "
 
 DT_INCLUDE = " \
