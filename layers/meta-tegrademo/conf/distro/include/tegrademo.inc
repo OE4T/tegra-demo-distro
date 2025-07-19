@@ -53,3 +53,4 @@ INHERIT += "uninative"
 LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264"
 
 USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
+EXTRA_OECMAKE:append:pn-tini = " -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
