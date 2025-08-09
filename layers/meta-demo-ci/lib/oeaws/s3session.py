@@ -51,7 +51,7 @@ class S3Session(object):
         for attempt in range(self.maxtries):
             try:
                 self.s3client.upload_file(Bucket=Bucket, Key=Key, Filename=Filename)
-            except (botocore.exceptions.NoCredentialsError, botocore.exceptions.EndpointConnectionError):
+            except (botocore.exceptions.NoCredentialsError, botocore.exceptions.EndpointConnectionError, botocore.exceptions.ConnectionClosedError):
                 s3retry_wait(attempt)
                 continue
             except botocore.exceptions.ClientError as e:
@@ -73,7 +73,7 @@ class S3Session(object):
                 if 'LastModified' in info:
                     mtime = int(time.mktime(info['LastModified'].timetuple()))
                     os.utime(Filename, (mtime, mtime))
-            except (botocore.exceptions.NoCredentialsError, botocore.exceptions.EndpointConnectionError):
+            except (botocore.exceptions.NoCredentialsError, botocore.exceptions.EndpointConnectionError, botocore.exceptions.ConnectionClosedError):
                 s3retry_wait(attempt)
                 continue
             except botocore.exceptions.ClientError as e:
@@ -99,7 +99,7 @@ class S3Session(object):
         for attempt in range(10):
             try:
                 info = self.s3client.head_object(Bucket=Bucket, Key=Key)
-            except botocore.exceptions.NoCredentialsError:
+            except (botocore.exceptions.NoCredentialsError, botocore.exceptions.ConnectionClosedError):
                 s3retry_wait(attempt)
                 continue
             except botocore.exceptions.ClientError as e:
