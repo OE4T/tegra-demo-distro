@@ -1,6 +1,6 @@
 DISTRO = "tegrademo"
 DISTRO_NAME = "OE4Tegra Demonstration Distro"
-DISTRO_VERSION_BASE = "5.2.3"
+DISTRO_VERSION_BASE = "5.2.4"
 DISTRO_VERSION = "${DISTRO_VERSION_BASE}+snapshot-${METADATA_REVISION}"
 DISTRO_CODENAME = "walnascar"
 SDK_VENDOR = "-tdsdk"
