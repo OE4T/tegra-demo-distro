@@ -26,6 +26,25 @@ local function file_exists(path)
     end
 end
 
+function reset_unbootable_status(slot)
+    local result = -1
+    local slot_str = "SlotA"
+    if tostring(slot) == "1" then
+        slot_str = "SlotB"
+    end
+
+    local value = "\\x00\\x00\\x00\\x00"
+    local guid = "781e084c-a330-417c-b678-38e696380cb9"
+    local varname = "RootfsStatus" .. slot_str
+
+    -- call external set_efi_var binary
+    local cmd = string.format('/bin/sh -c ". /usr/bin/uefi_common.func; set_efi_var \'%s\' \'%s\' \'%s\'"', varname, guid, value)
+    result, detail = os.execute(cmd)
+    if result ~= true then
+        print("WARNING: Unable to reset unbootable status for slot " .. slot_str .. " with command " .. cmd .. " : " .. tostring(detail))
+    end
+end
+
 function postinst()
     local success = false
     local result = ""
@@ -37,8 +56,15 @@ function postinst()
 
     if file_exists("@TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@") then
         print("Running bootloader update script")
-        success = os.execute("/usr/bin/oe4t-set-uefi-OSIndications")
-        result = "oe4t-set-uefi-OSIndications completed with status: " .. tostring(success)
+        success, detail = os.execute("/usr/bin/oe4t-set-uefi-OSIndications")
+        result = "oe4t-set-uefi-OSIndications complete with "
+        if success then
+            result = result .. "success"
+            print("Resetting unbootable status for slot " .. alt_slot)
+            reset_unbootable_status(alt_slot)
+        else
+            result = result .. "failure: " .. tostring(detail)
+        end
     else
         if @TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT@ then
             print("Running os switch instead of bootloader update since @TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@ is missing")
