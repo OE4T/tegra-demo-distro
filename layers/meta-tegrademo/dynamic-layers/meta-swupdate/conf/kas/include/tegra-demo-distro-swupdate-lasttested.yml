@@ -4,24 +4,24 @@ header:
 repos:
   meta-swupdate:
     branch: master
-    commit: e7fdc1e09e816d0118a145068b7fff338d8bb3db
+    commit: b0253e9cecccc47ebee31c71403957cccd941e0f
 
   meta-tegra:
     branch: master
-    commit: acb5907d2c6cf79b666fd7de631ef9518a2025fe
+    commit: 2036dab65492279f5b1bbd752837157413bb2016
 
   meta-openembedded:
     branch: master
-    commit: c225779474d7f39db13ad5bba6850de7e8c41b8e
+    commit: d1b67ac99e023f9abc34f215caba770a46af5723
 
   meta-tegra-community:
     branch: master
-    commit: d95b55630470cd3c4c362e92fc42a97850dccce2
+    commit: dcbf9eb2c9db5faacad8562985ec97a4607b77c8
 
   meta-virtualization:
     branch: master
-    commit: 1640a4dc81f5d06a1e43c9870fefb2a0d016ef81
+    commit: 437efd9259c1786c130c724290cb1e46d50edcb2
 
   poky:
     branch: master
-    commit: 7434b5428971576c6c1422d0a385084936ee9768
+    commit: 8cf9a46970cb09ce0c1ee38d5f3916fb79e19057
