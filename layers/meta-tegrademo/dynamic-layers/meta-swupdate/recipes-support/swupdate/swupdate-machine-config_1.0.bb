@@ -7,7 +7,7 @@ inherit tegra_swupdate
 SRC_URI = "\
     file://swupdate.cfg.in \
     file://swupdate-genconfig.sh.in \
-    file://swupdate-mods.conf \
+    file://swupdate-mods.conf.in \
 "
 
 SRC_URI:append:secureboot = " \
@@ -16,6 +16,7 @@ SRC_URI:append:secureboot = " \
 
 SWUPDATE_BOARDNAME ??= "${MACHINE}"
 SWUPDATE_HWREVISION ??= "1.0"
+TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER ??= ""
 
 S = "${WORKDIR}"
 B = "${WORKDIR}/build"
@@ -26,8 +27,15 @@ do_compile() {
     sed -e's,@MODEL@,${SWUPDATE_BOARDNAME},g' \
 	    ${S}/swupdate.cfg.in > ${B}/swupdate.cfg.in
     sed -e's,@DATADIR@,${datadir},g' \
+        -e"s,@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@,${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER},g" \
 	    ${S}/swupdate-genconfig.sh.in > ${B}/swupdate-genconfig.sh
     echo "tegra-bootloader-capsule    ${TEGRA_SWUPDATE_BOOTLOADER_VERSION}" > ${B}/sw-versions-thisslot
+    TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER_DIR_DEPENDS=""
+    if [ -n "${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER}" ]; then
+        TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER_DIR_DEPENDS="WantsMountsFor=$(dirname ${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER})"
+    fi
+    sed -e"s,@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER_DIR_DEPENDS@,${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER_DIR_DEPENDS},g" \
+        ${S}/swupdate-mods.conf.in > ${B}/swupdate-mods.conf
 }
 
 do_install() {
@@ -39,9 +47,15 @@ do_install() {
     install -d ${D}${libexecdir}/swupdate
     install -m 0755 ${B}/swupdate-genconfig.sh ${D}${libexecdir}/swupdate/swupdate-genconfig
     install -d ${D}${sysconfdir}/systemd/system/swupdate.service.d
-    install -m 0644 ${S}/swupdate-mods.conf ${D}${sysconfdir}/systemd/system/swupdate.service.d/
+    install -m 0644 ${B}/swupdate-mods.conf ${D}${sysconfdir}/systemd/system/swupdate.service.d/
     install -m 0644 ${B}/sw-versions-thisslot ${D}${datadir}/swupdate/
     ln -s /run/swupdate/sw-versions ${D}${sysconfdir}/sw-versions
+    if [ -n "${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER}" ]; then
+        installdir=$(dirname ${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER})
+        install -d ${D}$installdir
+        touch ${D}${installdir}/$(basename ${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER}0)
+        touch ${D}${installdir}/$(basename ${TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER}1)
+    fi
 }
 
 do_install:append:secureboot() {
@@ -50,6 +64,7 @@ do_install:append:secureboot() {
 
 FILES:${PN} += "${datadir}/swupdate"
 FILES:${PN} += "${sysconfdir}/sw-versions"
+FILES:${PN} += "/data/*"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 EXTRADEPS = "tegra-redundant-boot"
 RDEPENDS:${PN} += "${EXTRADEPS}"
