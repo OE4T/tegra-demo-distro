@@ -120,3 +120,19 @@ as a part of the update when the alternate partition is found to contain
 the same bootloader release version (rootfs was built with the same
 value of `TEGRA_SWUPDATE_BOOTLOADER_VERSION`.  Instead, the rootfs
 will be switched to the alternate rootfs.
+
+
+## TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER
+Set
+```
+TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER = "/path/to/persistent/fileprefix-"
+```
+in your local.conf or layer to write a last capsule update complete
+slot marker to denote whether a slot has been booted successfully on
+a given slot after capsule update.  This value is also set when
+the initial image is written. When missing for the target slot,
+a capsule update will be forced regardless of the setting of the
+TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT option.  This setting
+is recommended when using TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT
+to avoid cases where a failed capsule update renders a slot unbootable for
+updates performed via slot switch.

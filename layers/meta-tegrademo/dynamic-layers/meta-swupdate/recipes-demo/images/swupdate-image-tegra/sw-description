@@ -49,7 +49,7 @@ software =
 					{
 						filename = "@@ESP_ARCHIVE@@"
 						type = "archive"
-						installed-directly = "true"
+						installed-directly = true
 						path = "/boot/efi"
 						name = "tegra-bootloader-capsule"
 						version = "@@TEGRA_SWUPDATE_BOOTLOADER_VERSION@@"
@@ -108,7 +108,7 @@ software =
 					{
 						filename = "@@ESP_ARCHIVE@@"
 						type = "archive"
-						installed-directly = "true"
+						installed-directly = true
 						path = "/boot/efi"
 						name = "tegra-bootloader-capsule"
 						version = "@@TEGRA_SWUPDATE_BOOTLOADER_VERSION@@"
