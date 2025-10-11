@@ -1,5 +1,7 @@
 #!/bin/sh
 datadir=@DATADIR@
+complete_marker=@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@
+
 get_current_slot() {
     curslot=$(nvbootctrl get-current-slot)
     if [ $curslot -eq 1 ]; then
@@ -25,6 +27,34 @@ if [ "$BOOTSLOT" = "a" ]; then
     ALTROOTSLOT="${ALTROOTSLOT}_b"
 fi
 
+FORCE_CAPSULE_UPDATE=false
+if [ -n "${complete_marker}" ]; then
+    # ensure complete marker dir exists in upgrade scenario
+    mkdir -p $(dirname ${complete_marker})
+    complete_marker_path_current_slot="${complete_marker}0"
+    complete_marker_path_target_slot="${complete_marker}1"
+    if [ ${BOOTSLOT} == "b" ]; then
+        complete_marker_path_current_slot="${complete_marker}1"
+        complete_marker_path_target_slot="${complete_marker}0"
+    fi
+    if [ -e "${complete_marker_path_current_slot}-inprogress" ]; then
+        echo "Moving incomplete marker at ${complete_marker_path_current_slot}-inprogress to complete marker after successful boot"
+        mv "${complete_marker_path_current_slot}-inprogress" ${complete_marker_path_current_slot}
+    fi
+    if ! systemctl status $(systemd-escape -p $(dirname ${complete_marker_path_target_slot}) --suffix=mount) > /dev/null; then
+        echo "Mount failed for ${complete_marker_path_target_slot}, forcing capsule update"
+        FORCE_CAPSULE_UPDATE=true
+    fi
+    if [ -e "${complete_marker_path_target_slot}-inprogress" ]; then
+        echo "Incomplete marker exits at ${complete_marker_path_target_slot}-inprogress, forcing capsule update"
+        FORCE_CAPSULE_UPDATE=true
+    fi
+    if [ ! -e "${complete_marker_path_target_slot}" ]; then
+        echo "Complete marker does not exist at ${complete_marker_path_target_slot}, forcing capsule update"
+        FORCE_CAPSULE_UPDATE=true
+    fi
+fi
+
 
 rm -f /run/swupdate/swupdate.cfg
 
@@ -39,15 +69,21 @@ sed -e"s,@SWVERSION@,$VERSION_ID," \
     /${datadir}/swupdate/swupdate.cfg.in > /run/swupdate/swupdate.cfg
 
 rm -f /run/swupdate/sw-versions
-alt_rootfs_dev="/dev/disk/by-partlabel/$ALTROOTSLOT"
-tmp_mount=`mktemp -d`
-mount -o ro $alt_rootfs_dev $tmp_mount
-if [ -e $tmp_mount/usr/share/swupdate/sw-versions-thisslot ]; then
-    echo "Setup sw-versions based on $ALTROOTSLOT"
-    cp $tmp_mount/${datadir}/swupdate/sw-versions-thisslot /run/swupdate/sw-versions
-else
-    echo "Alternate slot $ALTROOTSLOT does not contain sw-versions, using empty file"
+
+if ${FORCE_CAPSULE_UPDATE}; then
+    echo "Forcing capsule update with empty sw-versions file"
     touch /run/swupdate/sw-versions
+else
+    alt_rootfs_dev="/dev/disk/by-partlabel/$ALTROOTSLOT"
+    tmp_mount=`mktemp -d`
+    mount -o ro $alt_rootfs_dev $tmp_mount
+    if [ -e $tmp_mount/usr/share/swupdate/sw-versions-thisslot ]; then
+        echo "Setup sw-versions based on $ALTROOTSLOT"
+        cp $tmp_mount/${datadir}/swupdate/sw-versions-thisslot /run/swupdate/sw-versions
+    else
+        echo "Alternate slot $ALTROOTSLOT does not contain sw-versions, using empty file"
+        touch /run/swupdate/sw-versions
+    fi
+    umount $tmp_mount
+    rm -rf $tmp_mount
 fi
-umount $tmp_mount
-rm -rf $tmp_mount
