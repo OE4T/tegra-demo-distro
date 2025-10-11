@@ -26,6 +26,17 @@ local function file_exists(path)
     end
 end
 
+local function write_file(path, content)
+    local file, err = io.open(path, "w")
+    if not file then
+        print("Failed to open file for writing: " .. path .. " (" .. tostring(err) .. ")")
+        return false
+    end
+    file:write(content)
+    file:close()
+    return true
+end
+
 function reset_unbootable_status(slot)
     local result = -1
     local slot_str = "SlotA"
@@ -53,6 +64,7 @@ function postinst()
         result = "Couldn't determine current or alt slot"
         return success, result
     end
+    local inprogress_slot_marker = "@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" .. alt_slot .. "-inprogress"
 
     if file_exists("@TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@") then
         print("Running bootloader update script")
@@ -62,6 +74,15 @@ function postinst()
             result = result .. "success"
             print("Resetting unbootable status for slot " .. alt_slot)
             reset_unbootable_status(alt_slot)
+            if "@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" ~= "" then
+                os.remove("@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" .. alt_slot)
+                local ok = write_file(inprogress_slot_marker, current_slot)
+                if ok then
+                    print("Wrote capsule update inprogress slot marker for slot " .. alt_slot .. " at " ..  inprogress_slot_marker)
+                else
+                    print("Failed to write capsule update inprogress slot marker for slot " .. alt_slot .. " at " .. inprogress_slot_marker .. ", slot swiching will be disabled")
+                end
+            end
         else
             result = result .. "failure: " .. tostring(detail)
         end
@@ -78,6 +99,9 @@ function postinst()
             result = "Missing @TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@, cannot complete update"
         end
 
+        if "@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" ~= "" and file_exists(inprogress_slot_marker) then
+            print("WARNING: Last capsule update for slot" .. alt_slot .. " was incomplete as " .. inprogress_slot_marker .. " exists, this target slot may be corrupt.")
+        end
     end
     return success, result
 end
