@@ -1,0 +1,5 @@
+[Unit]
+@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER_DIR_DEPENDS@
+
+[Service]
+ExecStartPre=/usr/libexec/swupdate/swupdate-genconfig
