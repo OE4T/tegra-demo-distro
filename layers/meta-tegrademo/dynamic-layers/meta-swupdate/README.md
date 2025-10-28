@@ -56,3 +56,41 @@ swupdate -i </path/to/swu/file>
   * The root partition should change
   * The `nvbootctrl dump-slots-info` output should show boot
 from the alternate boot slot with `Capsule update status:1`.
+
+# Build Options
+
+The tegra_swupdate.bbclass contains global configuration options
+for the swupdate demo.
+
+## TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT
+
+Set
+```
+TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT = "true"
+```
+in your local.conf or layer to only run the capsule update when
+a different bootloader version is detected in the alternate slot,
+where bootloader version is set based on ${L4T_VERSION} but can
+be modified by overriding variable `TEGRA_SWUPDATE_BOOTLOADER_VERSION`
+
+When this variable is set, the capsule payload will not be installed
+as a part of the update when the alternate partition is found to contain
+the same bootloader release version (rootfs was built with the same
+value of `TEGRA_SWUPDATE_BOOTLOADER_VERSION`.  Instead, the rootfs
+will be switched to the alternate rootfs.
+
+
+## TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER
+Set
+```
+TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER = "/path/to/persistent/fileprefix-"
+```
+in your local.conf or layer to write a last capsule update complete
+slot marker to denote whether a slot has been booted successfully on
+a given slot after capsule update.  This value is also set when
+the initial image is written. When missing for the target slot,
+a capsule update will be forced regardless of the setting of the
+TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT option.  This setting
+is recommended when using TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT
+to avoid cases where a failed capsule update renders a slot unbootable for
+updates performed via slot switch.

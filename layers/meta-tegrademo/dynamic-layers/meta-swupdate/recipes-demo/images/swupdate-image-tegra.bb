@@ -6,10 +6,9 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 
 SRC_URI = "\
     file://sw-description \
-    file://bootloader-update.lua \
 "
 
-inherit swupdate image_types_tegra
+inherit swupdate image_types_tegra tegra_swupdate
 
 DEPLOY_KERNEL_IMAGE ?= "${@os.path.basename(tegra_kernel_image(d))}"
 
@@ -21,7 +20,6 @@ SWUPDATE_CORE_IMAGE_NAME ?= "demo-image-base"
 
 ROOTFS_FILENAME ?= "${SWUPDATE_CORE_IMAGE_NAME}-${MACHINE}.rootfs.tar.gz"
 
-# Handle differences in redundant partition naming on t194 platforms
 KERNEL_A_PARTNAME = "A_kernel"
 KERNEL_A_PARTNAME:tegra194 = "kernel"
 KERNEL_A_DTB_PARTNAME = "A_kernel-dtb"
@@ -31,8 +29,21 @@ KERNEL_B_PARTNAME:tegra194 = "kernel_b"
 KERNEL_B_DTB_PARTNAME = "B_kernel-dtb"
 KERNEL_B_DTB_PARTNAME:tegra194 = "kernel-dtb_b"
 
-# images to build before building swupdate image
-IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-uefi-capsules"
+# images to build before building swupdate image. For any non image depends, add to the do_swuimage[depends] instead.
+IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-espimage"
+
+ESP_ARCHIVE ?= "${TEGRA_ESP_IMAGE}-${MACHINE}.tar.gz"
 
 # images and files that will be included in the .swu image
-SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE}"
+SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE} tegra-swupdate-script.lua ${ESP_ARCHIVE}"
+
+# All non-image related depends go here
+do_swuimage[depends] += "${@'virtual/dtb:do_deploy' if d.getVar('PREFERRED_PROVIDER_virtual/dtb') else ''}"
+do_swuimage[depends] += "virtual/kernel:do_deploy"
+do_swuimage[depends] += "tegra-uefi-capsules:do_deploy"
+do_swuimage[depends] += "tegra-swupdate-script:do_deploy"
+
+# Add a link using the core image name.swu to the resulting swu image
+do_swuimage:append() {
+    os.symlink(d.getVar("IMAGE_NAME") + ".swu", d.getVar("SWUPDATE_CORE_IMAGE_NAME") + "-" + d.getVar("MACHINE") + ".swu")
+}
