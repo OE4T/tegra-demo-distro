@@ -39,11 +39,15 @@ repos:
     path: repos/meta-virtualization
     url: https://git.yoctoproject.org/meta-virtualization
 
-  poky:
-    path: repos/poky
-    url: https://git.yoctoproject.org/poky
+  openembedded-core:
+    path: repos/openembedded-core
+    url: https://github.com/openembedded/openembedded-core.git
     layers:
       meta:
+
+  bitbake:
+    path: repos/bitbake
+    url: https://github.com/openembedded/bitbake.git
 
 local_conf_header:
   tegra: |
