@@ -1,7 +1,3 @@
-[submodule "poky"]
-	path = repos/poky
-	url = git://git.yoctoproject.org/poky
-	branch = master
 [submodule "repos/meta-openembedded"]
 	path = repos/meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
@@ -17,4 +13,12 @@
 [submodule "repos/meta-tegra-community"]
 	path = repos/meta-tegra-community
 	url = https://github.com/OE4T/meta-tegra-community
+	branch = master
+[submodule "repos/bitbake"]
+	path = repos/bitbake
+	url = https://github.com/openembedded/bitbake.git
+	branch = master
+[submodule "repos/openembedded-core"]
+	path = repos/openembedded-core
+	url = https://github.com/openembedded/openembedded-core.git
 	branch = master

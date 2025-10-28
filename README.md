@@ -9,7 +9,8 @@ Metadata layers are brought in as git submodules:
 
 | Layer Repo            | Branch         | Description                                         |
 | --------------------- | ---------------|---------------------------------------------------- |
-| poky                  | master         | OE-Core from poky repo at yoctoproject.org          |
+| bitbake               | master         | bitbake tool                                        |
+| openembedded-core     | master         | OE-Core                                             |
 | meta-tegra            | master         | L4T BSP layer - L4T R36.4.4/JetPack 6.2.1           |
 | meta-tegra-community  | master         | OE4T layer with additions from the community        |
 | meta-openembedded     | master         | OpenEmbedded layers                                 |
