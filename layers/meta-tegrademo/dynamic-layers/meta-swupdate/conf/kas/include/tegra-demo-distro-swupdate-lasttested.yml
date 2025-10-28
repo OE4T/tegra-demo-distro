@@ -22,6 +22,10 @@ repos:
     branch: master
     commit: 437efd9259c1786c130c724290cb1e46d50edcb2
 
-  poky:
+  openembedded-core:
     branch: master
-    commit: 8cf9a46970cb09ce0c1ee38d5f3916fb79e19057
+    commit: f3046716c9c565e6f65d5169694cd3da126cfaeb
+
+  bitbake:
+    branch: master
+    commit: f65bc6aaf4c11bc7e566c895209c093627a3015b
