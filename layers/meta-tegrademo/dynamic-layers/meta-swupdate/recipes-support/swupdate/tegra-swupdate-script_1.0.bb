@@ -8,7 +8,9 @@ SRC_URI = "\
     file://tegra-swupdate-script.lua.in \
 "
 
-inherit tegra_swupdate deploy
+inherit deploy
+
+require tegra-swupdate.inc
 
 do_compile() {
     unpackdir=${WORKDIR}

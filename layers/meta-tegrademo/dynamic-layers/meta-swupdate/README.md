@@ -59,7 +59,7 @@ from the alternate boot slot with `Capsule update status:1`.
 
 # Build Options
 
-The tegra_swupdate.bbclass contains global configuration options
+The tegra-swupdate.inc file contains global configuration options
 for the swupdate demo.
 
 ## TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT
