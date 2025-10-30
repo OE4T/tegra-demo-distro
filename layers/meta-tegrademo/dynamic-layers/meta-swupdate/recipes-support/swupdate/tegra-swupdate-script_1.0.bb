@@ -11,7 +11,9 @@ SRC_URI = "\
 S = "${UNPACKDIR}"
 B = "${WORKDIR}/build"
 
-inherit tegra_swupdate deploy
+inherit deploy
+
+require tegra-swupdate.inc
 
 do_compile() {
     sed -e's,@TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT@,${TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT},g' \
