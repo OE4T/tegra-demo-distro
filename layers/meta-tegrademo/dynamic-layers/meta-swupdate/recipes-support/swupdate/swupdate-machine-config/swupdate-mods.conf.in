@@ -1,4 +1,6 @@
 [Unit]
+After=setup-nv-boot-control.service
+Requires=setup-nv-boot-control.service
 @TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER_DIR_DEPENDS@
 
 [Service]

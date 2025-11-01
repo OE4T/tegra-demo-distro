@@ -8,7 +8,9 @@ SRC_URI = "\
     file://sw-description \
 "
 
-inherit swupdate image_types_tegra tegra_swupdate
+inherit swupdate image_types_tegra
+
+require dynamic-layers/meta-swupdate/recipes-support/swupdate/tegra-swupdate.inc
 
 DEPLOY_KERNEL_IMAGE ?= "${@os.path.basename(tegra_kernel_image(d))}"
 
