@@ -1,5 +1,6 @@
 header:
   version: 14
   includes:
-    - layers/meta-tegrademo/conf/kas/tegra-demo-distro.yml
+    - layers/meta-tegrademo/conf/kas/include/tegra-demo-distro-common.yml
+    - layers/meta-tegrademo/conf/kas/include/tegra-demo-distro-branch.yml
     - layers/meta-tegrademo/dynamic-layers/meta-swupdate/conf/kas/include/swupdate-base.yml

@@ -1,0 +1,14 @@
+# File which supports the "old style" config for
+# tegra-demo-distro repos before the switch to
+# remove poky.  Include this and make sure yo
+# do *not* include the oecore.yml version  when building a
+# kas config for scarthgap or kirkstone based layers
+header:
+  version: 17
+
+repos:
+  poky:
+    path: repos/poky
+    url: https://git.yoctoproject.org/poky
+    layers:
+      meta:

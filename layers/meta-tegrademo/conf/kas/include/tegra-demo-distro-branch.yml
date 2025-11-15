@@ -1,5 +1,7 @@
 header:
   version: 14
+  includes:
+    - layers/meta-tegrademo/conf/kas/include/tegra-demo-distro-oecore.yml
 
 defaults:
   repos:
