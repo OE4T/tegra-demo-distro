@@ -48,6 +48,8 @@ repos:
   bitbake:
     path: repos/bitbake
     url: https://github.com/openembedded/bitbake.git
+    layers:
+      .: disabled
 
 local_conf_header:
   tegra: |
