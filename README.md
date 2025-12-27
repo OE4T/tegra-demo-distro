@@ -14,7 +14,7 @@ Metadata layers are brought in as git submodules:
 | meta-tegra            | whinlatter     | L4T BSP layer - L4T R36.4.4/JetPack 6.2.1           |
 | meta-tegra-community  | whinlatter     | OE4T layer with additions from the community        |
 | meta-openembedded     | whinlatter     | OpenEmbedded layers                                 |
-| meta-virtualization   | master         | Virtualization layer for docker support             |
+| meta-virtualization   | whinlatter     | Virtualization layer for docker support             |
 
 ## Prerequisites
 
