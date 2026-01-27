@@ -2,7 +2,7 @@ DISTRO = "tegrademo"
 DISTRO_NAME = "OE4Tegra Demonstration Distro"
 DISTRO_VERSION_BASE = "5.3"
 DISTRO_VERSION = "${DISTRO_VERSION_BASE}+snapshot-${METADATA_REVISION}"
-DISTRO_CODENAME = "master-thor-r38.2"
+DISTRO_CODENAME = "master-thor-r38.4"
 SDK_VENDOR = "-tdsdk"
 SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${METADATA_REVISION}','snapshot')}"
 SDK_VERSION[vardepvalue] = "${SDK_VERSION}"
@@ -23,7 +23,7 @@ TD_DEFAULT_DISTRO_FEATURES = "largefile opengl glvnd ptest multiarch wayland vul
 
 DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${TD_DEFAULT_DISTRO_FEATURES}"
 
-# linux-yocto support not yet tested with R38.2
+# linux-yocto support not yet tested with R38.4
 TEGRA_DEFAULT_KERNEL ?= "linux-noble-nvidia-tegra"
 PREFERRED_PROVIDER_virtual/kernel:tegra = "${TEGRA_DEFAULT_KERNEL}"
 PREFERRED_VERSION_linux-yocto ?= "6.12%"
