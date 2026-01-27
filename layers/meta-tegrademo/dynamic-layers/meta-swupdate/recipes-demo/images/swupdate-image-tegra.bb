@@ -22,11 +22,6 @@ SWUPDATE_CORE_IMAGE_NAME ?= "demo-image-base"
 
 ROOTFS_FILENAME ?= "${SWUPDATE_CORE_IMAGE_NAME}-${MACHINE}.rootfs.tar.gz"
 
-KERNEL_A_PARTNAME = "A_kernel"
-KERNEL_A_DTB_PARTNAME = "A_kernel-dtb"
-KERNEL_B_PARTNAME = "B_kernel"
-KERNEL_B_DTB_PARTNAME = "B_kernel-dtb"
-
 # images to build before building swupdate image. For any non image depends, add to the do_swuimage[depends] instead.
 IMAGE_DEPENDS = "${SWUPDATE_CORE_IMAGE_NAME} tegra-espimage"
 
@@ -36,7 +31,7 @@ ESP_ARCHIVE ?= "${TEGRA_ESP_IMAGE}-${MACHINE}.tar.gz"
 # On the nvidia-kernel-oot-dtb recipe.
 DTBFILE_PATH = "devicetree/${DTBFILE}"
 # images and files that will be included in the .swu image
-SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap ${DEPLOY_KERNEL_IMAGE} ${DTBFILE_PATH} tegra-swupdate-script.lua ${ESP_ARCHIVE}"
+SWUPDATE_IMAGES = "${ROOTFS_FILENAME} tegra-bl.cap tegra-swupdate-script.lua ${ESP_ARCHIVE}"
 
 # All non-image related depends go here
 do_swuimage[depends] += "${@'virtual/dtb:do_deploy' if d.getVar('PREFERRED_PROVIDER_virtual/dtb') else ''}"
