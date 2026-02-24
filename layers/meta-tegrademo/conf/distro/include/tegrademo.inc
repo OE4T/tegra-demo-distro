@@ -44,12 +44,6 @@ SANITY_TESTED_DISTROS ?= " \
 # Most NVIDIA-supplied services expect systemd
 INIT_MANAGER = "systemd"
 
-require conf/distro/include/no-static-libs.inc
-require conf/distro/include/yocto-uninative.inc
-require conf/distro/include/security_flags.inc
-require conf/distro/include/yocto-space-optimize.inc
-INHERIT += "uninative"
-
 LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264"
 
 USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
