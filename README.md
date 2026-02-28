@@ -11,7 +11,7 @@ Metadata layers are brought in as git submodules:
 | --------------------- | ---------------|---------------------------------------------------- |
 | bitbake               | master         | bitbake tool                                        |
 | openembedded-core     | master         | OE-Core                                             |
-| meta-tegra            | master         | L4T BSP layer - L4T R36.4.4/JetPack 6.2.1           |
+| meta-tegra            | master         | L4T BSP layer - L4T R36.5.0/JetPack 6.2.2           |
 | meta-tegra-community  | master         | OE4T layer with additions from the community        |
 | meta-openembedded     | master         | OpenEmbedded layers                                 |
 | meta-virtualization   | master         | Virtualization layer for docker support             |
