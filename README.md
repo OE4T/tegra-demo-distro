@@ -3,17 +3,17 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegra) BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-master.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-wrynose.svg)
 
 Metadata layers are brought in as git submodules:
 
 | Layer Repo            | Branch         | Description                                         |
 | --------------------- | ---------------|---------------------------------------------------- |
-| bitbake               | master         | bitbake tool                                        |
-| openembedded-core     | master         | OE-Core                                             |
-| meta-tegra            | master         | L4T BSP layer - L4T R36.5.0/JetPack 6.2.2           |
-| meta-tegra-community  | master         | OE4T layer with additions from the community        |
-| meta-openembedded     | master         | OpenEmbedded layers                                 |
+| bitbake               | wrynose        | bitbake tool                                        |
+| openembedded-core     | wrynose        | OE-Core                                             |
+| meta-tegra            | wrynose        | L4T BSP layer - L4T R36.5.0/JetPack 6.2.2           |
+| meta-tegra-community  | wrynose        | OE4T layer with additions from the community        |
+| meta-openembedded     | wrynose        | OpenEmbedded layers                                 |
 | meta-virtualization   | master         | Virtualization layer for docker support             |
 
 ## Prerequisites
@@ -21,8 +21,7 @@ Metadata layers are brought in as git submodules:
 See the [Yocto Project Quick Build](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
 documentation for information on setting up your build host.
 
-For burning SDcards (for Jetson Xavier NX developer kits), the `bmap-tools`
-package is recommended.
+For burning SDcards and the initrd flashing process, the `bmap-tools` package is recommended.
 
 ## Setting up
 
@@ -45,7 +44,7 @@ package is recommended.
    called `build` that is set up for the Jetson Xavier NX
    developer kit and the default `tegrademo` distro:
 
-        $ . ./setup-env --machine jetson-xavier-nx-devkit
+        $ . ./setup-env --machine jetson-orin-nano-devkit
 
    You can get a complete list of available options, MACHINE
    names, and DISTRO names with
@@ -91,5 +90,5 @@ A/B rootfs updates to any of the supported images.  For details refer to
 
 # Contributing
 
-Please see the contributor wiki page at [this link](https://github.com/OE4T/meta-tegra/wiki/OE4T-Contributor-Guide).
+Please see the OE4T contributor guide [here](https://oe4t.github.io/master/CONTRIBUTING.html).
 Contributions are welcome!
