@@ -3,7 +3,12 @@ HOMEPAGE = "https://github.com/OE4T"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-inherit devicetree
+TEGRA_UEFI_SIGNING_CLASS ??= "tegra-uefi-signing"
+
+inherit ${TEGRA_UEFI_SIGNING_CLASS}
+inherit devicetree deploy
+
+PROVIDES = "virtual/dtb"
 
 COMPATIBLE_MACHINE = "(tegra)"
 
@@ -25,7 +30,6 @@ DT_INCLUDE = " \
     ${KERNEL_INCLUDE} \
 "
 
-
 # From kernel-devicetree/generic-dts/Makefile
 DTC_PPFLAGS:append = " -DLINUX_VERSION=600 -DTEGRA_HOST1X_DT_VERSION=2"
 
@@ -39,3 +43,45 @@ def expand_includes(varname, d):
             if os.path.isdir(g): # only add directories to include path
                 includes.append(g)
     return includes
+
+# The default signing class won't sign DTBs not in the L4T sources,
+# so define our own here.
+#
+do_sign_dtbs() {
+    for dtb in ${KERNEL_DEVICETREE}; do
+        local dtbf="${B}/$dtbf"
+        if [ -f "$dtbf" ]; then
+            tegra_uefi_attach_sign "$dtbf"
+        fi
+    done
+}
+do_sign_dtbs[dirs] = "${B}"
+do_sign_dtbs[depends] += "${TEGRA_UEFI_SIGNING_TASKDEPS}"
+do_sign_dtbs[file-checksums] += "${TEGRA_UEFI_SIGNING_FILECHECKSUMS}"
+
+addtask sign_dtbs after do_compile before do_install
+
+# The devicetree class automatically installs and deploys *.dtb and *.dtbo
+# files, but we need to install/deploy any signed files, if they exist
+#
+do_install:append() {
+    for dtb in ${KERNEL_DEVICETREE}; do
+        local dtbf="${B}/$dtb.signed"
+        if [ -f "$dtbf" ]; then
+            install -m 0644 "$dtbf" ${D}/boot/devicetree
+        fi
+    done
+}
+
+FILES:${PN} += " \
+    /boot/devicetree/* \
+"
+
+do_deploy:append() {
+    for dtb in ${KERNEL_DEVICETREE}; do
+        local dtbf="${B}/$dtb.signed"
+        if [ -f "$dtbf" ]; then
+            install -m 0644 "$dtbf" ${DEPLOYDIR}/devicetree
+        fi
+    done
+}
