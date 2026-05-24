@@ -14,7 +14,7 @@ Metadata layers are brought in as git submodules:
 | meta-tegra            | wrynose        | L4T BSP layer - L4T R36.5.0/JetPack 6.2.2           |
 | meta-tegra-community  | wrynose        | OE4T layer with additions from the community        |
 | meta-openembedded     | wrynose        | OpenEmbedded layers                                 |
-| meta-virtualization   | master         | Virtualization layer for docker support             |
+| meta-virtualization   | wrynose        | Virtualization layer for docker support             |
 
 ## Prerequisites
 
