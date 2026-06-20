@@ -1,2 +1,3 @@
 REQUIRED_DISTRO_FEATURES:append = " virtualization"
-CORE_IMAGE_BASE_INSTALL += "docker nvidia-container-toolkit"
+IMAGE_FEATURES += "container-registry"
+CORE_IMAGE_BASE_INSTALL += "docker nvidia-container-toolkit docker-registry-config"
