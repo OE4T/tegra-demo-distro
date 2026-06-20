@@ -49,7 +49,3 @@ USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
 
 # for docker-registry-config
 DOCKER_OCI_RUNTIMES ?= '{"nvidia":{"args":[],"path":"nvidia-container-runtime"}}'
-
-# XXX- until this is fixed in meta-oe
-EXTRA_OECMAKE:append:pn-jsoncpp = " -DCMAKE_CXX_STANDARD=17"
-# -XXX
