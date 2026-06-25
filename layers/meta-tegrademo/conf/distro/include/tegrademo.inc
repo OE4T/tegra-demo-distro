@@ -46,6 +46,3 @@ INIT_MANAGER = "systemd"
 LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264"
 
 USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
-# XXX- until this is fixed in meta-oe
-EXTRA_OECMAKE:append:pn-jsoncpp = " -DCMAKE_CXX_STANDARD=17"
-# -XXX
