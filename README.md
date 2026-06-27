@@ -3,18 +3,20 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegra) BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-wrynose.svg)
+![Build status](https://builder.madison.systems/badges/tegrademo-wip-wrynose-39-2.svg)
+
+**NOTE** This branch is a work in progress. Do not use for production
 
 Metadata layers are brought in as git submodules:
 
-| Layer Repo            | Branch         | Description                                         |
-| --------------------- | ---------------|---------------------------------------------------- |
-| bitbake               | wrynose        | bitbake tool                                        |
-| openembedded-core     | wrynose        | OE-Core                                             |
-| meta-tegra            | wrynose        | L4T BSP layer - L4T R36.5.0/JetPack 6.2.2           |
-| meta-tegra-community  | wrynose        | OE4T layer with additions from the community        |
-| meta-openembedded     | wrynose        | OpenEmbedded layers                                 |
-| meta-virtualization   | wrynose        | Virtualization layer for docker support             |
+| Layer Repo            | Branch                  | Description                                         |
+| --------------------- | ------------------------|---------------------------------------------------- |
+| bitbake               | wrynose                 | bitbake tool                                        |
+| openembedded-core     | wrynose                 | OE-Core                                             |
+| meta-tegra            | wip-wrynose-l4t-r39.2.0 | L4T BSP layer - L4T R39.2.0/JetPack 7.2             |
+| meta-tegra-community  | wip-wrynose-l4t-r39.2.0 | OE4T layer with additions from the community        |
+| meta-openembedded     | wrynose                 | OpenEmbedded layers                                 |
+| meta-virtualization   | wrynose                 | Virtualization layer for docker support             |
 
 ## Prerequisites
 
