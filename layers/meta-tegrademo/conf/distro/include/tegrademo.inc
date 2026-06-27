@@ -1,6 +1,6 @@
 DISTRO = "tegrademo"
 DISTRO_NAME = "OE4Tegra Demonstration Distro"
-DISTRO_VERSION_BASE = "6.0"
+DISTRO_VERSION_BASE = "6.0.2"
 DISTRO_VERSION = "${DISTRO_VERSION_BASE}+snapshot-${METADATA_REVISION}"
 DISTRO_CODENAME = "wrynose"
 SDK_VENDOR = "-tdsdk"
