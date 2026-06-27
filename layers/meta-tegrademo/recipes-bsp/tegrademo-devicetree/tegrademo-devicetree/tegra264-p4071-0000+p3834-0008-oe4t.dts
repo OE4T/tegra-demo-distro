@@ -1,0 +1,6 @@
+#include "tegra264-p4071-0000+p3834-0008-nv.dts"
+
+/* adds compatible string for oe4t, for demonstration purposes */
+/ {
+	compatible = "oe4t,p4071-0000+p3834-0008+tegrademo", "nvidia,p4071-0000+p3834-0008", "nvidia,p3834-0008", "nvidia,tegra264";
+};
