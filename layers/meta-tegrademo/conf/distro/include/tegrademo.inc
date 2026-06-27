@@ -22,9 +22,9 @@ LOCALCONF_VERSION = "2"
 TD_DEFAULT_DISTRO_FEATURES = "pam"
 DISTRO_FEATURES ?= "${TD_DEFAULT_DISTRO_FEATURES}"
 
-# As of L4T R36, Jetson platforms can use linux-yocto
-# instead of linux-jammy-nvidia-tegra
-TEGRA_DEFAULT_KERNEL ?= "linux-jammy-nvidia-tegra"
+# As of L4T R39, Jetson Orin platforms can use linux-yocto
+# instead of linux-noble-nvidia-tegra
+TEGRA_DEFAULT_KERNEL ?= "linux-noble-nvidia-tegra"
 PREFERRED_PROVIDER_virtual/kernel:tegra = "${TEGRA_DEFAULT_KERNEL}"
 PREFERRED_VERSION_linux-yocto ?= "6.18%"
 PREFERRED_VERSION_linux-yocto-rt ?= "6.18%"
