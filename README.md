@@ -21,8 +21,8 @@ Metadata layers are brought in as git submodules:
 See the [Yocto Project Quick Build](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
 documentation for information on setting up your build host.
 
-For burning SDcards (for Jetson Xavier NX developer kits), the `bmap-tools`
-package is recommended.
+See the [Flashing Basics](https://oe4t.github.io/master/Flashing.html) page for information on
+packages needed for flashing.
 
 ## Setting up
 
@@ -30,8 +30,7 @@ package is recommended.
 
         $ git clone https://github.com/OE4T/tegra-demo-distro.git
 
-2. Switch to the appropriate branch, using the
-   [wiki page](https://github.com/OE4T/tegra-demo-distro/wiki/Which-branch-should-I-use%3F)
+2. Switch to the appropriate branch, using [this page](https://oe4t.github.io/master/Which-branch-should-I-use.html)
    for guidance.
 
 3. Initialize the git submodules:
