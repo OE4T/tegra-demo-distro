@@ -3,9 +3,7 @@
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the [meta-tegra](https://github.com/OE4T/meta-tegra) BSP layer.
 
-![Build status](https://builder.madison.systems/badges/tegrademo-wip-wrynose-39-2.svg)
-
-**NOTE** This branch is a work in progress. Do not use for production
+![Build status](https://builder.madison.systems/badges/tegrademo-wrynose.svg)
 
 Metadata layers are brought in as git submodules:
 
@@ -13,8 +11,8 @@ Metadata layers are brought in as git submodules:
 | --------------------- | ------------------------|---------------------------------------------------- |
 | bitbake               | wrynose                 | bitbake tool                                        |
 | openembedded-core     | wrynose                 | OE-Core                                             |
-| meta-tegra            | wip-wrynose-l4t-r39.2.0 | L4T BSP layer - L4T R39.2.0/JetPack 7.2             |
-| meta-tegra-community  | wip-wrynose-l4t-r39.2.0 | OE4T layer with additions from the community        |
+| meta-tegra            | wrynose                 | L4T BSP layer - L4T R39.2.0/JetPack 7.2             |
+| meta-tegra-community  | wrynose                 | OE4T layer with additions from the community        |
 | meta-openembedded     | wrynose                 | OpenEmbedded layers                                 |
 | meta-virtualization   | wrynose                 | Virtualization layer for docker support             |
 
@@ -23,7 +21,8 @@ Metadata layers are brought in as git submodules:
 See the [Yocto Project Quick Build](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
 documentation for information on setting up your build host.
 
-For burning SDcards and the initrd flashing process, the `bmap-tools` package is recommended.
+See the [Flashing Basics](https://oe4t.github.io/wrynose/Flashing.html) page for information on
+packages needed for flashing.
 
 ## Setting up
 
@@ -31,8 +30,7 @@ For burning SDcards and the initrd flashing process, the `bmap-tools` package is
 
         $ git clone https://github.com/OE4T/tegra-demo-distro.git
 
-2. Switch to the appropriate branch, using the
-   [wiki page](https://github.com/OE4T/tegra-demo-distro/wiki/Which-branch-should-I-use%3F)
+2. Switch to the appropriate branch, using [this page](https://oe4t.github.io/master/Which-branch-should-I-use.html)
    for guidance.
 
 3. Initialize the git submodules:
@@ -43,10 +41,10 @@ For burning SDcards and the initrd flashing process, the `bmap-tools` package is
 4. Source the `setup-env` script to create a build directory,
    specifying the MACHINE you want to configure as the default
    for your builds. For example, to set up a build directory
-   called `build` that is set up for the Jetson Xavier NX
-   developer kit and the default `tegrademo` distro:
+   called `build` that is set up for the Jetson Orin Nano
+   developer kit (with NVMe drive) and the default `tegrademo` distro:
 
-        $ . ./setup-env --machine jetson-orin-nano-devkit
+        $ . ./setup-env --machine jetson-orin-nano-devkit-nvme
 
    You can get a complete list of available options, MACHINE
    names, and DISTRO names with
@@ -54,6 +52,7 @@ For burning SDcards and the initrd flashing process, the `bmap-tools` package is
         $ . ./setup-env --help
 
 5. Optional: Install pre-commit hook for commit autosigning using
+
         $ ./scripts-setup/setup-git-hooks
 
 ## Distributions
@@ -92,5 +91,4 @@ A/B rootfs updates to any of the supported images.  For details refer to
 
 # Contributing
 
-Please see the OE4T contributor guide [here](https://oe4t.github.io/master/CONTRIBUTING.html).
-Contributions are welcome!
+Please see the [contributing guide in our documentation](https://oe4t.github.io/master/CONTRIBUTING.html).
