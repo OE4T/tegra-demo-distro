@@ -9,3 +9,5 @@ inherit features_check
 REQUIRED_DISTRO_FEATURES = "opengl"
 
 CORE_IMAGE_BASE_INSTALL += "packagegroup-demo-egltests"
+
+TEST_SUITES:append = " tegra_gstreamer tegra_camera"
