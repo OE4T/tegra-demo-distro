@@ -18,3 +18,4 @@ local_conf_header:
       USE_REDUNDANT_FLASH_LAYOUT = "1"
       IMAGE_FSTYPES:append = " tar.gz"
       SWUPDATE_CORE_IMAGE_NAME ?= "demo-image-base"
+      TEST_SUITES:append = " tegra_swupdate"
