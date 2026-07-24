@@ -22,10 +22,7 @@ LOCALCONF_VERSION = "2"
 TD_DEFAULT_DISTRO_FEATURES = "pam virtualization"
 DISTRO_FEATURES ?= "${TD_DEFAULT_DISTRO_FEATURES}"
 
-# Keeping the NVIDIA downstream kernel as the
-# default, until linux-yocto support is
-# available for both Orin and Thor targets.
-TEGRA_DEFAULT_KERNEL ?= "linux-noble-nvidia-tegra"
+TEGRA_DEFAULT_KERNEL ?= "linux-yocto"
 PREFERRED_PROVIDER_virtual/kernel:tegra = "${TEGRA_DEFAULT_KERNEL}"
 PREFERRED_VERSION_linux-yocto ?= "6.18%"
 PREFERRED_VERSION_linux-yocto-rt ?= "6.18%"
