@@ -47,3 +47,5 @@ USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
 
 # for docker-registry-config
 DOCKER_OCI_RUNTIMES ?= '{"nvidia":{"args":[],"path":"nvidia-container-runtime"}}'
+
+require ${@'dynamic-layers/meta-swupdate/conf/distro/include/tegra-swupdate.inc' if 'swupdate' in d.getVar('BBFILE_COLLECTIONS').split() else ''}
