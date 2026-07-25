@@ -64,7 +64,6 @@ function postinst()
         result = "Couldn't determine current or alt slot"
         return success, result
     end
-    local inprogress_slot_marker = "@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" .. alt_slot .. "-inprogress"
 
     if file_exists("@TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@") then
         print("Running bootloader update script")
@@ -74,34 +73,11 @@ function postinst()
             result = result .. "success"
             print("Resetting unbootable status for slot " .. alt_slot)
             reset_unbootable_status(alt_slot)
-            if "@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" ~= "" then
-                os.remove("@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" .. alt_slot)
-                local ok = write_file(inprogress_slot_marker, current_slot)
-                if ok then
-                    print("Wrote capsule update inprogress slot marker for slot " .. alt_slot .. " at " ..  inprogress_slot_marker)
-                else
-                    print("Failed to write capsule update inprogress slot marker for slot " .. alt_slot .. " at " .. inprogress_slot_marker .. ", slot swiching will be disabled")
-                end
-            end
         else
             result = result .. "failure: " .. tostring(detail)
         end
     else
-        if @TEGRA_SWUPDATE_BOOTLOADER_INSTALL_ONLY_IF_DIFFERENT@ then
-            print("Running os switch instead of bootloader update since @TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@ is missing")
-            success, detail = set_active_slot(alt_slot)
-            if success then
-                result = "switch_slots to " .. alt_slot .. " completed with success"
-            else
-                result = "switch_slots to " .. alt_slot .. " completed with failure: " .. tostring(detail)
-            end
-        else
-            result = "Missing @TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@, cannot complete update"
-        end
-
-        if "@TEGRA_SWUPDATE_LAST_CAPSULE_UPDATE_COMPLETE_SLOT_MARKER@" ~= "" and file_exists(inprogress_slot_marker) then
-            print("WARNING: Last capsule update for slot" .. alt_slot .. " was incomplete as " .. inprogress_slot_marker .. " exists, this target slot may be corrupt.")
-        end
+        result = "Missing @TEGRA_SWUPDATE_CAPSULE_INSTALL_PATH@, cannot complete update"
     end
     return success, result
 end
