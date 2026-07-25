@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<!-- Nvidia Tegra Partition Layout Version 1.0.0 -->
+
+<partition_layout version="01.00.0000">
+    <device type="external" instance="0" sector_size="512" num_sectors="EXT_NUM_SECTORS" >
+        <partition name="master_boot_record" type="protective_master_boot_record">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> 512 </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 8 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+        </partition>
+        <partition name="primary_gpt" type="primary_gpt">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> 19968 </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 8 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+        </partition>
+        <partition name="APP" id="1" type="data">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> APPSIZE </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 0x8 </allocation_attribute>
+            <start_location> 4194304 </start_location>
+            <percent_reserved> 0 </percent_reserved>
+            <filename> APPFILE </filename>
+            <description> Root filesystem A. </description>
+        </partition>
+        <partition name="APP_b" type="data">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> APPSIZE </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 0x8 </allocation_attribute>
+            <align_boundary> 16384 </align_boundary>
+            <percent_reserved> 0 </percent_reserved>
+            <filename> APPFILE </filename>
+            <description> Root filesystem B. </description>
+        </partition>
+        <partition name="esp" type="data">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> 536870912 </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 0x8 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+            <filename> ESP_FILE </filename>
+            <partition_type_guid> C12A7328-F81F-11D2-BA4B-00A0C93EC93B </partition_type_guid>
+            <description> EFI system partition for capsule updates </description>
+        </partition>
+        <partition name="UDA" type="data">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> 419430400 </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 0x8 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+            <align_boundary> 16384 </align_boundary>
+	    <filename> DATAFILE </filename>
+            <description> Data partition. </description>
+        </partition>
+        <partition name="unused" type="data">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 0x808 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+            <align_boundary> 16384 </align_boundary>
+            <description> For allocating remaining space. </description>
+        </partition>
+        <partition name="secondary_gpt" type="secondary_gpt">
+            <allocation_policy> sequential </allocation_policy>
+            <filesystem_type> basic </filesystem_type>
+            <size> 0xFFFFFFFFFFFFFFFF </size>
+            <file_system_attribute> 0 </file_system_attribute>
+            <allocation_attribute> 8 </allocation_attribute>
+            <percent_reserved> 0 </percent_reserved>
+        </partition>
+    </device>
+</partition_layout>
