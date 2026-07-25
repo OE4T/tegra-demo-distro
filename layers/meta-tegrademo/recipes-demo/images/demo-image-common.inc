@@ -1,4 +1,5 @@
 IMAGE_FEATURES += "ssh-server-openssh"
+IMAGE_FSTYPES:append = "${@' tar.gz' if 'swupdate' in d.getVar('BBFILE_COLLECTIONS').split() else ''}"
 
 LICENSE = "MIT"
 
