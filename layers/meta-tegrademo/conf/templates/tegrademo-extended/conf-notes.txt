@@ -1,0 +1,6 @@
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+Targets for building the Tegra reference image:
+    demo-image-reference - Wayland/Weston desktop with NetworkManager and comprehensive QA test tools
+    swupdate-image-tegra - SWUpdate OTA update image (requires USE_REDUNDANT_FLASH_LAYOUT=1)
