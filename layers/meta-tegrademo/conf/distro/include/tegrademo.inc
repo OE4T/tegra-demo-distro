@@ -19,6 +19,12 @@ REQUIRED_TD_BBLAYERS_CONF_VERSION = "${DISTRO}-7"
 
 LOCALCONF_VERSION = "2"
 
+INHERIT += "tegra-support-sanity"
+ESDK_CLASS_INHERIT_DISABLE:append = " tegra-support-sanity"
+
+BB_SIGNATURE_HANDLER ?= "OEEquivHash"
+BB_HASHSERVE ??= "auto"
+
 TD_DEFAULT_DISTRO_FEATURES = "pam virtualization"
 DISTRO_FEATURES ?= "${TD_DEFAULT_DISTRO_FEATURES}"
 
@@ -49,5 +55,6 @@ USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
 
 # for docker-registry-config
 DOCKER_OCI_RUNTIMES ?= '{"nvidia":{"args":[],"path":"nvidia-container-runtime"}}'
+DOCKER_DEFAULT_RUNTIME ?= "nvidia"
 
 require ${@'dynamic-layers/meta-swupdate/conf/distro/include/tegra-swupdate.inc' if 'swupdate' in d.getVar('BBFILE_COLLECTIONS').split() else ''}
