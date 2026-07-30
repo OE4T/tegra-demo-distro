@@ -1,0 +1,12 @@
+[Unit]
+Description=User data partition
+After=systemd-repart.service
+
+[Mount]
+What=LABEL=data
+Where=/data
+Type=ext4
+Options=defaults
+
+[Install]
+WantedBy=local-fs.target
