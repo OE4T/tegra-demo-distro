@@ -22,3 +22,7 @@
 	path = repos/openembedded-core
 	url = https://github.com/openembedded/openembedded-core.git
 	branch = wrynose
+[submodule "repos/meta-swupdate"]
+	path = repos/meta-swupdate
+	url = https://github.com/sbabic/meta-swupdate.git
+	branch = wrynose
