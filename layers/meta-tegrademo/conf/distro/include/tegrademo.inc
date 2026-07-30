@@ -47,7 +47,7 @@ SANITY_TESTED_DISTROS ?= " \
 # Most NVIDIA-supplied services expect systemd
 INIT_MANAGER = "systemd"
 
-LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264"
+LICENSE_FLAGS_ACCEPTED += "commercial_faad2 commercial_x264 commercial_gstreamer1.0-libav commercial_ffmpeg"
 
 USE_REDUNDANT_FLASH_LAYOUT_DEFAULT ?= "1"
 
