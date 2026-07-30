@@ -5,10 +5,13 @@ LICENSE = "MIT"
 inherit packagegroup
 
 RDEPENDS:${PN} = " \
+    setxkbmap \
+    xterm \
     argus-samples \
     cuda-samples \
     gstreamer-tests \
     l4t-graphics-demos-x11 \
     mesa-demos \
     nvgstapps \
+    rendercheck \
 "
