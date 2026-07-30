@@ -8,3 +8,5 @@ IMAGE_FEATURES += "splash x11-base x11-sato hwcodecs"
 
 CORE_IMAGE_BASE_INSTALL += "packagegroup-demo-x11tests"
 CORE_IMAGE_BASE_INSTALL += "${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'packagegroup-demo-vulkantests', '', d)}"
+
+TEST_SUITES:append = " tegra_gstreamer tegra_vulkan tegra_camera"
