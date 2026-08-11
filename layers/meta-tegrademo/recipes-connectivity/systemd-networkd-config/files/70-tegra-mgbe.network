@@ -1,0 +1,15 @@
+# systemd-networkd configuration for Tegra mgbe (Camera Eagle) ports.
+# Sets RequiredForOnline=no so that unpopulated CoE ports do not block
+# systemd-networkd-wait-online.service during boot. The mgbe interfaces
+# remain managed by networkd and will link up when a CoE cable is connected.
+# CoE-specific images that gate boot on a populated mgbe port should override
+# this with a drop-in setting RequiredForOnline=yes for that interface.
+
+[Match]
+Name=mgbe*
+
+[Link]
+RequiredForOnline=no
+
+[Network]
+DHCP=yes
