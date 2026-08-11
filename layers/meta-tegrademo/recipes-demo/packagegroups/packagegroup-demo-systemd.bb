@@ -10,3 +10,7 @@ RDEPENDS:${PN} = " \
     less \
     systemd-analyze \
 "
+
+RDEPENDS:${PN}:append:tegra264 = " \
+    systemd-networkd-config \
+"
