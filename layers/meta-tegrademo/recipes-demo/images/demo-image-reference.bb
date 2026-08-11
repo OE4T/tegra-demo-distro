@@ -67,10 +67,13 @@ CORE_IMAGE_BASE_INSTALL += " \
 CORE_IMAGE_BASE_INSTALL += "packagegroup-demo-vulkantests"
 
 # Virtualization packages: docker, nvidia-container-toolkit
+# docker-data-conf and containerd-data-conf redirect storage to /data (requires data-partition)
 CORE_IMAGE_BASE_INSTALL += " \
     docker \
     nvidia-container-toolkit \
     docker-registry-config \
+    docker-data-conf \
+    containerd-data-conf \
 "
 
 # shadow-securetty populates /etc/securetty from SERIAL_CONSOLES at build time
