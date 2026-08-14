@@ -10,7 +10,6 @@ RDEPENDS:${PN} = " \
     perf \
     rt-tests \
     stress-ng \
-    kernel-module-uvcvideo \
     v4l-utils \
     glmark2 \
     kmscube \
