@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 
 inherit systemd overlayfs
 
-DATA_PARTITION_OVERLAY_WRITABLE_PATHS ?= "/etc/ssh /etc/NetworkManager/system-connections"
+DATA_PARTITION_OVERLAY_WRITABLE_PATHS ?= "/etc/ssh /etc/NetworkManager/system-connections /etc/systemd/network"
 OVERLAYFS_WRITABLE_PATHS[data] = "${DATA_PARTITION_OVERLAY_WRITABLE_PATHS}"
 
 SRC_URI = " \
@@ -24,6 +24,7 @@ FILES:${PN} += " \
     ${nonarch_libdir}/repart.d/ \
     ${systemd_system_unitdir}/sshdgenkeys.service.d/ \
     ${systemd_system_unitdir}/NetworkManager.service.d/ \
+    ${systemd_system_unitdir}/systemd-networkd.service.d/ \
     /data \
 "
 
@@ -41,6 +42,10 @@ do_install() {
     install -d ${D}${systemd_system_unitdir}/NetworkManager.service.d
     install -m 0644 ${S}/10-data-overlays.conf \
         ${D}${systemd_system_unitdir}/NetworkManager.service.d/
+
+    install -d ${D}${systemd_system_unitdir}/systemd-networkd.service.d
+    install -m 0644 ${S}/10-data-overlays.conf \
+        ${D}${systemd_system_unitdir}/systemd-networkd.service.d/
 
     install -d ${D}/data
 }
