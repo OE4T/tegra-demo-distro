@@ -19,8 +19,8 @@ import bb
 
 class S3(bb.fetch2.s3.S3):
 
-    def __init__(self, urls=None):
-        super().__init__(urls)
+    def __init__(self):
+        super().__init__()
         self.session = oeaws.s3session.S3Session()
 
     def checkstatus(self, fetch, ud, d):
