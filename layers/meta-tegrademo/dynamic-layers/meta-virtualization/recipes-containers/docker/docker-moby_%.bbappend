@@ -1,1 +1,0 @@
-RDEPENDS:${PN} += "docker-conf"
