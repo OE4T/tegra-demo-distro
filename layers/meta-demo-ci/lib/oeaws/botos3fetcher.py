@@ -17,7 +17,7 @@ from oeaws import aws_env
 import bb
 
 
-class S3(bb.fetch2.s3.S3):
+class S3(bb.fetch.s3.S3):
 
     def __init__(self):
         super().__init__()
@@ -30,12 +30,12 @@ class S3(bb.fetch2.s3.S3):
     def download(self, ud, d):
         aws_env.fix_env(d)
         if not self.session.download(ud.host, ud.path[1:], ud.localpath):
-            raise bb.fetch2.FetchError("could not download s3://%s%s" % (ud.host, ud.path))
+            raise bb.fetch.FetchError("could not download s3://%s%s" % (ud.host, ud.path))
         return True
 
 try:
     import oeaws.s3session
-    bb.fetch2.methods = [m for m in bb.fetch2.methods if not isinstance(m, bb.fetch2.s3.S3)] + [S3()]
+    bb.fetch.methods = [m for m in bb.fetch.methods if not isinstance(m, bb.fetch.s3.S3)] + [S3()]
     bb.debug(1, "botos3fetcher: installed")
 except:
     bb.debug(1, "botos3fetcher: s3session import failed")

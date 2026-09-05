@@ -41,7 +41,7 @@ python downloads_mirror_update() {
     elif mirror.scheme != 'file':
         bb.warn("unsupported DOWNLOADS_MIRROR_URL type: %s" % mirror.scheme)
         return
-    fetcher = bb.fetch2.Fetch(src_uri, d)
+    fetcher = bb.fetch.Fetch(src_uri, d)
     dl_dir = d.getVar("DL_DIR")
     for url in src_uri:
         # We don't mirror when the SRC_URI is a file://, since those
