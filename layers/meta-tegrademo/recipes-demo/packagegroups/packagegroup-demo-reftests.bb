@@ -5,7 +5,10 @@ LICENSE = "MIT"
 inherit packagegroup
 
 RDEPENDS:${PN} = " \
+    bpftool \
     iperf3 \
+    tcpdump \
+    xdp-tools \
     lmbench \
     perf \
     rt-tests \
