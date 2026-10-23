@@ -21,6 +21,7 @@ RDEPENDS:${PN} = " \
     nvgstipctestapp \
     gstreamer1.0-plugins-base-opus \
     gstreamer1.0-libav \
+    gstreamer1.0-plugins-ugly-x264 \
     python3-jetson-io \
     fio \
     yavta \
