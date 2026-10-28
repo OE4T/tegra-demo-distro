@@ -1,27 +1,14 @@
-DESCRIPTION = "System utilities for the Tegra reference image: GNU userland, hardware inspection, and system monitoring"
+DESCRIPTION = "System utilities for the Tegra reference image: base utilities, hardware inspection, and system monitoring"
 
 LICENSE = "MIT"
 
 inherit packagegroup
 
-# GNU userland — replaces busybox applets not covered by coreutils alone
+# Base utilities should be provided by VIRTUAL-RUNTIME_base-utils
+
+# Additional interactive tools
 RDEPENDS:${PN} = " \
-    coreutils \
-    findutils \
-    sed \
-    grep \
-    gawk \
-    bash \
-    tar \
-    gzip \
-    bzip2 \
-    xz \
-    diffutils \
-    patch \
-    which \
     bc \
-    util-linux \
-    file \
     vim \
     minicom \
 "
@@ -30,14 +17,12 @@ RDEPENDS:${PN} = " \
 RDEPENDS:${PN} += " \
     curl \
     rsync \
-    iproute2 \
     iproute2-ss \
     iproute2-tc \
     iproute2-bridge \
     iproute2-nstat \
     iproute2-devlink \
     iputils \
-    net-tools \
     ethtool \
     iw \
 "
@@ -62,8 +47,6 @@ RDEPENDS:${PN} += " \
 RDEPENDS:${PN} += " \
     lsof \
     sysstat \
-    e2fsprogs \
-    psmisc \
     valgrind \
     python3-pip \
     usleep \
@@ -73,7 +56,7 @@ RDEPENDS:${PN} += " \
 RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'pulseaudio', 'pulseaudio-server pulseaudio-misc pulseaudio-pactl', '', d)}"
 RDEPENDS:${PN} += "alsa-utils"
 
-# RT kernel tools (chrt and taskset come from util-linux above)
+# RT kernel tools (chrt and taskset come from the base utilities)
 RDEPENDS:${PN} += " \
     tuna \
     trace-cmd \
