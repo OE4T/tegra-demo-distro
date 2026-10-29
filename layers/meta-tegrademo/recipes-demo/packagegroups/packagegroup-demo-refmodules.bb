@@ -6,6 +6,7 @@ inherit packagegroup
 
 RDEPENDS:${PN} = " \
     kernel-module-tcrypt \
+    kernel-module-uas \
     kernel-module-uvcvideo \
 "
 
