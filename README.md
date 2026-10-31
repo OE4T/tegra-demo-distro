@@ -14,8 +14,8 @@ Metadata layers are brought in as git submodules:
 | meta-tegra            | blacksail      | L4T BSP layer - L4T R39.2.0/JetPack 7.2             |
 | meta-tegra-community  | blacksail      | OE4T layer with additions from the community        |
 | meta-openembedded     | blacksail      | OpenEmbedded layers                                 |
-| meta-swupdate         | master         | swupdate layer                                      |
-| meta-virtualization   | master         | Virtualization layer for docker support             |
+| meta-swupdate         | blacksail      | swupdate layer                                      |
+| meta-virtualization   | blacksail      | Virtualization layer for docker support             |
 
 ## Prerequisites
 

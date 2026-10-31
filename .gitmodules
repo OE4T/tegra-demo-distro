@@ -5,7 +5,7 @@
 [submodule "repos/meta-virtualization"]
 	path = repos/meta-virtualization
 	url = https://git.yoctoproject.org/meta-virtualization
-	branch = master
+	branch = blacksail
 [submodule "repos/meta-tegra"]
 	path = repos/meta-tegra
 	url = https://github.com/OE4T/meta-tegra.git
@@ -25,4 +25,4 @@
 [submodule "repos/meta-swupdate"]
 	path = repos/meta-swupdate
 	url = https://github.com/sbabic/meta-swupdate.git
-	branch = master
+	branch = blacksail
