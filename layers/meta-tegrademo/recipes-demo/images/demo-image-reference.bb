@@ -33,5 +33,11 @@ CORE_IMAGE_BASE_INSTALL += " \
     tegra-mmapi-tests \
 "
 
+CORE_IMAGE_BASE_INSTALL += " \
+    ttf-dejavu-sans \
+    ttf-dejavu-sans-mono \
+    ttf-dejavu-serif \
+"
+
 # Vulkan packages: vulkan-tools, tegra-libraries-vulkan
 CORE_IMAGE_BASE_INSTALL += "packagegroup-demo-vulkantests"

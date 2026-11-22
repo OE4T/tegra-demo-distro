@@ -6,12 +6,14 @@ inherit packagegroup
 
 RDEPENDS:${PN} = " \
     kernel-module-tcrypt \
+    kernel-module-uas \
     kernel-module-uvcvideo \
 "
 
 # Built into linux-yocto's default config rather than modules; recommend
 # instead of require so kernels that do module them (e.g. noble) still get them.
 RRECOMMENDS:${PN} = " \
+    kernel-module-8021q \
     kernel-module-ccm \
     kernel-module-cmac \
     kernel-module-ctr \

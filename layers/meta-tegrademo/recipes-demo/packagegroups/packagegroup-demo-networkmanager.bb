@@ -7,8 +7,5 @@ inherit packagegroup
 RDEPENDS:${PN} = " \
     networkmanager \
     networkmanager-wifi \
-"
-
-RDEPENDS:${PN}:append:tegra264 = " \
     networkmanager-config \
 "
