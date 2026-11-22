@@ -13,7 +13,7 @@ get_current_slot() {
 . /etc/os-release
 
 if [ -e /proc/device-tree/serial-number ]; then
-    SERIALNUMBER=$(proc/device-tree/serial-number)
+    SERIALNUMBER=$(cat /proc/device-tree/serial-number 2>/dev/null | tr -d '\000')
 else
     SERIALNUMBER="unknown"
 fi
